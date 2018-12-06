@@ -1,0 +1,7 @@
+{
+  "signInScreen": {
+    "slogan": "Discover nightlife in your area"
+  },
+  "genericErrorTitle": "Something went wrong",
+  "appInitError": "Could not start the app"
+}

@@ -1,0 +1,31 @@
+{
+  "plugins": [
+    "prettier",
+    "react",
+    "babel"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/react"
+  ],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "rules": {
+    "prettier/prettier": "error"
+  },
+  "globals": {
+    "fetch": true,
+    "__DEV__": true
+  }
+}
