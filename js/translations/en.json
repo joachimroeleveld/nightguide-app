@@ -1,6 +1,9 @@
 {
   "signInScreen": {
-    "slogan": "Discover nightlife in your area"
+    "slogan": "Discover nightlife in your area",
+    "signUp": "Sign up",
+    "fbLogin": "Continue with Facebook",
+    "login": "Login"
   },
   "genericErrorTitle": "Something went wrong",
   "appInitError": "Could not start the app"

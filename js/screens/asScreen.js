@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView } from 'react-navigation';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar, View, Image } from 'react-native';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
 import { AndroidBackHandler } from '../components/BackHandler';
@@ -11,17 +11,26 @@ import { colors } from '../config/styleVars';
  * HOC that wraps a component with a screen component.
  */
 export default function asScreen(opts = {}) {
+  const { backgroundImage } = opts;
+
   return WrappedComponent => {
     class AsScreen extends React.PureComponent {
       render() {
         return (
-          <SafeAreaView style={styles.container}>
-            <AndroidBackHandler />
+          <View style={styles.bgContainer}>
+            {!!backgroundImage && (
+              <Image source={backgroundImage} style={styles.bgImage} />
+            )}
+            <SafeAreaView style={styles.container}>
+              <StatusBar barStyle="light-content" />
 
-            <WrappedComponent />
+              <AndroidBackHandler />
 
-            <Toast />
-          </SafeAreaView>
+              <WrappedComponent />
+
+              <Toast />
+            </SafeAreaView>
+          </View>
         );
       }
     }
@@ -39,8 +48,18 @@ export default function asScreen(opts = {}) {
 }
 
 const styles = StyleSheet.create({
+  bgContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: colors.defaultScreenColor,
+  },
   container: {
     flex: 1,
-    backgroundColor: colors.defaultScreenColor,
+  },
+  bgImage: {
+    width: '100%',
+    position: 'absolute',
+    resizeMode: 'cover',
+    alignSelf: 'center',
   },
 });
