@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Animated, PanResponder, Image, View } from 'react-native';
 import { connect } from 'react-redux';
-import { range, findIndex, find } from 'rambda';
+import _ from 'lodash';
 
 import i18n from '../../services/i18n';
 import Text from '../Text';
@@ -32,6 +32,7 @@ class Toast extends React.Component {
   constructor(props) {
     super(props);
 
+    this.message = null;
     this.lastMessageIndex = -1;
     this.queue = [];
     this.messageHeight = 0;
@@ -63,11 +64,11 @@ class Toast extends React.Component {
     };
   }
 
-  componentDidUpdate(nextProps) {
-    if (nextProps.messages.length - 1 !== this.lastMessageIndex) {
+  componentDidUpdate() {
+    if (this.props.messages.length - 1 !== this.lastMessageIndex) {
       const newMessageIndex = this.lastMessageIndex + 1;
 
-      this.queueMessage(nextProps.messages[newMessageIndex]);
+      this.queueMessage(this.props.messages[newMessageIndex]);
 
       this.lastMessageIndex = newMessageIndex;
     }
@@ -136,7 +137,7 @@ class Toast extends React.Component {
 
     Animated.timing(this.type, {
       duration: 100,
-      toValue: findIndex(Toast.types, { name: this.message.type }),
+      toValue: _.findIndex(Toast.types, { name: this.message.type }),
     }).start();
 
     const duration = this.message.duration || DURATION_DEFAULT;
@@ -148,7 +149,7 @@ class Toast extends React.Component {
 
   render() {
     const backgroundColor = this.type.interpolate({
-      inputRange: range(0, Toast.types.length),
+      inputRange: _.range(0, Toast.types.length),
       outputRange: Toast.types.map(type => type.color),
     });
 
@@ -175,7 +176,7 @@ class Toast extends React.Component {
               <Image
                 style={styles.icon}
                 source={
-                  find(Toast.types, { name: this.state.message.type }).icon
+                  _.find(Toast.types, { name: this.state.message.type }).icon
                 }
               />
               <Text style={styles.text}>{this.state.message.text}</Text>

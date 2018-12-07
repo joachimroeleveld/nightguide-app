@@ -25,16 +25,16 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb195378768070002</string>
+				<string>fb1961866330558110</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>195378768070002</string>
+	<string>1961866330558110</string>
 	<key>FacebookDisplayName</key>
-	<string>NightGuideIOS</string>
+	<string>NightGuide dev</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
