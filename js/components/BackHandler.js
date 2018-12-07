@@ -3,12 +3,12 @@ import { withNavigation } from 'react-navigation';
 import { BackHandler } from 'react-native';
 
 class BackHandlerAndroid extends React.Component {
-  _didFocusSubscription;
-  _willBlurSubscription;
+  didFocusSubscription;
+  willBlurSubscription;
 
   constructor(props) {
     super(props);
-    this._didFocusSubscription = props.navigation.addListener(
+    this.didFocusSubscription = props.navigation.addListener(
       'didFocus',
       payload =>
         BackHandler.addEventListener('hardwareBackPress', this.onBackPressed)
@@ -16,7 +16,7 @@ class BackHandlerAndroid extends React.Component {
   }
 
   componentDidMount() {
-    this._willBlurSubscription = this.props.navigation.addListener(
+    this.willBlurSubscription = this.props.navigation.addListener(
       'willBlur',
       payload =>
         BackHandler.removeEventListener('hardwareBackPress', this.onBackPressed)
@@ -28,8 +28,8 @@ class BackHandlerAndroid extends React.Component {
   };
 
   componentWillUnmount() {
-    this._didFocusSubscription && this._didFocusSubscription.remove();
-    this._willBlurSubscription && this._willBlurSubscription.remove();
+    this.didFocusSubscription && this.didFocusSubscription.remove();
+    this.willBlurSubscription && this.willBlurSubscription.remove();
     BackHandler.removeEventListener('hardwareBackPress', this.onBackPressed);
   }
 

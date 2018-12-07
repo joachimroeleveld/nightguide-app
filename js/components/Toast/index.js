@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Animated, PanResponder, Image, View } from 'react-native';
 import { connect } from 'react-redux';
-import { range, map, findIndex, find } from 'rambda';
+import { range, findIndex, find } from 'rambda';
 
 import i18n from '../../services/i18n';
 import Text from '../Text';
@@ -32,25 +32,25 @@ class Toast extends React.Component {
   constructor(props) {
     super(props);
 
-    this._lastMessageIndex = -1;
-    this._queue = [];
-    this._messageHeight = 0;
-    this._panResponder = null;
-    this._position = new Animated.Value(-100);
-    this._type = new Animated.Value(0);
+    this.lastMessageIndex = -1;
+    this.queue = [];
+    this.messageHeight = 0;
+    this.panResponder = null;
+    this.position = new Animated.Value(-100);
+    this.type = new Animated.Value(0);
 
-    this._panResponder = PanResponder.create({
+    this.panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: (event, gestureState) => true,
       onPanResponderMove: (event, gestureState) => {
         if (gestureState.dy < 0) {
-          this._position.setValue(gestureState.dy);
+          this.position.setValue(gestureState.dy);
         }
       },
       onPanResponderRelease: (e, gestureState) => {
-        if (Math.abs(gestureState.dy) > this._containerHeight / 3) {
-          this._hide();
+        if (Math.abs(gestureState.dy) > this.containerHeight / 3) {
+          this.hide();
         } else {
-          Animated.timing(this._position, {
+          Animated.timing(this.position, {
             duration: 100,
             toValue: 0,
           }).start();
@@ -64,36 +64,36 @@ class Toast extends React.Component {
   }
 
   componentDidUpdate(nextProps) {
-    if (nextProps.messages.length - 1 !== this._lastMessageIndex) {
-      const newMessageIndex = this._lastMessageIndex + 1;
+    if (nextProps.messages.length - 1 !== this.lastMessageIndex) {
+      const newMessageIndex = this.lastMessageIndex + 1;
 
-      this._queueMessage(nextProps.messages[newMessageIndex]);
+      this.queueMessage(nextProps.messages[newMessageIndex]);
 
-      this._lastMessageIndex = newMessageIndex;
+      this.lastMessageIndex = newMessageIndex;
     }
   }
 
-  get _containerHeight() {
+  get containerHeight() {
     return (
-      CONTAINER_PADDING_TOP + this._messageHeight + CONTAINER_PADDING_BOTTOM
+      CONTAINER_PADDING_TOP + this.messageHeight + CONTAINER_PADDING_BOTTOM
     );
   }
 
-  _queueMessage = message => {
-    this._queue.unshift(message);
+  queueMessage = message => {
+    this.queue.unshift(message);
 
-    if (this._message === null) {
-      this._popQueue();
+    if (this.message === null) {
+      this.popQueue();
     }
   };
 
-  _popQueue = () => {
-    if (this._queue.length === 0) return;
+  popQueue = () => {
+    if (this.queue.length === 0) return;
 
-    const message = this._queue.pop();
-    this._message = message;
+    const message = this.queue.pop();
+    this.message = message;
 
-    this._awaitingMessageLayout = true;
+    this.awaitingMessageLayout = true;
 
     this.setState({
       message: {
@@ -103,51 +103,51 @@ class Toast extends React.Component {
     });
   };
 
-  _hide = () => {
-    Animated.timing(this._position, {
+  hide = () => {
+    Animated.timing(this.position, {
       duration: 100,
-      toValue: -this._containerHeight,
+      toValue: -this.containerHeight,
     }).start();
 
-    this._message = null;
+    this.message = null;
 
     this.setState({
       message: null,
     });
 
-    this._popQueue();
+    this.popQueue();
   };
 
-  _onMessageLayout = ({
+  onMessageLayout = ({
     nativeEvent: {
       layout: { height },
     },
   }) => {
-    if (!this._awaitingMessageLayout) return;
+    if (!this.awaitingMessageLayout) return;
 
-    this._messageHeight = height;
+    this.messageHeight = height;
 
-    this._position.setValue(-this._containerHeight);
+    this.position.setValue(-this.containerHeight);
 
-    Animated.timing(this._position, {
+    Animated.timing(this.position, {
       duration: 200,
       toValue: 0,
     }).start();
 
-    Animated.timing(this._type, {
+    Animated.timing(this.type, {
       duration: 100,
-      toValue: findIndex(Toast.types, { name: this._message.type }),
+      toValue: findIndex(Toast.types, { name: this.message.type }),
     }).start();
 
-    const duration = this._message.duration || DURATION_DEFAULT;
+    const duration = this.message.duration || DURATION_DEFAULT;
 
-    setTimeout(this._hide, duration);
+    setTimeout(this.hide, duration);
 
-    this._awaitingMessageLayout = false;
+    this.awaitingMessageLayout = false;
   };
 
   render() {
-    const backgroundColor = this._type.interpolate({
+    const backgroundColor = this.type.interpolate({
       inputRange: range(0, Toast.types.length),
       outputRange: Toast.types.map(type => type.color),
     });
@@ -157,7 +157,7 @@ class Toast extends React.Component {
         style={[
           styles.container,
           {
-            top: this._position,
+            top: this.position,
           },
         ]}
       >
@@ -168,10 +168,10 @@ class Toast extends React.Component {
               backgroundColor,
             },
           ]}
-          {...this._panResponder.panHandlers}
+          {...this.panResponder.panHandlers}
         >
           {this.state.message && (
-            <View onLayout={this._onMessageLayout} style={styles.message}>
+            <View onLayout={this.onMessageLayout} style={styles.message}>
               <Image
                 style={styles.icon}
                 source={
