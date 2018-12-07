@@ -17,6 +17,7 @@
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.4",
     "react-native-device-info": "^0.24.3",
+    "react-native-facebook-login": "^1.6.1",
     "react-native-gesture-handler": "^1.0.10",
     "react-native-languages": "^3.0.1",
     "react-navigation": "^3.0.4",
