@@ -4,13 +4,30 @@ import { connect } from 'react-redux';
 
 import __ from '../../services/i18n';
 import { dimensions, colors } from '../../config/styleVars';
-import { login } from '../../state/account/actions';
+import { login, loginFb } from '../../state/account/actions';
+import { showErrMessage } from '../../state/messages/actions';
 import Text from '../../components/Text';
 import Button from '../../components/Button';
 
 class SignInScreen extends React.Component {
   static navigationOptions = {
     header: null,
+  };
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.fbLoginError && this.props.fbLoginError) {
+      this.props.showErrMessage(this.props.fbLoginError);
+    }
+  }
+
+  showLogin = () => {
+  };
+
+  fbLogin = () => {
+    this.props.loginWithFacebook();
+  };
+
+  showSignUp = () => {
   };
 
   render() {
@@ -22,14 +39,17 @@ class SignInScreen extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
           <Button
+            onPress={() => this.showSignUp()}
             style={[styles.button, styles.signUpButton]}
             title={__('signInScreen.signUp')}
           />
           <Button
+            onPress={() => this.fbLogin()}
             style={[styles.button, styles.fbButton]}
-            title={__('signInScreen.fbLogin')}
+            title={__('signInScreen.loginFb')}
           />
           <Button
+            onPress={() => this.showLogin()}
             style={[styles.button, styles.loginButton]}
             title={__('signInScreen.login')}
             titleStyle={styles.loginButtonTitle}
@@ -40,12 +60,18 @@ class SignInScreen extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  fbLoginError: state.account.fbLogin.error,
+});
+
 const mapDispatchToProps = dispatch => ({
   login: (email, password) => dispatch(login({ email, password })),
+  loginWithFacebook: () => dispatch(loginFb()),
+  showErrMessage: e => dispatch(showErrMessage(e)),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SignInScreen);
 

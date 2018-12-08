@@ -33,8 +33,7 @@ export default handleActions(
           ? action.payload
           : action.payload.err;
 
-      let text =
-        typeof err === 'string' ? err : __('common.genericErrorMessage');
+      let text = typeof err === 'string' ? err : __('genericErrorTitle');
 
       const details =
         err instanceof Error

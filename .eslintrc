@@ -22,7 +22,8 @@
     "node": true
   },
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "react/prop-types": 1
   },
   "globals": {
     "fetch": true,

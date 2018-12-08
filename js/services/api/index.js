@@ -8,6 +8,7 @@ function setToken(newToken) {
 
 function login(email, password) {
   return request({
+    skipAuth: true,
     path: '/users/login',
     method: 'POST',
     body: {
@@ -17,8 +18,27 @@ function login(email, password) {
   });
 }
 
-function request({ path, method = 'GET', headers = {}, body }) {
-  if (token === null && path !== '/users/login') {
+function loginWithFacebook({ token, permissions, userId }) {
+  return request({
+    skipAuth: true,
+    path: '/users/login-fb',
+    method: 'POST',
+    body: {
+      token,
+      permissions,
+      userId,
+    },
+  });
+}
+
+function request({
+  path,
+  method = 'GET',
+  headers = {},
+  body,
+  skipAuth = false,
+}) {
+  if (token === null && !skipAuth) {
     throw new Error('no_api_token');
   }
 
@@ -51,5 +71,6 @@ export default {
   setToken,
   users: {
     login,
+    loginWithFacebook,
   },
 };

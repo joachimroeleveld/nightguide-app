@@ -10,6 +10,7 @@ import rootReducer from './app';
 const persistConfig = {
   key: 'root',
   storage,
+  whitelist: ['account'],
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // eslint-disable-line no-undef

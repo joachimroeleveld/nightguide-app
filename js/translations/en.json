@@ -2,7 +2,7 @@
   "signInScreen": {
     "slogan": "Discover nightlife in your area",
     "signUp": "Sign up",
-    "fbLogin": "Continue with Facebook",
+    "loginFb": "Continue with Facebook",
     "login": "Login"
   },
   "genericErrorTitle": "Something went wrong",

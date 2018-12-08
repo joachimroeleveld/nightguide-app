@@ -1,31 +1,64 @@
 import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
 
-import { setAccount, loginRequest, loginError } from './actions';
+import {
+  setAccount,
+  loginRequest,
+  loginError,
+  loginFbDialog,
+  loginFbError,
+} from './actions';
 
 export default handleActions(
   {
     [loginRequest]: (state, action) =>
       update(state, {
-        fetchError: { $set: null },
-        isFetching: { $set: false },
+        login: {
+          isFetching: { $set: true },
+          error: { $set: null },
+        },
       }),
     [loginError]: (state, action) =>
       update(state, {
-        isFetching: { $set: false },
-        fetchError: { $set: action.payload.message },
+        login: {
+          isFetching: { $set: false },
+          error: { $set: action.payload.message },
+        },
+      }),
+    [loginFbDialog]: (state, action) =>
+      update(state, {
+        fbLogin: {
+          error: { $set: null },
+        },
+      }),
+    [loginFbError]: (state, action) =>
+      update(state, {
+        fbLogin: {
+          error: { $set: action.payload.message },
+        },
       }),
     [setAccount]: (state, action) =>
       update(state, {
-        isFetching: { $set: false },
+        login: {
+          isFetching: false,
+          error: null,
+        },
+        fbLogin: {
+          error: null,
+        },
         token: { $set: action.payload.token },
         userId: { $set: action.payload.user.id },
         email: { $set: action.payload.user.email },
       }),
   },
   {
-    isFetching: false,
-    fetchError: null,
+    login: {
+      isFetching: false,
+      error: null,
+    },
+    fbLogin: {
+      error: null,
+    },
     token: null,
     userId: null,
     email: null,

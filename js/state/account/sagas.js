@@ -1,10 +1,20 @@
-import { put, fork, takeEvery, call } from 'redux-saga/effects';
+import { put, fork, takeLatest, call } from 'redux-saga/effects';
 
 import api from '../../services/api';
-import { LOGIN, loginRequest, loginError, setAccount } from './actions';
+import facebook from '../../services/facebook';
+import {
+  LOGIN,
+  LOGIN_FB,
+  loginRequest,
+  loginError,
+  loginFbDialog,
+  loginFbCancel,
+  loginFbError,
+  setAccount,
+} from './actions';
 
 export function* login() {
-  yield takeEvery(LOGIN, function*(action) {
+  yield takeLatest(LOGIN, function*(action) {
     yield put(loginRequest());
 
     try {
@@ -21,6 +31,32 @@ export function* login() {
   });
 }
 
+export function* facebookLogin() {
+  yield takeLatest(LOGIN_FB, function*(action) {
+    yield put(loginFbDialog());
+
+    try {
+      const { credentials, isCancelled } = yield call(facebook.showLoginDialog);
+
+      if (isCancelled) {
+        return yield put(loginFbCancel());
+      }
+
+      const { permissions, token, userId } = credentials;
+
+      const response = yield call(api.users.loginWithFacebook, {
+        permissions,
+        token,
+        userId,
+      });
+
+      yield put(setAccount(response));
+    } catch (e) {
+      yield put(loginFbError(e));
+    }
+  });
+}
+
 export default function* root() {
-  yield fork(login);
+  yield [fork(login), fork(facebookLogin)];
 }
