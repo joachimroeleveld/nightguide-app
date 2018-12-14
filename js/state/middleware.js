@@ -1,7 +1,7 @@
 import { REHYDRATE } from 'redux-persist';
 
 import { SET_ACCOUNT } from './account/actions';
-import { initializeApp, INITIALIZE_APP } from './app';
+import { initializeApp, INITIALIZE_APP } from './rootReducer';
 import api from '../services/api';
 
 function initAction({ dispatch }) {
