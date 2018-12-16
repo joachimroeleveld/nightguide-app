@@ -2,7 +2,7 @@ import React from 'react';
 import { Text as RNText, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { colors } from '../config/styleVars';
+import colors from '../config/styles/colors';
 
 class Text extends React.PureComponent {
   static propTypes = {

@@ -2,13 +2,13 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { colors } from '../config/styleVars';
+import colors from '../config/styles/colors';
 import Text from './Text';
 
 class Button extends React.PureComponent {
   static propTypes = {
     title: PropTypes.string,
-    titleStyle: PropTypes.object,
+    darkTitle: PropTypes.bool,
   };
 
   render() {
@@ -16,9 +16,13 @@ class Button extends React.PureComponent {
       <TouchableOpacity
         activeOpacity={0.8}
         {...this.props}
-        style={[styles.button, this.props.style]}
+        style={[
+          styles.button,
+          this.props.disabled && styles.disabled,
+          this.props.style,
+        ]}
       >
-        <Text style={[styles.title, this.props.titleStyle]}>
+        <Text style={[styles.title, this.props.darkTitle && styles.titleDark]}>
           {this.props.title}
         </Text>
       </TouchableOpacity>
@@ -34,5 +38,11 @@ const styles = StyleSheet.create({
     color: colors.textDefault,
     fontSize: 14,
     textAlign: 'center',
+  },
+  titleDark: {
+    color: colors.textDark,
+  },
+  disabled: {
+    opacity: 0.4,
   },
 });

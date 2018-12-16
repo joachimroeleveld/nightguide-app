@@ -1,10 +1,43 @@
 {
-  "signInScreen": {
+  "splashScreen": {
     "slogan": "Discover nightlife in your area",
     "signUp": "Sign up",
     "loginFb": "Continue with Facebook",
     "login": "Login"
   },
+  "loginScreen": {
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "forgotPassword": "Forgot password",
+    "userNotFound": "The given email adress is unknown",
+    "userNotVerified": "The account is not verified",
+    "incorrectCredentials": "Password is incorrect",
+    "invalidEmail": "Please enter a valid email address"
+  },
+  "resetPasswordScreen": {
+    "email": "Email",
+    "resetPassword": "Reset password",
+    "emailNotFound": "The given email adress is unknown",
+    "passwordResetSuccess": "Check your email for the next steps",
+    "invalidEmail": "Please enter a valid email address"
+  },
+  "signupScreen": {
+    "createAccount": "Create account",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "birthday": "Birthday",
+    "email": "Email",
+    "password": "Password",
+    "repeatPassword": "Repeat password",
+    "gender": "Gender",
+    "selectGender": "Select your gender",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other"
+  },
   "genericErrorTitle": "Something went wrong",
-  "appInitError": "Could not start the app"
+  "appInitError": "Could not start the app",
+  "confirm": "Confirm",
+  "cancel": "Cancel"
 }

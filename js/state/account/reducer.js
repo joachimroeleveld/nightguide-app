@@ -7,6 +7,9 @@ import {
   loginError,
   loginFbDialog,
   loginFbError,
+  resetPasswordRequest,
+  resetPasswordSuccess,
+  resetPasswordError,
 } from './actions';
 
 export default handleActions(
@@ -22,7 +25,7 @@ export default handleActions(
       update(state, {
         login: {
           isFetching: { $set: false },
-          error: { $set: action.payload.message },
+          error: { $set: action.payload },
         },
       }),
     [loginFbDialog]: (state, action) =>
@@ -34,7 +37,29 @@ export default handleActions(
     [loginFbError]: (state, action) =>
       update(state, {
         fbLogin: {
-          error: { $set: action.payload.message },
+          error: { $set: action.payload },
+        },
+      }),
+    [resetPasswordRequest]: (state, action) =>
+      update(state, {
+        resetPassword: {
+          isFetching: { $set: true },
+          error: { $set: null },
+          success: { $set: false },
+        },
+      }),
+    [resetPasswordSuccess]: (state, action) =>
+      update(state, {
+        resetPassword: {
+          isFetching: { $set: false },
+          success: { $set: true },
+        },
+      }),
+    [resetPasswordError]: (state, action) =>
+      update(state, {
+        resetPassword: {
+          isFetching: { $set: false },
+          error: { $set: action.payload },
         },
       }),
     [setAccount]: (state, action) =>
@@ -57,6 +82,16 @@ export default handleActions(
       error: null,
     },
     fbLogin: {
+      error: null,
+    },
+    resetPassword: {
+      isFetching: false,
+      success: false,
+      error: null,
+    },
+    signup: {
+      isFetching: false,
+      success: false,
       error: null,
     },
     token: null,

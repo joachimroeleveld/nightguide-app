@@ -1,33 +1,33 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 
 import __ from '../../services/i18n';
-import { dimensions, colors } from '../../config/styleVars';
+import S from '../../config/styles';
 import { login, loginFb } from '../../state/account/actions';
-import { showErrMessage } from '../../state/messages/actions';
 import Text from '../../components/Text';
 import Button from '../../components/Button';
 
-class SignInScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
+class SplashScreen extends React.Component {
+  static screenOptions = {
+    messages: { err: { 'account.fbLogin.error': {} } },
   };
 
-  componentDidUpdate(prevProps) {
-    if (!prevProps.fbLoginError && this.props.fbLoginError) {
-      this.props.showErrMessage(this.props.fbLoginError);
-    }
-  }
-
   showLogin = () => {
+    this.props.navigation.dispatch(
+      NavigationActions.navigate({ routeName: 'Login' })
+    );
   };
 
   fbLogin = () => {
     this.props.loginWithFacebook();
   };
 
-  showSignUp = () => {
+  showSignup = () => {
+    this.props.navigation.dispatch(
+      NavigationActions.navigate({ routeName: 'Signup' })
+    );
   };
 
   render() {
@@ -35,24 +35,24 @@ class SignInScreen extends React.Component {
       <View style={styles.container}>
         <View style={styles.brandContainer}>
           <Image style={styles.logo} source={require('../../img/logo.png')} />
-          <Text style={styles.slogan}>{__('signInScreen.slogan')}</Text>
+          <Text style={styles.slogan}>{__('splashScreen.slogan')}</Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => this.showSignUp()}
-            style={[styles.button, styles.signUpButton]}
-            title={__('signInScreen.signUp')}
+            onPress={() => this.showSignup()}
+            style={[S.buttons.bigButton, S.buttons.purpleButton]}
+            title={__('splashScreen.signUp')}
           />
           <Button
             onPress={() => this.fbLogin()}
-            style={[styles.button, styles.fbButton]}
-            title={__('signInScreen.loginFb')}
+            style={[S.buttons.bigButton, S.buttons.blueButton]}
+            title={__('splashScreen.loginFb')}
           />
           <Button
             onPress={() => this.showLogin()}
-            style={[styles.button, styles.loginButton]}
-            title={__('signInScreen.login')}
-            titleStyle={styles.loginButtonTitle}
+            style={[S.buttons.bigButton, S.buttons.whiteButton]}
+            title={__('splashScreen.login')}
+            darkTitle={true}
           />
         </View>
       </View>
@@ -60,24 +60,20 @@ class SignInScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  fbLoginError: state.account.fbLogin.error,
-});
-
 const mapDispatchToProps = dispatch => ({
   login: (email, password) => dispatch(login({ email, password })),
   loginWithFacebook: () => dispatch(loginFb()),
-  showErrMessage: e => dispatch(showErrMessage(e)),
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
-)(SignInScreen);
+)(SplashScreen);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginHorizontal: S.dimensions.screenOffset,
   },
   logo: {
     marginVertical: 24,
@@ -95,23 +91,5 @@ const styles = StyleSheet.create({
     height: '60%',
     paddingTop: '20%',
     justifyContent: 'center',
-    marginHorizontal: dimensions.screenOffset,
-  },
-  button: {
-    padding: 10,
-    marginVertical: 8,
-    borderRadius: 20,
-  },
-  signUpButton: {
-    backgroundColor: '#A85FB3',
-  },
-  fbButton: {
-    backgroundColor: '#33558D',
-  },
-  loginButton: {
-    backgroundColor: '#FFFFFF',
-  },
-  loginButtonTitle: {
-    color: colors.textDark,
   },
 });

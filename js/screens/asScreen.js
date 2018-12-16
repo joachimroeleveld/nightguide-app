@@ -2,18 +2,25 @@ import React from 'react';
 import { SafeAreaView } from 'react-navigation';
 import { StyleSheet, StatusBar, View, Image } from 'react-native';
 import hoistNonReactStatics from 'hoist-non-react-statics';
+import { withNavigation } from 'react-navigation';
 
+import ErrorMessageHandler from '../components/ErrorMessageHandler';
 import { AndroidBackHandler } from '../components/BackHandler';
 import Toast from '../components/Toast';
-import { colors } from '../config/styleVars';
+import colors from '../config/styles/colors';
 
 /**
  * HOC that wraps a component with a screen component.
  */
-export default function asScreen(opts = {}) {
-  const { backgroundImage } = opts;
-
+export default function asScreen(defaultScreenOpts = {}) {
   return WrappedComponent => {
+    const { backgroundImage, errorMessages } = Object.assign(
+      defaultScreenOpts,
+      WrappedComponent.screenOptions
+    );
+
+    const WithNavWrappedComponent = withNavigation(WrappedComponent);
+
     class AsScreen extends React.PureComponent {
       render() {
         return (
@@ -22,11 +29,13 @@ export default function asScreen(opts = {}) {
               <Image source={backgroundImage} style={styles.bgImage} />
             )}
             <SafeAreaView style={styles.container}>
+              <ErrorMessageHandler errorMessages={errorMessages} />
+
               <StatusBar barStyle="light-content" />
 
               <AndroidBackHandler />
 
-              <WrappedComponent />
+              <WithNavWrappedComponent />
 
               <Toast />
             </SafeAreaView>

@@ -5,11 +5,15 @@ import facebook from '../../services/facebook';
 import {
   LOGIN,
   LOGIN_FB,
+  RESET_PASSWORD,
   loginRequest,
   loginError,
   loginFbDialog,
   loginFbCancel,
   loginFbError,
+  resetPasswordRequest,
+  resetPasswordError,
+  resetPasswordSuccess,
   setAccount,
 } from './actions';
 
@@ -57,6 +61,20 @@ export function* facebookLogin() {
   });
 }
 
+export function* resetPassword() {
+  yield takeLatest(RESET_PASSWORD, function*(action) {
+    yield put(resetPasswordRequest());
+
+    try {
+      yield call(api.users.resetPassword, { email: action.payload.email });
+
+      yield put(resetPasswordSuccess());
+    } catch (e) {
+      yield put(resetPasswordError(e));
+    }
+  });
+}
+
 export default function* root() {
-  yield [fork(login), fork(facebookLogin)];
+  yield [fork(login), fork(facebookLogin), fork(resetPassword)];
 }

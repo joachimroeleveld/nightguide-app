@@ -1,37 +1,14 @@
 import constants from '../../config/constants';
 
+import * as users from './users';
+
 let token = null;
 
-function setToken(newToken) {
+export function setToken(newToken) {
   token = newToken;
 }
 
-function login(email, password) {
-  return request({
-    skipAuth: true,
-    path: '/users/login',
-    method: 'POST',
-    body: {
-      email,
-      password,
-    },
-  });
-}
-
-function loginWithFacebook({ token, permissions, userId }) {
-  return request({
-    skipAuth: true,
-    path: '/users/login-fb',
-    method: 'POST',
-    body: {
-      token,
-      permissions,
-      userId,
-    },
-  });
-}
-
-function request({
+export function request({
   path,
   method = 'GET',
   headers = {},
@@ -60,7 +37,10 @@ function request({
     const json = await res.json();
 
     if (!res.ok) {
-      throw json;
+      throw {
+        ...json,
+        __api_error__: true,
+      };
     }
 
     return json;
@@ -68,9 +48,5 @@ function request({
 }
 
 export default {
-  setToken,
-  users: {
-    login,
-    loginWithFacebook,
-  },
+  users,
 };
