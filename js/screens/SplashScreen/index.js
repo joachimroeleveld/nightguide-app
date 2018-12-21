@@ -12,6 +12,7 @@ import Button from '../../components/Button';
 class SplashScreen extends React.Component {
   static screenOptions = {
     messages: { err: { 'account.fbLogin.error': {} } },
+    backgroundImage: require('./img/splash-bg.png'),
   };
 
   showLogin = () => {

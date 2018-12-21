@@ -35,7 +35,6 @@ export default PickerAndroid;
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomColor: S.colors.inputs.borderColor,
-    borderBottomWidth: 1,
+    ...S.inputs.fieldStyle,
   },
 });

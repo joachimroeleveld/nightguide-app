@@ -34,10 +34,14 @@
     "selectGender": "Select your gender",
     "male": "Male",
     "female": "Female",
-    "other": "Other"
+    "other": "Other",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordsShouldMatch": "Passwords should match"
   },
   "genericErrorTitle": "Something went wrong",
   "appInitError": "Could not start the app",
+  "requiredField": "This field is required",
+  "missingFields": "Please fill in the missing fields",
   "confirm": "Confirm",
   "cancel": "Cancel"
 }

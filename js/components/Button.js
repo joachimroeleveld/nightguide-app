@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
     color: colors.textDark,
   },
   disabled: {
-    opacity: 0.4,
+    opacity: 0.8,
   },
 });

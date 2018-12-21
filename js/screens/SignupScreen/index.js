@@ -5,6 +5,7 @@ import * as Animatable from 'react-native-animatable';
 
 import __ from '../../services/i18n';
 import { login } from '../../state/account/actions';
+import { showWarnMessage } from '../../state/messages/actions';
 import S from '../../config/styles';
 import Header from '../../components/Header';
 import FormItem from '../../components/FormItem';
@@ -20,43 +21,48 @@ class SignupScreen extends React.Component {
     errorMessages: {
       'account.signup.error': {},
     },
+    backgroundImage: require('./img/signup-bg.png'),
   };
 
-  get form() {
-    return {
-      email: this.state.email,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      password: this.state.password,
-      birthday: this.state.birthday,
-      gender: this.state.gender,
-    };
-  }
+  state = {
+    formValid: false,
+  };
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      email: '',
-      firstName: '',
-      lastName: '',
-      password: '',
-      birtday: null,
+    Form.initialize(this, {
+      email: null,
+      firstName: null,
+      lastName: null,
+      password: null,
+      birthday: undefined,
       gender: null,
-    };
+    });
   }
 
   onSubmit = () => {
-    this.props.signup(this.form);
+    if (!this.state.formValid) {
+      return this.props.showWarnMessage(__('missingFields'));
+    }
+    this.props.signup(this.state);
   };
 
   handleBirthdayPicked = birthday => {
-    this.setState({ birthday });
+    this.setDisplayValue('birthday')(birthday);
+    this.updateFormValue('birthday')(birthday);
   };
 
   handleGenderPicked = gender => {
-    this.setState({ gender });
+    this.setDisplayValue('gender')(gender);
+    this.updateFormValue('gender')(gender);
   };
+
+  onFormValidChange = formValid => {
+    this.setState({ formValid });
+  };
+
+  setFormRef = ref => (this.form = ref);
 
   render() {
     return (
@@ -64,60 +70,99 @@ class SignupScreen extends React.Component {
         <Header absolute={true}>
           <HeaderBackButton />
         </Header>
-        <Form style={styles.form}>
-          <FormItem label={__('signupScreen.email')}>
+        <Form
+          ref={this.setFormRef}
+          onValidChange={this.onFormValidChange}
+          values={this.state.form}
+          style={styles.form}
+        >
+          <FormItem
+            value={'email'}
+            required={true}
+            validator={FormItem.validators.email}
+            label={__('signupScreen.email')}
+          >
             <TextInput
               textContentType={'emailAddress'}
               autoCapitalize={'none'}
               autoCorrect={false}
-              onChangeText={email => this.setState({ email })}
-              val={this.form.email}
+              onChangeText={this.setDisplayValue('email')}
+              onBlur={this.updateFormValue('email')}
+              val={this.state.email}
             />
           </FormItem>
-          <FormItem label={__('signupScreen.firstName')}>
+          <FormItem
+            required={true}
+            value={'firstName'}
+            label={__('signupScreen.firstName')}
+          >
             <TextInput
               textContentType={'name'}
-              onChangeText={firstName => this.setState({ firstName })}
-              val={this.form.firstName}
+              onBlur={this.updateFormValue('firstName')}
+              onChangeText={this.setDisplayValue('firstName')}
+              val={this.state.firstName}
             />
           </FormItem>
-          <FormItem label={__('signupScreen.lastName')}>
+          <FormItem
+            required={true}
+            value={'lastName'}
+            label={__('signupScreen.lastName')}
+          >
             <TextInput
               textContentType={'familyName'}
-              onChangeText={lastName => this.setState({ lastName })}
-              val={this.form.lastName}
+              onBlur={this.updateFormValue('lastName')}
+              onChangeText={this.setDisplayValue('lastName')}
+              val={this.state.lastName}
             />
           </FormItem>
-          <FormItem label={__('signupScreen.password')}>
+          <FormItem
+            value={'password'}
+            required={true}
+            label={__('signupScreen.password')}
+          >
             <TextInput
               textContentType={'password'}
               secureTextEntry={true}
-              onChangeText={password => this.setState({ password })}
-              val={this.form.password}
+              onBlur={this.updateFormValue('password')}
+              onChangeText={this.setDisplayValue('password')}
+              val={this.state.password}
             />
           </FormItem>
-          {!!this.form.password && (
+          {this.state.password !== null && (
             <Animatable.View animation="fadeInDown">
-              <FormItem label={__('signupScreen.repeatPassword')}>
+              <FormItem
+                value={'passwordRepeat'}
+                validator={FormItem.validators.passwordRepeat}
+                label={__('signupScreen.repeatPassword')}
+              >
                 <TextInput
                   textContentType={'password'}
                   secureTextEntry={true}
-                  onChangeText={password => this.setState({ password })}
-                  val={this.form.password}
+                  onBlur={this.updateFormValue('passwordRepeat')}
+                  onChangeText={this.setDisplayValue('passwordRepeat')}
+                  val={this.state.passwordRepeat}
                 />
               </FormItem>
             </Animatable.View>
           )}
-          <FormItem label={__('signupScreen.birthday')}>
+          <FormItem
+            value={'birthday'}
+            required={true}
+            label={__('signupScreen.birthday')}
+          >
             <DatePicker
               date={this.state.birthday}
               onSelect={this.handleBirthdayPicked}
             />
           </FormItem>
-          <FormItem label={__('signupScreen.gender')}>
+          <FormItem
+            value={'gender'}
+            required={true}
+            label={__('signupScreen.gender')}
+          >
             <Picker
               title={__('signupScreen.selectGender')}
-              selectedValue={this.form.gender}
+              selectedValue={this.state.gender}
               onSelect={this.handleGenderPicked}
             >
               <Picker.Item value="male" label={__('signupScreen.male')} />
@@ -147,6 +192,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   signup: values => dispatch(login(values)),
+  showWarnMessage: message => dispatch(showWarnMessage(message)),
 });
 
 export default connect(

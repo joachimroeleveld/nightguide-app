@@ -3,18 +3,18 @@ import update from 'immutability-helper';
 
 import {
   setAccount,
-  loginRequest,
+  login,
   loginError,
   loginFbDialog,
   loginFbError,
-  resetPasswordRequest,
+  resetPassword,
   resetPasswordSuccess,
   resetPasswordError,
 } from './actions';
 
 export default handleActions(
   {
-    [loginRequest]: (state, action) =>
+    [login]: (state, action) =>
       update(state, {
         login: {
           isFetching: { $set: true },
@@ -40,7 +40,7 @@ export default handleActions(
           error: { $set: action.payload },
         },
       }),
-    [resetPasswordRequest]: (state, action) =>
+    [resetPassword]: (state, action) =>
       update(state, {
         resetPassword: {
           isFetching: { $set: true },

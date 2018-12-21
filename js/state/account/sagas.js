@@ -6,12 +6,10 @@ import {
   LOGIN,
   LOGIN_FB,
   RESET_PASSWORD,
-  loginRequest,
   loginError,
   loginFbDialog,
   loginFbCancel,
   loginFbError,
-  resetPasswordRequest,
   resetPasswordError,
   resetPasswordSuccess,
   setAccount,
@@ -19,8 +17,6 @@ import {
 
 export function* login() {
   yield takeLatest(LOGIN, function*(action) {
-    yield put(loginRequest());
-
     try {
       const response = yield call(
         api.users.login,
@@ -63,8 +59,6 @@ export function* facebookLogin() {
 
 export function* resetPassword() {
   yield takeLatest(RESET_PASSWORD, function*(action) {
-    yield put(resetPasswordRequest());
-
     try {
       yield call(api.users.resetPassword, { email: action.payload.email });
 

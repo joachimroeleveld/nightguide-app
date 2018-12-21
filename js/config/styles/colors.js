@@ -1,6 +1,7 @@
 export default {
   defaultScreenColor: '#1F1F1F',
   textDefault: '#fff',
+  textError: 'red',
   textDark: '#000',
   buttons: {
     white: '#fff',
@@ -9,5 +10,6 @@ export default {
   },
   inputs: {
     borderColor: '#fff',
+    backgroundColor: 'rgba(255,255,255,0.17)',
   },
 };

@@ -1,7 +1,5 @@
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
-import { fadeTransition } from './transitionConfigs';
-
 import asScreen from '../../screens/asScreen';
 import HomeScreen from '../../screens/HomeScreen';
 import SplashScreen from '../../screens/SplashScreen';
@@ -9,9 +7,7 @@ import LoginScreen from '../../screens/LoginScreen';
 import SignupScreen from '../../screens/SignupScreen';
 import ResetPasswordScreen from '../../screens/ResetPasswordScreen';
 
-const authStackScreen = asScreen({
-  backgroundImage: require('../../img/splash-bg.png'),
-});
+const authStackScreen = asScreen({});
 
 const AuthStack = createStackNavigator(
   {
@@ -21,7 +17,6 @@ const AuthStack = createStackNavigator(
     ResetPassword: authStackScreen(ResetPasswordScreen),
   },
   {
-    transitionConfig: fadeTransition,
     defaultNavigationOptions: {
       header: null,
     },

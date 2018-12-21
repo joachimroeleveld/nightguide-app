@@ -5,7 +5,9 @@ import {
   View,
   TouchableHighlight,
   Dimensions,
-  Platform, TouchableWithoutFeedback, Image,
+  Platform,
+  TouchableWithoutFeedback,
+  Image,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
@@ -61,12 +63,14 @@ class PickerIOS extends React.PureComponent {
   };
 
   handleConfirm = () => {
-    if (!this.state.selectedValue) {
-      this.setState({ selectedValue: this.props.children[0].props.value });
+    let selectedValue = this.state.selectedValue;
+    if (!selectedValue) {
+      selectedValue = this.props.children[0].props.value;
+      this.setState({ selectedValue });
     }
 
     this.togglePicker();
-    this.props.onSelect(this.state.selectedValue);
+    this.props.onSelect(selectedValue);
   };
 
   render() {
@@ -147,12 +151,11 @@ export const isIphoneX = () => {
 const styles = StyleSheet.create({
   triangle: {
     tintColor: S.colors.textDefault,
+    right: 4,
   },
   valueContainer: {
+    ...S.inputs.fieldStyle,
     flexDirection: 'row',
-    borderBottomColor: S.colors.inputs.borderColor,
-    borderBottomWidth: 1,
-    paddingVertical: 6,
     alignItems: 'center',
   },
   value: {

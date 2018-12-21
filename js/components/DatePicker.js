@@ -1,17 +1,16 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import dateFns from 'date-fns';
-
-import Text from './Text';
+import PropTypes from 'prop-types';
 
 import S from '../config/styles';
-import PropTypes from 'prop-types';
+import Text from './Text';
 
 class DatePicker extends React.PureComponent {
   static propTypes = {
-    ...DateTimePicker.propTypes,
     date: PropTypes.instanceOf(Date),
+    onSelect: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -60,10 +59,7 @@ export default DatePicker;
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomColor: S.colors.inputs.borderColor,
-    borderBottomWidth: 1,
-    paddingVertical: 6,
+    ...S.inputs.fieldStyle,
   },
-  value: {
-  },
+  value: {},
 });

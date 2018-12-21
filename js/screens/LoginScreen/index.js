@@ -5,6 +5,7 @@ import { NavigationActions } from 'react-navigation';
 
 import __ from '../../services/i18n';
 import { login } from '../../state/account/actions';
+import { showWarnMessage } from '../../state/messages/actions';
 import S from '../../config/styles';
 import Header from '../../components/Header';
 import FormItem from '../../components/FormItem';
@@ -23,26 +24,27 @@ class LoginScreen extends React.Component {
         validation_error: __('loginScreen.invalidEmail'),
       },
     },
+    backgroundImage: require('../../img/login-bg.png'),
   };
 
-  get form() {
-    return {
-      email: this.state.email,
-      password: this.state.password,
-    };
-  }
+  state = {
+    formValid: false,
+  };
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      email: '',
-      password: '',
-    };
+    Form.initialize(this, {
+      email: null,
+      password: null,
+    });
   }
 
   onSubmit = () => {
-    this.props.login(this.form.email, this.form.password);
+    if (!this.state.formValid) {
+      return this.props.showWarnMessage(__('missingFields'));
+    }
+    this.props.login(this.state.form.email, this.state.form.password);
   };
 
   showResetPassword = () => {
@@ -50,6 +52,8 @@ class LoginScreen extends React.Component {
       NavigationActions.navigate({ routeName: 'ResetPassword' })
     );
   };
+
+  onFormValidChange = formValid => this.setState({ formValid });
 
   render() {
     return (
@@ -61,22 +65,37 @@ class LoginScreen extends React.Component {
             title={__('loginScreen.forgotPassword')}
           />
         </Header>
-        <Form style={styles.form}>
-          <FormItem label={__('loginScreen.email')}>
+        <Form
+          onValidChange={this.onFormValidChange}
+          values={this.state.form}
+          style={styles.form}
+        >
+          <FormItem
+            required={true}
+            validator={FormItem.validators.email}
+            value={'email'}
+            label={__('loginScreen.email')}
+          >
             <TextInput
               textContentType={'emailAddress'}
               autoCapitalize={'none'}
               autoCorrect={false}
-              onChangeText={email => this.setState({ email })}
-              val={this.form.email}
+              onChangeText={this.setDisplayValue('email')}
+              onBlur={this.updateFormValue('email')}
+              val={this.state.email}
             />
           </FormItem>
-          <FormItem label={__('loginScreen.password')}>
+          <FormItem
+            required={true}
+            value={'password'}
+            label={__('loginScreen.password')}
+          >
             <TextInput
               textContentType={'password'}
               secureTextEntry={true}
-              onChangeText={password => this.setState({ password })}
-              val={this.form.password}
+              onChangeText={this.setDisplayValue('password')}
+              onBlur={this.updateFormValue('password')}
+              val={this.state.password}
             />
           </FormItem>
           <Button
@@ -102,6 +121,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   login: (email, password) => dispatch(login({ email, password })),
+  showWarnMessage: message => dispatch(showWarnMessage(message)),
 });
 
 export default connect(

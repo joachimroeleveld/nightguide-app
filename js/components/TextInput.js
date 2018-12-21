@@ -10,9 +10,7 @@ class TextInput extends React.PureComponent {
   };
 
   render() {
-    return (
-      <RNTextInput {...this.props} style={styles.textInput} />
-    );
+    return <RNTextInput {...this.props} style={styles.textInput} />;
   }
 }
 
@@ -20,10 +18,8 @@ export default TextInput;
 
 const styles = StyleSheet.create({
   textInput: {
-    borderBottomColor: S.colors.inputs.borderColor,
-    borderBottomWidth: 1,
     color: S.colors.textDefault,
     fontSize: 16,
-    paddingVertical: 6,
+    ...S.inputs.fieldStyle,
   },
 });

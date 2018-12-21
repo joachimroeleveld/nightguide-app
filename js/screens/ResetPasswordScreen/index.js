@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import __ from '../../services/i18n';
 import { resetPassword } from '../../state/account/actions';
-import { showOkMessage } from '../../state/messages/actions';
+import { showOkMessage, showWarnMessage } from '../../state/messages/actions';
 import S from '../../config/styles';
 import Header from '../../components/Header';
 import FormItem from '../../components/FormItem';
@@ -22,20 +22,19 @@ class ResetPasswordScreen extends React.Component {
         validation_error: __('resetPasswordScreen.invalidEmail'),
       },
     },
+    backgroundImage: require('../../img/login-bg.png'),
   };
 
-  get form() {
-    return {
-      email: this.state.email,
-    };
-  }
+  state = {
+    formValid: false,
+  };
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      email: '',
-    };
+    Form.initialize(this, {
+      email: null,
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -46,8 +45,13 @@ class ResetPasswordScreen extends React.Component {
   }
 
   onSubmit = () => {
-    this.props.resetPassword(this.form.email);
+    if (!this.state.formValid) {
+      return this.props.showWarnMessage(__('missingFields'));
+    }
+    this.props.resetPassword(this.state.email);
   };
+
+  onFormValidChange = formValid => this.setState({ formValid });
 
   render() {
     return (
@@ -55,14 +59,24 @@ class ResetPasswordScreen extends React.Component {
         <Header absolute={true}>
           <HeaderBackButton />
         </Header>
-        <Form style={styles.form}>
-          <FormItem label={__('resetPasswordScreen.email')}>
+        <Form
+          onValidChange={this.onFormValidChange}
+          values={this.state.form}
+          style={styles.form}
+        >
+          <FormItem
+            required={true}
+            validator={FormItem.validators.email}
+            value={'email'}
+            label={__('resetPasswordScreen.email')}
+          >
             <TextInput
               textContentType={'emailAddress'}
               autoCapitalize={'none'}
               autoCorrect={false}
-              onChangeText={email => this.setState({ email })}
-              val={this.form.email}
+              onChangeText={this.setDisplayValue('email')}
+              onBlur={this.updateFormValue('email')}
+              val={this.state.email}
             />
           </FormItem>
           <Button
@@ -90,6 +104,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   resetPassword: email => dispatch(resetPassword({ email })),
   showOkMessage: message => dispatch(showOkMessage(message)),
+  showWarnMessage: message => dispatch(showWarnMessage(message)),
 });
 
 export default connect(
