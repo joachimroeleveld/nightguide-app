@@ -36,7 +36,9 @@
     "female": "Female",
     "other": "Other",
     "invalidEmail": "Please enter a valid email address",
-    "passwordsShouldMatch": "Passwords should match"
+    "passwordsShouldMatch": "Passwords should match",
+    "accountCreated": "Almost there, please check your email",
+    "emailAlreadyExists": "The email address has already been registered"
   },
   "genericErrorTitle": "Something went wrong",
   "appInitError": "Could not start the app",

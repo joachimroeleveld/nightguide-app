@@ -4,7 +4,7 @@ import * as users from './users';
 
 let token = null;
 
-export function setToken(newToken) {
+function setToken(newToken) {
   token = newToken;
 }
 
@@ -48,5 +48,6 @@ export function request({
 }
 
 export default {
+  setToken,
   users,
 };

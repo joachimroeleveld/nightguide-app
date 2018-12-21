@@ -1,5 +1,9 @@
 import { createActions } from 'redux-actions';
 
+export const SIGNUP = 'SIGNUP';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNUP_ERROR = 'SIGNUP_ERROR';
+
 export const LOGIN = 'LOGIN';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 
@@ -16,6 +20,9 @@ export const SET_ACCOUNT = 'SET_ACCOUNT';
 export const LOGOUT = 'LOGOUT';
 
 export const {
+  signup,
+  signupSuccess,
+  signupError,
   login,
   loginError,
   loginFb,
@@ -28,6 +35,9 @@ export const {
   setAccount,
   logout,
 } = createActions(
+  SIGNUP,
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
   LOGIN,
   LOGIN_ERROR,
   LOGIN_FB,

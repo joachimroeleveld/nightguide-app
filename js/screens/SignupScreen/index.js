@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 
 import __ from '../../services/i18n';
-import { login } from '../../state/account/actions';
-import { showWarnMessage } from '../../state/messages/actions';
+import { signup } from '../../state/account/actions';
+import { showOkMessage, showWarnMessage } from '../../state/messages/actions';
 import S from '../../config/styles';
 import Header from '../../components/Header';
 import FormItem from '../../components/FormItem';
@@ -15,11 +15,14 @@ import Form from '../../components/Form';
 import HeaderBackButton from '../../components/HeaderBackButton';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
+import { NavigationActions } from 'react-navigation';
 
 class SignupScreen extends React.Component {
   static screenOptions = {
     errorMessages: {
-      'account.signup.error': {},
+      'account.signup.error': {
+        email_exists: __('signupScreen.emailAlreadyExists'),
+      },
     },
     backgroundImage: require('./img/signup-bg.png'),
   };
@@ -41,12 +44,19 @@ class SignupScreen extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if (!prevProps.success && this.props.success) {
+      this.props.showOkMessage(__('signupScreen.accountCreated'));
+      this.props.navigation.dispatch(NavigationActions.back());
+    }
+  }
+
   onSubmit = () => {
     this.form.setDirty();
     if (!this.state.formValid) {
       return this.props.showWarnMessage(__('missingFields'));
     }
-    this.props.signup(this.state);
+    this.props.signup(this.state.form);
   };
 
   handleBirthdayPicked = birthday => {
@@ -189,11 +199,13 @@ class SignupScreen extends React.Component {
 
 const mapStateToProps = state => ({
   isFetching: state.account.signup.isFetching,
+  success: state.account.signup.success,
 });
 
 const mapDispatchToProps = dispatch => ({
-  signup: values => dispatch(login(values)),
+  signup: values => dispatch(signup(values)),
   showWarnMessage: message => dispatch(showWarnMessage(message)),
+  showOkMessage: message => dispatch(showOkMessage(message)),
 });
 
 export default connect(

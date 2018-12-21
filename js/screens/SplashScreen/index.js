@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
@@ -14,6 +14,14 @@ class SplashScreen extends React.Component {
     messages: { err: { 'account.fbLogin.error': {} } },
     backgroundImage: require('./img/splash-bg.png'),
   };
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.loggedIn && this.props.loggedIn) {
+      this.props.navigation.dispatch(
+        NavigationActions.navigate({ routeName: 'App' }),
+      );
+    }
+  }
 
   showLogin = () => {
     this.props.navigation.dispatch(
@@ -61,13 +69,17 @@ class SplashScreen extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  loggedIn: !!state.account.token,
+});
+
 const mapDispatchToProps = dispatch => ({
   login: (email, password) => dispatch(login({ email, password })),
   loginWithFacebook: () => dispatch(loginFb()),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SplashScreen);
 

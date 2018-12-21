@@ -1,4 +1,4 @@
-import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
 import asScreen from '../../screens/asScreen';
 import HomeScreen from '../../screens/HomeScreen';
@@ -22,6 +22,7 @@ const AuthStack = createStackNavigator(
     },
   }
 );
+
 const AppStack = createStackNavigator({ Home: asScreen()(HomeScreen) });
 
 export default createSwitchNavigator(

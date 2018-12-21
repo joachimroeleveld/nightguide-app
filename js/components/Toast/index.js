@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, Animated, PanResponder, Image, View } from 'react-native';
+import { Animated, Image, PanResponder, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { SafeAreaView } from 'react-navigation';
 
 import i18n from '../../services/i18n';
 import Text from '../Text';
@@ -214,7 +213,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontSize: 17,
+    fontSize: 16,
   },
   icon: {
     marginRight: 14,

@@ -2,18 +2,43 @@ import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
 
 import {
-  setAccount,
   login,
   loginError,
   loginFbDialog,
   loginFbError,
   resetPassword,
-  resetPasswordSuccess,
   resetPasswordError,
+  resetPasswordSuccess,
+  setAccount,
+  signup,
+  signupError,
+  signupSuccess,
 } from './actions';
 
 export default handleActions(
   {
+    [signup]: (state, action) =>
+      update(state, {
+        signup: {
+          isFetching: { $set: true },
+          error: { $set: null },
+          success: { $set: false },
+        },
+      }),
+    [signupSuccess]: (state, action) =>
+      update(state, {
+        signup: {
+          isFetching: { $set: false },
+          success: { $set: true },
+        },
+      }),
+    [signupError]: (state, action) =>
+      update(state, {
+        signup: {
+          isFetching: { $set: false },
+          error: { $set: action.payload },
+        },
+      }),
     [login]: (state, action) =>
       update(state, {
         login: {
@@ -65,11 +90,11 @@ export default handleActions(
     [setAccount]: (state, action) =>
       update(state, {
         login: {
-          isFetching: false,
-          error: null,
+          isFetching: { $set: false },
+          error: { $set: null },
         },
         fbLogin: {
-          error: null,
+          error: { $set: null },
         },
         token: { $set: action.payload.token },
         userId: { $set: action.payload.user.id },
@@ -77,6 +102,11 @@ export default handleActions(
       }),
   },
   {
+    signup: {
+      isFetching: false,
+      success: false,
+      error: null,
+    },
     login: {
       isFetching: false,
       error: null,
@@ -85,11 +115,6 @@ export default handleActions(
       error: null,
     },
     resetPassword: {
-      isFetching: false,
-      success: false,
-      error: null,
-    },
-    signup: {
       isFetching: false,
       success: false,
       error: null,

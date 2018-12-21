@@ -1,19 +1,34 @@
-import { put, fork, takeLatest, call } from 'redux-saga/effects';
+import { call, fork, put, takeLatest } from 'redux-saga/effects';
 
 import api from '../../services/api';
 import facebook from '../../services/facebook';
 import {
   LOGIN,
   LOGIN_FB,
-  RESET_PASSWORD,
   loginError,
-  loginFbDialog,
   loginFbCancel,
+  loginFbDialog,
   loginFbError,
+  RESET_PASSWORD,
   resetPasswordError,
   resetPasswordSuccess,
   setAccount,
+  SIGNUP,
+  signupError,
+  signupSuccess,
 } from './actions';
+
+export function* signup() {
+  yield takeLatest(SIGNUP, function* (action) {
+    try {
+      yield call(api.users.signup, action.payload);
+
+      yield put(signupSuccess());
+    } catch (e) {
+      yield put(signupError(e));
+    }
+  });
+}
 
 export function* login() {
   yield takeLatest(LOGIN, function*(action) {
@@ -70,5 +85,5 @@ export function* resetPassword() {
 }
 
 export default function* root() {
-  yield [fork(login), fork(facebookLogin), fork(resetPassword)];
+  yield [fork(signup), fork(login), fork(facebookLogin), fork(resetPassword)];
 }
