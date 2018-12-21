@@ -45,6 +45,7 @@ class ResetPasswordScreen extends React.Component {
   }
 
   onSubmit = () => {
+    this.form.setDirty();
     if (!this.state.formValid) {
       return this.props.showWarnMessage(__('missingFields'));
     }
@@ -53,16 +54,19 @@ class ResetPasswordScreen extends React.Component {
 
   onFormValidChange = formValid => this.setState({ formValid });
 
+  setFormRef = ref => (this.form = ref);
+
   render() {
     return (
       <View style={styles.container}>
-        <Header absolute={true}>
+        <Header>
           <HeaderBackButton />
         </Header>
         <Form
           onValidChange={this.onFormValidChange}
           values={this.state.form}
           style={styles.form}
+          ref={this.setFormRef}
         >
           <FormItem
             required={true}

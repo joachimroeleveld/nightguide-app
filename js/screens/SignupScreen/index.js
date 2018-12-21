@@ -42,6 +42,7 @@ class SignupScreen extends React.Component {
   }
 
   onSubmit = () => {
+    this.form.setDirty();
     if (!this.state.formValid) {
       return this.props.showWarnMessage(__('missingFields'));
     }
@@ -67,7 +68,7 @@ class SignupScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header absolute={true}>
+        <Header>
           <HeaderBackButton />
         </Header>
         <Form

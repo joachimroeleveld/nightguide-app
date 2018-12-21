@@ -1,7 +1,7 @@
 export default {
   defaultScreenColor: '#1F1F1F',
   textDefault: '#fff',
-  textError: 'red',
+  textError: '#F0733F',
   textDark: '#000',
   buttons: {
     white: '#fff',

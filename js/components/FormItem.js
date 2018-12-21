@@ -7,7 +7,7 @@ import S from '../config/styles';
 import __ from '../services/i18n';
 import { FormContext } from '../components/Form';
 
-class FormItem extends React.Component {
+class FormItem extends React.PureComponent {
   static propTypes = {
     label: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     value: PropTypes.string.isRequired,
@@ -25,26 +25,6 @@ class FormItem extends React.Component {
       __('signupScreen.passwordsShouldMatch'),
   };
 
-  get form() {
-    return this.context;
-  }
-
-  get formValue() {
-    return this.form.getValue(this.props.value);
-  }
-
-  get isDirty() {
-    return this.form.isDirty(this.props.value);
-  }
-
-  get isValid() {
-    return this.validator(this.formValue) === true;
-  }
-
-  get validationMessage() {
-    return !this.isValid && this.validator(this.formValue);
-  }
-
   get validator() {
     let validators = [];
     if (this.props.required) {
@@ -61,8 +41,28 @@ class FormItem extends React.Component {
     return validator || (() => true);
   }
 
+  get form() {
+    return this.context;
+  }
+
+  get formValue() {
+    return this.form.getValue(this.props.value);
+  }
+
+  get isDirty() {
+    return this.form.isValueDirty(this.props.value);
+  }
+
+  get isValid() {
+    return this.validator(this.formValue) === true;
+  }
+
+  get validationMessage() {
+    return !this.isValid && this.validator(this.formValue);
+  }
+
   componentDidMount() {
-    this.form.registerValidator(this.props.value, this.validator);
+    this.form.registerItem(this.props.value, this);
   }
 
   render() {

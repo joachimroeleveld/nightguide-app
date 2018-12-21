@@ -5,8 +5,6 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 import { withNavigation } from 'react-navigation';
 
 import ErrorMessageHandler from '../components/ErrorMessageHandler';
-import { AndroidBackHandler } from '../components/BackHandler';
-import Toast from '../components/Toast';
 import colors from '../config/styles/colors';
 
 /**
@@ -30,14 +28,8 @@ export default function asScreen(defaultScreenOpts = {}) {
             )}
             <SafeAreaView style={styles.container}>
               <ErrorMessageHandler errorMessages={errorMessages} />
-
               <StatusBar barStyle="light-content" />
-
-              <AndroidBackHandler />
-
               <WithNavWrappedComponent />
-
-              <Toast />
             </SafeAreaView>
           </View>
         );

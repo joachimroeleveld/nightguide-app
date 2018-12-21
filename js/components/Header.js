@@ -15,10 +15,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingTop: 16,
+    paddingBottom: 10,
   },
   absolute: {
     zIndex: 1,
     position: 'absolute',
-  }
+  },
 });

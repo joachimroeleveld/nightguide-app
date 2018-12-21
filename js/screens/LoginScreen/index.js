@@ -41,6 +41,7 @@ class LoginScreen extends React.Component {
   }
 
   onSubmit = () => {
+    this.form.setDirty();
     if (!this.state.formValid) {
       return this.props.showWarnMessage(__('missingFields'));
     }
@@ -55,10 +56,12 @@ class LoginScreen extends React.Component {
 
   onFormValidChange = formValid => this.setState({ formValid });
 
+  setFormRef = ref => (this.form = ref);
+
   render() {
     return (
       <View style={styles.container}>
-        <Header absolute={true}>
+        <Header>
           <HeaderBackButton />
           <Button
             onPress={this.showResetPassword}
@@ -66,6 +69,7 @@ class LoginScreen extends React.Component {
           />
         </Header>
         <Form
+          ref={this.setFormRef}
           onValidChange={this.onFormValidChange}
           values={this.state.form}
           style={styles.form}

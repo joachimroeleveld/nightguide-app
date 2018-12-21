@@ -6,8 +6,11 @@ import { createAppContainer } from 'react-navigation';
 
 import AppNavigator from './config/routes';
 import { store, persistor } from './state/store';
+import Toast from './components/Toast';
 
 export default class App extends Component {
+  state = { navigator: null };
+
   async componentDidMount() {
     // On Android, request location permission as soon as possible
     if (Platform.OS === 'android') {
@@ -29,7 +32,10 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <AppContainer />
+          <React.Fragment>
+            <AppContainer />
+            <Toast />
+          </React.Fragment>
         </PersistGate>
       </Provider>
     );
