@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import __ from '../../services/i18n';
 import { resetPassword } from '../../state/account/actions';
@@ -27,15 +28,10 @@ class ResetPasswordScreen extends React.Component {
 
   state = {
     formValid: false,
-  };
-
-  constructor(props) {
-    super(props);
-
-    Form.initialize(this, {
+    form: {
       email: null,
-    });
-  }
+    },
+  };
 
   componentDidUpdate(prevProps) {
     if (!prevProps.success && this.props.success) {
@@ -45,12 +41,18 @@ class ResetPasswordScreen extends React.Component {
   }
 
   onSubmit = () => {
-    this.form.setDirty();
+    this.form.commit();
     if (!this.state.formValid) {
-      return this.props.showWarnMessage(__('missingFields'));
+      return this.props.showWarnMessage(__('fixFormErrors'));
     }
     this.props.resetPassword(this.state.email);
   };
+
+  handleOnChange = _.memoize(key => val => {
+    this.setState({ form: { ...this.state.form, [key]: val } });
+  });
+
+  handleCommitValue = _.memoize(key => () => this.form.commitValue(key));
 
   onFormValidChange = formValid => this.setState({ formValid });
 
@@ -78,9 +80,9 @@ class ResetPasswordScreen extends React.Component {
               textContentType={'emailAddress'}
               autoCapitalize={'none'}
               autoCorrect={false}
-              onChangeText={this.setDisplayValue('email')}
-              onBlur={this.updateFormValue('email')}
-              val={this.state.email}
+              onChangeText={this.handleOnChange('email')}
+              onBlur={this.handleCommitValue('email')}
+              val={this.state.form.email}
             />
           </FormItem>
           <Button

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
+import _ from 'lodash';
 
 import __ from '../../services/i18n';
 import { signup } from '../../state/account/actions';
@@ -27,22 +28,23 @@ class SignupScreen extends React.Component {
     backgroundImage: require('./img/signup-bg.png'),
   };
 
-  state = {
-    formValid: false,
+  static validators = {
+    password: val =>
+      (!!val && val.length >= 6) || __('loginScreen.passwordLengthNotice'),
   };
 
-  constructor(props) {
-    super(props);
-
-    Form.initialize(this, {
+  state = {
+    formValid: false,
+    form: {
       email: null,
       firstName: null,
       lastName: null,
       password: null,
+      passwordRepeat: null,
       birthday: undefined,
       gender: null,
-    });
-  }
+    },
+  };
 
   componentDidUpdate(prevProps) {
     if (!prevProps.success && this.props.success) {
@@ -52,28 +54,34 @@ class SignupScreen extends React.Component {
   }
 
   onSubmit = () => {
-    this.form.setDirty();
+    this.form.commit();
     if (!this.state.formValid) {
-      return this.props.showWarnMessage(__('missingFields'));
+      return this.props.showWarnMessage(__('fixFormErrors'));
     }
-    this.props.signup(this.state.form);
-  };
-
-  handleBirthdayPicked = birthday => {
-    this.setDisplayValue('birthday')(birthday);
-    this.updateFormValue('birthday')(birthday);
-  };
-
-  handleGenderPicked = gender => {
-    this.setDisplayValue('gender')(gender);
-    this.updateFormValue('gender')(gender);
+    this.props.signup(_.omit(this.state.form, 'passwordRepeat'));
   };
 
   onFormValidChange = formValid => {
     this.setState({ formValid });
   };
 
+  handleOnChange = _.memoize(key => val => {
+    this.setState({ form: { ...this.state.form, [key]: val } });
+  });
+
+  handleCommitValue = _.memoize(key => () => this.form.commitValue(key));
+
   setFormRef = ref => (this.form = ref);
+
+  onBirthdayPicked = val => {
+    this.handleOnChange('birthday')(val);
+    this.handleCommitValue('birthday')();
+  };
+
+  onGenderPicked = val => {
+    this.handleOnChange('gender')(val);
+    this.handleCommitValue('gender')();
+  };
 
   render() {
     return (
@@ -97,9 +105,9 @@ class SignupScreen extends React.Component {
               textContentType={'emailAddress'}
               autoCapitalize={'none'}
               autoCorrect={false}
-              onChangeText={this.setDisplayValue('email')}
-              onBlur={this.updateFormValue('email')}
-              val={this.state.email}
+              onChangeText={this.handleOnChange('email')}
+              onBlur={this.handleCommitValue('email')}
+              val={this.state.form.email}
             />
           </FormItem>
           <FormItem
@@ -109,9 +117,9 @@ class SignupScreen extends React.Component {
           >
             <TextInput
               textContentType={'name'}
-              onBlur={this.updateFormValue('firstName')}
-              onChangeText={this.setDisplayValue('firstName')}
-              val={this.state.firstName}
+              onChangeText={this.handleOnChange('firstName')}
+              onBlur={this.handleCommitValue('firstName')}
+              val={this.state.form.firstName}
             />
           </FormItem>
           <FormItem
@@ -121,25 +129,26 @@ class SignupScreen extends React.Component {
           >
             <TextInput
               textContentType={'familyName'}
-              onBlur={this.updateFormValue('lastName')}
-              onChangeText={this.setDisplayValue('lastName')}
-              val={this.state.lastName}
+              onChangeText={this.handleOnChange('lastName')}
+              onBlur={this.handleCommitValue('lastName')}
+              val={this.state.form.lastName}
             />
           </FormItem>
           <FormItem
             value={'password'}
             required={true}
+            validator={SignupScreen.validators.password}
             label={__('signupScreen.password')}
           >
             <TextInput
               textContentType={'password'}
               secureTextEntry={true}
-              onBlur={this.updateFormValue('password')}
-              onChangeText={this.setDisplayValue('password')}
-              val={this.state.password}
+              onChangeText={this.handleOnChange('password')}
+              onBlur={this.handleCommitValue('password')}
+              val={this.state.form.password}
             />
           </FormItem>
-          {this.state.password !== null && (
+          {this.state.form.password !== null && (
             <Animatable.View animation="fadeInDown">
               <FormItem
                 value={'passwordRepeat'}
@@ -149,9 +158,9 @@ class SignupScreen extends React.Component {
                 <TextInput
                   textContentType={'password'}
                   secureTextEntry={true}
-                  onBlur={this.updateFormValue('passwordRepeat')}
-                  onChangeText={this.setDisplayValue('passwordRepeat')}
-                  val={this.state.passwordRepeat}
+                  onChangeText={this.handleOnChange('passwordRepeat')}
+                  onBlur={this.handleCommitValue('passwordRepeat')}
+                  val={this.state.form.passwordRepeat}
                 />
               </FormItem>
             </Animatable.View>
@@ -162,8 +171,8 @@ class SignupScreen extends React.Component {
             label={__('signupScreen.birthday')}
           >
             <DatePicker
-              date={this.state.birthday}
-              onSelect={this.handleBirthdayPicked}
+              date={this.state.form.birthday}
+              onSelect={this.onBirthdayPicked}
             />
           </FormItem>
           <FormItem
@@ -173,8 +182,8 @@ class SignupScreen extends React.Component {
           >
             <Picker
               title={__('signupScreen.selectGender')}
-              selectedValue={this.state.gender}
-              onSelect={this.handleGenderPicked}
+              selectedValue={this.state.form.gender}
+              onSelect={this.onGenderPicked}
             >
               <Picker.Item value="male" label={__('signupScreen.male')} />
               <Picker.Item value="female" label={__('signupScreen.female')} />

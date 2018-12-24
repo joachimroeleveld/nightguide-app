@@ -19,7 +19,7 @@ import {
 } from './actions';
 
 export function* signup() {
-  yield takeLatest(SIGNUP, function* (action) {
+  yield takeLatest(SIGNUP, function*(action) {
     try {
       yield call(api.users.signup, action.payload);
 

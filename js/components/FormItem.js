@@ -49,8 +49,8 @@ class FormItem extends React.PureComponent {
     return this.form.getValue(this.props.value);
   }
 
-  get isDirty() {
-    return this.form.isValueDirty(this.props.value);
+  get isCommitted() {
+    return this.form.isValueCommitted(this.props.value);
   }
 
   get isValid() {
@@ -66,7 +66,7 @@ class FormItem extends React.PureComponent {
   }
 
   render() {
-    const showErrMessage = this.isDirty && !this.isValid;
+    const showErrMessage = this.isCommitted && !this.isValid;
 
     return (
       <View style={styles.container}>

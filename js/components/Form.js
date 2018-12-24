@@ -12,31 +12,17 @@ class Form extends React.PureComponent {
     onValidChange: () => {},
   };
 
-  static initialize(Component, initialValues) {
-    Component.state = {
-      ...Component.state,
-      ...initialValues,
-      form: initialValues,
-    };
-
-    Component.setDisplayValue = _.memoize(key => val =>
-      Component.setState({ [key]: val })
-    );
-
-    Component.updateFormValue = _.memoize(key => () =>
-      setTimeout(() =>
-        Component.setState({
-          form: { ...Component.state.form, [key]: Component.state[key] },
-        })
-      )
-    );
-  }
-
   state = {
-    originalValues: Object.assign({}, this.props.values),
+    committedValues: Object.keys(this.props.values).reduce(
+      (values, key) => ({
+        ...values,
+        [key]: false,
+      }),
+      {}
+    ),
   };
 
-  _valid = false;
+  valid = false;
 
   items = {};
 
@@ -45,19 +31,21 @@ class Form extends React.PureComponent {
     this.validate();
   };
 
-  isValueDirty = value => {
-    return this.state.originalValues[value] !== this.props.values[value];
-  };
-
   getValue = value => {
     return this.props.values[value];
   };
 
-  setDirty = () => {
+  isValueCommitted = value => this.state.committedValues[value];
+
+  commitValue = value =>
     this.setState({
-      originalValues: _.mapValues(this.state.originalValues, () => '@@'),
+      committedValues: { ...this.state.committedValues, [value]: true },
     });
-  };
+
+  commit = () =>
+    this.setState({
+      committedValues: _.mapValues(this.state.committedValues, () => true),
+    });
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     this.validate();
@@ -77,10 +65,10 @@ class Form extends React.PureComponent {
       return validator(this.props.values[value]) !== true;
     });
 
-    if (valid !== this._valid) {
+    if (valid !== this.valid) {
       this.props.onValidChange(valid);
 
-      this._valid = valid;
+      this.valid = valid;
     }
 
     return valid;

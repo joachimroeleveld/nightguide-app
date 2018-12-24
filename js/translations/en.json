@@ -13,7 +13,8 @@
     "userNotFound": "The given email adress is unknown",
     "userNotVerified": "The account is not verified",
     "incorrectCredentials": "Password is incorrect",
-    "invalidEmail": "Please enter a valid email address"
+    "invalidEmail": "Please enter a valid email address",
+    "passwordLengthNotice": "Please use a minimum of 6 characters"
   },
   "resetPasswordScreen": {
     "email": "Email",
@@ -43,7 +44,7 @@
   "genericErrorTitle": "Something went wrong",
   "appInitError": "Could not start the app",
   "requiredField": "This field is required",
-  "missingFields": "Please fill in the missing fields",
+  "fixFormErrors": "Please address the form errors",
   "confirm": "Confirm",
   "cancel": "Cancel"
 }

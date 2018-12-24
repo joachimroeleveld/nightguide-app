@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+import _ from 'lodash';
 
 import __ from '../../services/i18n';
 import { login } from '../../state/account/actions';
@@ -27,23 +28,23 @@ class LoginScreen extends React.Component {
     backgroundImage: require('../../img/login-bg.png'),
   };
 
-  state = {
-    formValid: false,
+  static validators = {
+    password: val =>
+      (!!val && val.length >= 6) || __('loginScreen.passwordLengthNotice'),
   };
 
-  constructor(props) {
-    super(props);
-
-    Form.initialize(this, {
+  state = {
+    formValid: false,
+    form: {
       email: null,
-      password: null,
-    });
-  }
+      password: false,
+    },
+  };
 
   onSubmit = () => {
-    this.form.setDirty();
+    this.form.commit();
     if (!this.state.formValid) {
-      return this.props.showWarnMessage(__('missingFields'));
+      return this.props.showWarnMessage(__('fixFormErrors'));
     }
     this.props.login(this.state.form.email, this.state.form.password);
   };
@@ -53,6 +54,12 @@ class LoginScreen extends React.Component {
       NavigationActions.navigate({ routeName: 'ResetPassword' })
     );
   };
+
+  handleOnChange = _.memoize(key => val => {
+    this.setState({ form: { ...this.state.form, [key]: val } });
+  });
+
+  handleCommitValue = _.memoize(key => () => this.form.commitValue(key));
 
   onFormValidChange = formValid => this.setState({ formValid });
 
@@ -84,22 +91,23 @@ class LoginScreen extends React.Component {
               textContentType={'emailAddress'}
               autoCapitalize={'none'}
               autoCorrect={false}
-              onChangeText={this.setDisplayValue('email')}
-              onBlur={this.updateFormValue('email')}
-              val={this.state.email}
+              onChangeText={this.handleOnChange('email')}
+              onBlur={this.handleCommitValue('email')}
+              val={this.state.form.email}
             />
           </FormItem>
           <FormItem
             required={true}
+            validator={LoginScreen.validators.password}
             value={'password'}
             label={__('loginScreen.password')}
           >
             <TextInput
               textContentType={'password'}
               secureTextEntry={true}
-              onChangeText={this.setDisplayValue('password')}
-              onBlur={this.updateFormValue('password')}
-              val={this.state.password}
+              onChangeText={this.handleOnChange('password')}
+              onBlur={this.handleCommitValue('password')}
+              val={this.state.form.password}
             />
           </FormItem>
           <Button
