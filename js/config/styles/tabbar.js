@@ -11,5 +11,7 @@ export default {
     fontFamily: 'NotoSans',
     fontWeight: '700',
     paddingVertical: 0,
+    marginTop: -5,
+    marginBottom: 6,
   },
 };

@@ -42,6 +42,10 @@
     "accountCreated": "Almost there, please check your email",
     "emailAlreadyExists": "The email address has already been registered"
   },
+  "searchScreen": {
+    "utrechtFirst": "Utrecht is the first to have its nightlife mapped!",
+    "moreSoon": "NightGuide has set out to become the best source of information for nightlife available.\n\nExpect more cities and countries to be added soon. This is just getting started."
+  },
   "genericErrorTitle": "Something went wrong",
   "appInitError": "Could not start the app",
   "requiredField": "This field is required",

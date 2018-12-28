@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     backgroundColor: '#292929',
-    height: 40,
+    height: 45,
     flexDirection: 'row',
     alignItems: 'center',
     shadowOffset: { width: 0, height: 2 },
