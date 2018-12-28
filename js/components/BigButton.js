@@ -5,17 +5,19 @@ import PropTypes from 'prop-types';
 import colors from '../config/styles/colors';
 import Text from './Text';
 
-class Button extends React.PureComponent {
+class BigButton extends React.PureComponent {
   static propTypes = {
+    onPress: PropTypes.func.isRequired,
     title: PropTypes.string,
     darkTitle: PropTypes.bool,
+    disabled: PropTypes.bool,
   };
 
   render() {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        {...this.props}
+        onPress={this.props.onPress}
         style={[
           styles.button,
           this.props.disabled && styles.disabled,
@@ -30,7 +32,7 @@ class Button extends React.PureComponent {
   }
 }
 
-export default Button;
+export default BigButton;
 
 const styles = StyleSheet.create({
   button: {},

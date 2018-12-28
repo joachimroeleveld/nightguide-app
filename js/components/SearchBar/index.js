@@ -5,7 +5,7 @@ import {
   Image,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   Dimensions,
 } from 'react-native';
 import PropTypes from 'prop-types';
@@ -13,12 +13,13 @@ import PropTypes from 'prop-types';
 import __ from '../../services/i18n';
 import S from '../../config/styles';
 import Text from '../../components/Text';
+import SmallButton from '../SmallButton';
 
 const CANCEL_BUTTON_OFFSET_WIDTH = 78;
 
 class SearchBar extends React.PureComponent {
   static propTypes = {
-    onChangeQuery: PropTypes.func.required,
+    onChangeQuery: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     query: PropTypes.string,
@@ -30,6 +31,7 @@ class SearchBar extends React.PureComponent {
     showCancel: false,
     onFocus: () => {},
     onBlur: () => {},
+    onCancelPress: () => {},
   };
 
   state = {
@@ -42,6 +44,13 @@ class SearchBar extends React.PureComponent {
     return this.state.showCancel.interpolate({
       inputRange: [0, 1],
       outputRange: [fullWidth, fullWidth - CANCEL_BUTTON_OFFSET_WIDTH],
+    });
+  }
+
+  get inputShadowRadius() {
+    return this.state.showCancel.interpolate({
+      inputRange: [0, 1],
+      outputRange: [5, 2],
     });
   }
 
@@ -64,6 +73,10 @@ class SearchBar extends React.PureComponent {
     }
   };
 
+  resetInputWidth = () => {
+    this.forceUpdate();
+  };
+
   onChangeText = query => this.props.onChangeQuery(query);
 
   onBlur = () => this.props.onBlur();
@@ -71,11 +84,16 @@ class SearchBar extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>
-        <Animated.View style={{ width: this.inputWidth }}>
-          <TouchableOpacity
-            activeOpacity={0.9}
-            onPress={this.onContainerPress}
-            style={[styles.inputContainer, this.props.style]}
+        <TouchableWithoutFeedback
+          onPress={this.onContainerPress}
+          style={[styles.inputContainer, this.props.style]}
+        >
+          <Animated.View
+            onLayout={this.resetInputWidth}
+            style={[
+              styles.inputContainer,
+              { width: this.inputWidth, shadowRadius: this.inputShadowRadius },
+            ]}
           >
             <Image
               style={styles.searchIcon}
@@ -89,20 +107,18 @@ class SearchBar extends React.PureComponent {
                 val={this.props.query}
               />
             )}
-          </TouchableOpacity>
-        </Animated.View>
+          </Animated.View>
+        </TouchableWithoutFeedback>
         <Animated.View
           style={[
             styles.cancelButtonContainer,
             { opacity: this.state.showCancel },
           ]}
         >
-          <TouchableOpacity
+          <SmallButton
             onPress={this.props.onCancelPress}
-            style={styles.cancelButton}
-          >
-            <Text style={this.cancelButton}>{__('cancel')}</Text>
-          </TouchableOpacity>
+            title={__('cancel')}
+          />
         </Animated.View>
       </View>
     );
@@ -128,15 +144,6 @@ const styles = StyleSheet.create({
   },
   searchIcon: {
     marginHorizontal: 12,
-  },
-  cancelButton: {
-    color: '#BEBEBE',
-    borderColor: '#4F4F4F',
-    borderWidth: 1,
-    borderRadius: 4,
-    marginLeft: 16,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
   },
   cancelButtonContainer: {
     position: 'absolute',

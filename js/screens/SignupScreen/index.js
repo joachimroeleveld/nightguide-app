@@ -14,7 +14,7 @@ import DatePicker from '../../components/DatePicker';
 import Picker from '../../components/Picker';
 import Form from '../../components/Form';
 import HeaderBackButton from '../../components/HeaderBackButton';
-import Button from '../../components/Button';
+import BigButton from '../../components/BigButton';
 import TextInput from '../../components/TextInput';
 
 class SignupScreen extends React.Component {
@@ -190,7 +190,7 @@ class SignupScreen extends React.Component {
               <Picker.Item value="other" label={__('signupScreen.other')} />
             </Picker>
           </FormItem>
-          <Button
+          <BigButton
             style={[
               S.buttons.bigButton,
               S.buttons.submitButton,

@@ -11,7 +11,7 @@ import Header from '../../components/Header';
 import FormItem from '../../components/FormItem';
 import Form from '../../components/Form';
 import HeaderBackButton from '../../components/HeaderBackButton';
-import Button from '../../components/Button';
+import BigButton from '../../components/BigButton';
 import TextInput from '../../components/TextInput';
 
 class LoginScreen extends React.Component {
@@ -63,7 +63,7 @@ class LoginScreen extends React.Component {
       <View style={styles.container}>
         <Header>
           <HeaderBackButton />
-          <Button
+          <BigButton
             onPress={this.showResetPassword}
             title={__('loginScreen.forgotPassword')}
           />
@@ -102,7 +102,7 @@ class LoginScreen extends React.Component {
               val={this.state.form.password}
             />
           </FormItem>
-          <Button
+          <BigButton
             style={[
               S.buttons.bigButton,
               S.buttons.submitButton,

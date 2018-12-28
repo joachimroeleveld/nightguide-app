@@ -6,7 +6,7 @@ import __ from '../../services/i18n';
 import S from '../../config/styles';
 import { login, loginFb } from '../../state/account/actions';
 import Text from '../../components/Text';
-import Button from '../../components/Button';
+import BigButton from '../../components/BigButton';
 
 class SplashScreen extends React.Component {
   static screenOptions = {
@@ -52,17 +52,17 @@ class SplashScreen extends React.Component {
           <Text style={styles.slogan}>{__('splashScreen.slogan')}</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button
+          <BigButton
             onPress={() => this.navigateSignup()}
             style={[S.buttons.bigButton, S.buttons.purpleButton]}
             title={__('splashScreen.signUp')}
           />
-          <Button
+          <BigButton
             onPress={() => this.fbLogin()}
             style={[S.buttons.bigButton, S.buttons.blueButton]}
             title={__('splashScreen.loginFb')}
           />
-          <Button
+          <BigButton
             onPress={() => this.navigateLogin()}
             style={[S.buttons.bigButton, S.buttons.whiteButton]}
             title={__('splashScreen.login')}
