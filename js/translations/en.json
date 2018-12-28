@@ -12,9 +12,10 @@
     "forgotPassword": "Forgot password",
     "userNotFound": "The given email adress is unknown",
     "userNotVerified": "The account is not verified",
-    "incorrectCredentials": "Password is incorrect",
+    "incorrectCredentials": "The entered password is incorrect",
     "invalidEmail": "Please enter a valid email address",
-    "passwordLengthNotice": "Please use a minimum of 6 characters"
+    "passwordLengthNotice": "Please use a minimum of 6 characters",
+    "invalidAuthType": "Your account was created through Facebook"
   },
   "resetPasswordScreen": {
     "email": "Email",

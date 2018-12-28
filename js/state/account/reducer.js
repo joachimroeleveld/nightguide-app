@@ -97,8 +97,7 @@ export default handleActions(
           error: { $set: null },
         },
         token: { $set: action.payload.token },
-        userId: { $set: action.payload.user.id },
-        email: { $set: action.payload.user.email },
+        user: { $set: action.payload.user },
       }),
   },
   {
@@ -119,8 +118,7 @@ export default handleActions(
       success: false,
       error: null,
     },
+    user: {},
     token: null,
-    userId: null,
-    email: null,
   }
 );

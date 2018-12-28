@@ -1,5 +1,5 @@
 let config = {
-  apiUrl: 'https://nightguide.app/api',
+  apiUrl: 'https://api.dev.nightguide.app',
 };
 
 const devConfig = {

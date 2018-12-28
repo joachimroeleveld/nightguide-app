@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
 import _ from 'lodash';
 
 import __ from '../../services/i18n';
@@ -23,14 +22,10 @@ class LoginScreen extends React.Component {
         user_not_verified: __('loginScreen.userNotVerified'),
         incorrect_credentials: __('loginScreen.incorrectCredentials'),
         validation_error: __('loginScreen.invalidEmail'),
+        invalid_auth_type: __('loginScreen.invalidAuthType'),
       },
     },
     backgroundImage: require('../../img/login-bg.png'),
-  };
-
-  static validators = {
-    password: val =>
-      (!!val && val.length >= 6) || __('loginScreen.passwordLengthNotice'),
   };
 
   state = {
@@ -50,9 +45,7 @@ class LoginScreen extends React.Component {
   };
 
   showResetPassword = () => {
-    this.props.navigation.dispatch(
-      NavigationActions.navigate({ routeName: 'ResetPassword' })
-    );
+    this.props.navigation.navigate('ResetPassword');
   };
 
   handleOnChange = _.memoize(key => val => {
@@ -98,7 +91,6 @@ class LoginScreen extends React.Component {
           </FormItem>
           <FormItem
             required={true}
-            validator={LoginScreen.validators.password}
             value={'password'}
             label={__('loginScreen.password')}
           >

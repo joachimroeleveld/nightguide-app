@@ -16,7 +16,6 @@ import Form from '../../components/Form';
 import HeaderBackButton from '../../components/HeaderBackButton';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
-import { NavigationActions } from 'react-navigation';
 
 class SignupScreen extends React.Component {
   static screenOptions = {
@@ -49,7 +48,7 @@ class SignupScreen extends React.Component {
   componentDidUpdate(prevProps) {
     if (!prevProps.success && this.props.success) {
       this.props.showOkMessage(__('signupScreen.accountCreated'));
-      this.props.navigation.dispatch(NavigationActions.back());
+      this.props.navigation.goBack();
     }
   }
 
@@ -58,7 +57,8 @@ class SignupScreen extends React.Component {
     if (!this.state.formValid) {
       return this.props.showWarnMessage(__('fixFormErrors'));
     }
-    this.props.signup(_.omit(this.state.form, 'passwordRepeat'));
+    const { passwordRepeat, ...values } = this.state.form;
+    this.props.signup(values);
   };
 
   onFormValidChange = formValid => {
@@ -198,7 +198,7 @@ class SignupScreen extends React.Component {
             ]}
             disabled={this.props.isFetching}
             title={__('signupScreen.createAccount')}
-            onPress={this.onSubmit}
+            onPress={() => this.onSubmit()}
           />
         </Form>
       </View>

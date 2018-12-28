@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { withNavigation, NavigationActions } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 
 import S from '../config/styles';
 import ImageButton from './ImageButton';
@@ -12,7 +12,7 @@ const HeaderBackButton = props => (
       image={require('../img/header-back.png')}
       onPress={
         props.onPress ||
-        (() => props.navigation.dispatch(NavigationActions.back()))
+        (() => props.navigation.goBack())
       }
       style={styles.button}
     />

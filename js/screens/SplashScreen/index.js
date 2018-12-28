@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
 
 import __ from '../../services/i18n';
 import S from '../../config/styles';
@@ -15,28 +14,34 @@ class SplashScreen extends React.Component {
     backgroundImage: require('./img/splash-bg.png'),
   };
 
-  componentDidUpdate(prevProps) {
-    if (!prevProps.loggedIn && this.props.loggedIn) {
-      this.props.navigation.dispatch(
-        NavigationActions.navigate({ routeName: 'App' }),
-      );
+  constructor(props) {
+    super(props);
+
+    if (this.props.loggedIn) {
+      this.navigateAuthenticated();
     }
   }
 
-  showLogin = () => {
-    this.props.navigation.dispatch(
-      NavigationActions.navigate({ routeName: 'Login' })
-    );
+  componentDidUpdate(prevProps) {
+    if (!prevProps.loggedIn && this.props.loggedIn) {
+      this.navigateAuthenticated();
+    }
+  }
+
+  navigateAuthenticated = () => {
+    this.props.navigation.navigate('App');
+  };
+
+  navigateLogin = () => {
+    this.props.navigation.navigate('Login');
+  };
+
+  navigateSignup = () => {
+    this.props.navigation.navigate('Signup');
   };
 
   fbLogin = () => {
     this.props.loginWithFacebook();
-  };
-
-  showSignup = () => {
-    this.props.navigation.dispatch(
-      NavigationActions.navigate({ routeName: 'Signup' })
-    );
   };
 
   render() {
@@ -48,7 +53,7 @@ class SplashScreen extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => this.showSignup()}
+            onPress={() => this.navigateSignup()}
             style={[S.buttons.bigButton, S.buttons.purpleButton]}
             title={__('splashScreen.signUp')}
           />
@@ -58,7 +63,7 @@ class SplashScreen extends React.Component {
             title={__('splashScreen.loginFb')}
           />
           <Button
-            onPress={() => this.showLogin()}
+            onPress={() => this.navigateLogin()}
             style={[S.buttons.bigButton, S.buttons.whiteButton]}
             title={__('splashScreen.login')}
             darkTitle={true}

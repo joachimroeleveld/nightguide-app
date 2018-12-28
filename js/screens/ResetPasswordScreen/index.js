@@ -13,7 +13,6 @@ import Form from '../../components/Form';
 import HeaderBackButton from '../../components/HeaderBackButton';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
-import { NavigationActions } from 'react-navigation';
 
 class ResetPasswordScreen extends React.Component {
   static screenOptions = {
@@ -36,7 +35,7 @@ class ResetPasswordScreen extends React.Component {
   componentDidUpdate(prevProps) {
     if (!prevProps.success && this.props.success) {
       this.props.showOkMessage(__('resetPasswordScreen.passwordResetSuccess'));
-      this.props.navigation.dispatch(NavigationActions.back());
+      this.props.navigation.goBack();
     }
   }
 
@@ -45,7 +44,7 @@ class ResetPasswordScreen extends React.Component {
     if (!this.state.formValid) {
       return this.props.showWarnMessage(__('fixFormErrors'));
     }
-    this.props.resetPassword(this.state.email);
+    this.props.resetPassword(this.state.form.email);
   };
 
   handleOnChange = _.memoize(key => val => {
