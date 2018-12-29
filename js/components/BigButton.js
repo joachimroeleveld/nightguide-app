@@ -35,10 +35,14 @@ class BigButton extends React.PureComponent {
 export default BigButton;
 
 const styles = StyleSheet.create({
-  button: {},
+  button: {
+    padding: 10,
+    marginVertical: 8,
+    borderRadius: 20,
+  },
   title: {
     color: colors.textDefault,
-    fontSize: 14,
+    fontSize: 15,
     textAlign: 'center',
   },
   titleDark: {

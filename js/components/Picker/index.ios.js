@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     right: 4,
   },
   valueContainer: {
-    ...S.inputs.fieldStyle,
+    ...S.inputs.containerStyle,
     flexDirection: 'row',
     alignItems: 'center',
   },

@@ -6,7 +6,6 @@ import SearchBar from '../../components/SearchBar';
 
 class ExploreScreen extends React.Component {
   static navigationOptions = {
-    header: null,
     tabBarIcon: <Image source={require('../../img/tabbar/explore.png')} />,
   };
 
@@ -40,6 +39,5 @@ export default ExploreScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: S.dimensions.screenOffset,
   },
 });

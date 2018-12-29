@@ -1,7 +1,8 @@
 import { REHYDRATE } from 'redux-persist';
 
-import { SET_ACCOUNT } from './account/actions';
+import { LOGOUT, SET_ACCOUNT, refreshAccount } from './account/actions';
 import { initializeApp, INITIALIZE_APP } from './rootReducer';
+import { persistor } from './store';
 import api from '../services/api';
 import { handleError } from '../services/errors';
 
@@ -29,13 +30,11 @@ export function handleErrors() {
 
 function initAction({ dispatch }) {
   return next => action => {
-    const returnValue = next(action);
-
     if (action.type === REHYDRATE) {
       dispatch(initializeApp());
     }
 
-    return returnValue;
+    return next(action);
   };
 }
 
@@ -53,4 +52,30 @@ function authenticateApi({ getState }) {
   };
 }
 
-export default [handleErrors, initAction, authenticateApi];
+function purgePersistorOnLogout() {
+  return next => action => {
+    if (action.type === LOGOUT) {
+      persistor.purge();
+    }
+
+    return next(action);
+  };
+}
+
+function refreshAccountOnInit({ dispatch }) {
+  return next => action => {
+    if (action.type === INITIALIZE_APP) {
+      dispatch(refreshAccount());
+    }
+
+    return next(action);
+  };
+}
+
+export default [
+  handleErrors,
+  initAction,
+  authenticateApi,
+  purgePersistorOnLogout,
+  // refreshAccountOnInit,
+];

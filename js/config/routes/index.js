@@ -11,35 +11,70 @@ import LoginScreen from '../../screens/LoginScreen';
 import SignupScreen from '../../screens/SignupScreen';
 import ResetPasswordScreen from '../../screens/ResetPasswordScreen';
 import SearchScreen from '../../screens/SearchScreen';
+import ProfileScreen from '../../screens/ProfileScreen';
+import FeedbackScreen from '../../screens/FeedbackScreen';
 
-import { fadeTransition } from './transitionConfigs'
+import { fadeTransition } from './transitionConfigs';
 import S from '../styles';
 
 const mainStackScreen = asScreen({});
 
-const MainStack = createBottomTabNavigator(
-  {
-    Explore: mainStackScreen(ExploreScreen),
+const mainStack = {
+  Tabs: {
+    screen: createBottomTabNavigator(
+      {
+        Explore: mainStackScreen(ExploreScreen),
+        Profile: mainStackScreen(ProfileScreen),
+      },
+      {
+        defaultNavigationOptions: {
+          header: null,
+        },
+        tabBarOptions: {
+          activeTintColor: S.tabBar.activeTintColor,
+          inactiveTintColor: S.tabBar.inactiveTintColor,
+          upperCaseLabel: true,
+          style: S.tabBar.container,
+          labelStyle: S.tabBar.label,
+        },
+      }
+    ),
   },
-  {
-    tabBarOptions: {
-      activeTintColor: S.tabBar.activeTintColor,
-      inactiveTintColor: S.tabBar.inactiveTintColor,
-      upperCaseLabel: true,
-      style: S.tabBar.container,
-      labelStyle: S.tabBar.label,
-    },
-  }
-);
+};
+
+const fadeModals = {
+  Search: {
+    screen: asScreen()(SearchScreen),
+  },
+};
+
+const bottomModalScreen = asScreen({ isBottomModal: true });
+
+const fromBottomModals = {
+  Feedback: {
+    screen: bottomModalScreen(FeedbackScreen),
+  },
+};
 
 const AppStack = createStackNavigator(
   {
     Main: {
-      screen: MainStack,
+      screen: createStackNavigator(
+        {
+          MainInner: {
+            screen: createStackNavigator(mainStack, {
+              headerMode: 'none',
+            }),
+          },
+          ...fromBottomModals,
+        },
+        {
+          headerMode: 'none',
+          mode: 'modal',
+        }
+      ),
     },
-    Search: {
-      screen: asScreen()(SearchScreen),
-    },
+    ...fadeModals,
   },
   {
     headerMode: 'none',
@@ -57,9 +92,7 @@ const AuthStack = createStackNavigator(
     ResetPassword: authStackScreen(ResetPasswordScreen),
   },
   {
-    defaultNavigationOptions: {
-      header: null,
-    },
+    headerMode: 'none',
   }
 );
 

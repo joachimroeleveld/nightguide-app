@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -13,6 +13,8 @@ import Form from '../../components/Form';
 import HeaderBackButton from '../../components/HeaderBackButton';
 import BigButton from '../../components/BigButton';
 import TextInput from '../../components/TextInput';
+import Text from '../../components/Text';
+import HeaderRightButton from '../../components/HeaderRightButton';
 
 class LoginScreen extends React.Component {
   static screenOptions = {
@@ -41,7 +43,7 @@ class LoginScreen extends React.Component {
     if (!this.state.formValid) {
       return this.props.showWarnMessage(__('fixFormErrors'));
     }
-    this.props.login(this.state.form.email, this.state.form.password);
+    this.props.login(_.trim(this.state.form.email), this.state.form.password);
   };
 
   showResetPassword = () => {
@@ -61,9 +63,9 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header>
+        <Header style={styles.header}>
           <HeaderBackButton />
-          <BigButton
+          <HeaderRightButton
             onPress={this.showResetPassword}
             title={__('loginScreen.forgotPassword')}
           />
@@ -103,11 +105,7 @@ class LoginScreen extends React.Component {
             />
           </FormItem>
           <BigButton
-            style={[
-              S.buttons.bigButton,
-              S.buttons.submitButton,
-              S.buttons.whiteButton,
-            ]}
+            style={[S.buttons.submitButton, S.buttons.whiteButton]}
             disabled={this.props.isFetching}
             title={__('loginScreen.login')}
             darkTitle={true}
@@ -136,10 +134,13 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: S.dimensions.screenOffset,
   },
   form: {
     flex: 1,
     justifyContent: 'center',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

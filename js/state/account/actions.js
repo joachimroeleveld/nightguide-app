@@ -17,6 +17,7 @@ export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR';
 
 export const SET_ACCOUNT = 'SET_ACCOUNT';
+export const REFRESH_ACCOUNT = 'REFRESH_ACCOUNT';
 export const LOGOUT = 'LOGOUT';
 
 export const {
@@ -33,6 +34,7 @@ export const {
   resetPasswordSuccess,
   resetPasswordError,
   setAccount,
+  refreshAccount,
   logout,
 } = createActions(
   SIGNUP,
@@ -48,5 +50,6 @@ export const {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
   SET_ACCOUNT,
-  LOGOUT,
+  REFRESH_ACCOUNT,
+  LOGOUT
 );

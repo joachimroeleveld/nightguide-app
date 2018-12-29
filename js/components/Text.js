@@ -23,7 +23,7 @@ export default Text;
 const styles = StyleSheet.create({
   text: {
     fontFamily: 'NotoSans',
-    fontSize: 14,
+    fontSize: 15,
     color: colors.textDefault,
   },
 });

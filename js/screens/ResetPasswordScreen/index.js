@@ -44,7 +44,7 @@ class ResetPasswordScreen extends React.Component {
     if (!this.state.formValid) {
       return this.props.showWarnMessage(__('fixFormErrors'));
     }
-    this.props.resetPassword(this.state.form.email);
+    this.props.resetPassword(_.trim(this.state.form.email));
   };
 
   handleOnChange = _.memoize(key => val => {
@@ -85,11 +85,7 @@ class ResetPasswordScreen extends React.Component {
             />
           </FormItem>
           <BigButton
-            style={[
-              S.buttons.bigButton,
-              S.buttons.submitButton,
-              S.buttons.whiteButton,
-            ]}
+            style={[S.buttons.submitButton, S.buttons.whiteButton]}
             disabled={this.props.isFetching}
             title={__('resetPasswordScreen.resetPassword')}
             darkTitle={true}
@@ -120,7 +116,6 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: S.dimensions.screenOffset,
   },
   form: {
     flex: 1,

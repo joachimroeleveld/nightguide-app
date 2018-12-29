@@ -28,6 +28,7 @@ export default SmallButton;
 
 const styles = StyleSheet.create({
   button: {
+    fontSize: 13,
     color: '#BEBEBE',
     borderColor: '#4F4F4F',
     borderWidth: 1,

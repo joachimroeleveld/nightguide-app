@@ -69,7 +69,7 @@ class FormItem extends React.PureComponent {
     const showErrMessage = this.isCommitted && !this.isValid;
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.style]}>
         {!!this.props.label && (
           <Text style={styles.label}>{this.props.label}</Text>
         )}

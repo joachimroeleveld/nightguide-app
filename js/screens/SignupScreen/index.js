@@ -58,7 +58,10 @@ class SignupScreen extends React.Component {
       return this.props.showWarnMessage(__('fixFormErrors'));
     }
     const { passwordRepeat, ...values } = this.state.form;
-    this.props.signup(values);
+    this.props.signup({
+      ...values,
+      email: _.trim(values.email),
+    });
   };
 
   onFormValidChange = formValid => {
@@ -191,11 +194,7 @@ class SignupScreen extends React.Component {
             </Picker>
           </FormItem>
           <BigButton
-            style={[
-              S.buttons.bigButton,
-              S.buttons.submitButton,
-              S.buttons.purpleButton,
-            ]}
+            style={[S.buttons.submitButton, S.buttons.purpleButton]}
             disabled={this.props.isFetching}
             title={__('signupScreen.createAccount')}
             onPress={() => this.onSubmit()}
@@ -225,7 +224,6 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: S.dimensions.screenOffset,
   },
   form: {
     flex: 1,

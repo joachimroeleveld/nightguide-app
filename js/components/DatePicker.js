@@ -59,7 +59,7 @@ export default DatePicker;
 
 const styles = StyleSheet.create({
   container: {
-    ...S.inputs.fieldStyle,
+    ...S.inputs.containerStyle,
   },
   value: {},
 });

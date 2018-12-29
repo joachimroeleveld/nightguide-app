@@ -54,17 +54,17 @@ class SplashScreen extends React.Component {
         <View style={styles.buttonContainer}>
           <BigButton
             onPress={() => this.navigateSignup()}
-            style={[S.buttons.bigButton, S.buttons.purpleButton]}
+            style={S.buttons.purpleButton}
             title={__('splashScreen.signUp')}
           />
           <BigButton
             onPress={() => this.fbLogin()}
-            style={[S.buttons.bigButton, S.buttons.blueButton]}
+            style={S.buttons.blueButton}
             title={__('splashScreen.loginFb')}
           />
           <BigButton
             onPress={() => this.navigateLogin()}
-            style={[S.buttons.bigButton, S.buttons.whiteButton]}
+            style={S.buttons.whiteButton}
             title={__('splashScreen.login')}
             darkTitle={true}
           />
@@ -91,7 +91,6 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: S.dimensions.screenOffset,
   },
   logo: {
     marginVertical: 24,

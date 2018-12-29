@@ -15,7 +15,7 @@ import S from '../../config/styles';
 import Text from '../../components/Text';
 import SmallButton from '../SmallButton';
 
-const CANCEL_BUTTON_OFFSET_WIDTH = 78;
+const CANCEL_BUTTON_OFFSET_WIDTH = 74;
 
 class SearchBar extends React.PureComponent {
   static propTypes = {

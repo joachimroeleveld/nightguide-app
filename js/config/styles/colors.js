@@ -11,5 +11,7 @@ export default {
   inputs: {
     borderColor: '#fff',
     backgroundColor: 'rgba(255,255,255,0.17)',
+    placeholderColor: '#989898',
   },
+  sectionBorderColor: '#4B4B4B',
 };

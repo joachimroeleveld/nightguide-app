@@ -15,7 +15,7 @@ const persistedAccountReducer = persistReducer(
   {
     key: 'auth',
     storage,
-    whitelist: ['token', 'userId', 'email'],
+    whitelist: ['token', 'user'],
   },
   accountReducer
 );

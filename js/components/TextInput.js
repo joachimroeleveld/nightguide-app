@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput as RNTextInput } from 'react-native';
+import { View, StyleSheet, TextInput as RNTextInput } from 'react-native';
 import PropTypes from 'prop-types';
 
 import S from '../config/styles';
@@ -10,16 +10,35 @@ class TextInput extends React.PureComponent {
   };
 
   render() {
-    return <RNTextInput {...this.props} style={styles.textInput} />;
+    return (
+      <View
+        style={[
+          styles.container,
+          this.props.multiline && styles.multilineContainer,
+          this.props.style,
+        ]}
+      >
+        <RNTextInput
+          {...this.props}
+          placeholderTextColor={S.colors.inputs.placeholderColor}
+          style={[styles.textInput]}
+        />
+      </View>
+    );
   }
 }
 
 export default TextInput;
 
 const styles = StyleSheet.create({
+  container: {
+    ...S.inputs.containerStyle,
+  },
+  multilineContainer: {
+    paddingVertical: 4,
+  },
   textInput: {
     color: S.colors.textDefault,
-    fontSize: 16,
-    ...S.inputs.fieldStyle,
+    fontSize: 15,
   },
 });

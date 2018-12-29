@@ -5,10 +5,10 @@ import S from '../../config/styles';
 import __ from '../../services/i18n';
 import SearchBar from '../../components/SearchBar';
 import Text from '../../components/Text';
+import HeaderTitle from '../../components/HeaderTitle';
 
 class SearchScreen extends React.Component {
   static navigationOptions = {
-    header: null,
     gesturesEnabled: false,
   };
 
@@ -50,7 +50,9 @@ class SearchScreen extends React.Component {
           onCancelPress={this.onCancelPress}
         />
         <View style={styles.content}>
-          <Text style={styles.title}>{__('searchScreen.utrechtFirst')}</Text>
+          <HeaderTitle style={styles.title}>
+            {__('searchScreen.utrechtFirst')}
+          </HeaderTitle>
           <Text style={styles.text}>{__('searchScreen.moreSoon')}</Text>
         </View>
         <Image
@@ -67,17 +69,13 @@ export default SearchScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: S.dimensions.screenOffset,
   },
   content: {
     paddingTop: 32,
   },
   title: {
     fontSize: 22,
-    marginVertical: 12,
-    fontWeight: '700',
-    lineHeight: 26,
-    width: '90%',
+    marginBottom: 14,
   },
   text: {
     fontSize: 16,
@@ -86,7 +84,8 @@ const styles = StyleSheet.create({
   },
   fireworks: {
     position: 'absolute',
-    bottom: 0,
-    right: 0,
+    opacity: 0.8,
+    bottom: -S.dimensions.screenOffset,
+    right: -S.dimensions.screenOffset,
   },
 });

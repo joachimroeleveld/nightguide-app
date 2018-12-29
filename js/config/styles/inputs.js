@@ -1,5 +1,5 @@
 export default {
-  fieldStyle: {
+  containerStyle: {
     backgroundColor: 'rgba(255, 255, 255, 0.17)',
     borderRadius: 2,
     fontSize: 16,
