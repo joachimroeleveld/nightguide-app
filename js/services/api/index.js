@@ -1,6 +1,7 @@
 import constants from '../../config/constants';
 
 import * as users from './users';
+import * as misc from './misc';
 
 let token = null;
 
@@ -50,4 +51,5 @@ export function request({
 export default {
   setToken,
   users,
+  misc,
 };

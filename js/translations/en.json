@@ -52,12 +52,13 @@
     "logout": "Logout",
     "loggedInAs": "Logged in as: {{email}}",
     "loggedOutMessage": "You are logged out",
-    "feedbackText": "We’d love to have your feedback! Please let us know the things you hate, like, or any other comments you may have.",
+    "feedbackText": "We welcome any feedback you have. Don't hesitate to let us know the things you like, dislike or any other comments you may have.",
     "giveFeedback": "Give feedback"
   },
   "feedbackScreen": {
     "feedback": "Feedback",
-    "enterMessage": "Enter your message"
+    "enterMessage": "Enter your message",
+    "submitSuccess": "Thanks for your feedback!"
   },
   "genericErrorTitle": "Something went wrong",
   "appInitError": "Could not start the app",

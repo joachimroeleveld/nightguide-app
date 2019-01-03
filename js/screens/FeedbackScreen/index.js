@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import S from '../../config/styles';
 import { showOkMessage, showWarnMessage } from '../../state/messages/actions';
+import { sendFeedback } from '../../state/account/actions';
 import __ from '../../services/i18n';
 import Header from '../../components/Header';
 import HeaderBackButton from '../../components/HeaderBackButton';
@@ -16,6 +17,12 @@ import TextInput from '../../components/TextInput';
 import Text from '../../components/Text';
 
 class FeedbackScreen extends React.Component {
+  static screenOptions = {
+    errorMessages: {
+      'account.sendFeedback.error': {},
+    },
+  };
+
   state = {
     formValid: false,
     form: {
@@ -23,11 +30,19 @@ class FeedbackScreen extends React.Component {
     },
   };
 
+  componentDidUpdate(prevProps) {
+    if (!prevProps.success && this.props.success) {
+      this.props.showOkMessage(__('feedbackScreen.submitSuccess'));
+    }
+  }
+
   onSubmit = () => {
     this.form.commit();
     if (!this.state.formValid) {
       return this.props.showWarnMessage(__('fixFormErrors'));
     }
+    this.props.sendFeedback(this.state.form.message);
+    this.props.navigation.goBack();
   };
 
   handleOnChange = _.memoize(key => val => {
@@ -84,13 +99,14 @@ class FeedbackScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  isFetching: state.account.signup.isFetching,
-  success: state.account.signup.success,
+  isFetching: state.account.sendFeedback.isFetching,
+  success: state.account.sendFeedback.success,
 });
 
 const mapDispatchToProps = dispatch => ({
   showWarnMessage: message => dispatch(showWarnMessage(message)),
   showOkMessage: message => dispatch(showOkMessage(message)),
+  sendFeedback: message => dispatch(sendFeedback(message)),
 });
 
 export default connect(
