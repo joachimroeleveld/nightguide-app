@@ -12,6 +12,10 @@ class Form extends React.PureComponent {
     onValidChange: () => {},
   };
 
+  get allItemsRegistered() {
+    return Object.keys(this.props.values).every(value => !!this.items[value]);
+  }
+
   state = {
     committedValues: Object.keys(this.props.values).reduce(
       (values, key) => ({
@@ -28,7 +32,9 @@ class Form extends React.PureComponent {
 
   registerItem = (value, item) => {
     this.items[value] = item;
-    this.validate();
+    if (this.allItemsRegistered) {
+      this.validate();
+    }
   };
 
   getValue = value => {
@@ -48,8 +54,9 @@ class Form extends React.PureComponent {
     });
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    this.validate();
-
+    if (this.allItemsRegistered) {
+      this.validate();
+    }
     // Rerender form item when form state changes
     _.each(this.items, item => item.forceUpdate());
   }

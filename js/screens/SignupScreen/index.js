@@ -99,21 +99,6 @@ class SignupScreen extends React.Component {
           style={styles.form}
         >
           <FormItem
-            value={'email'}
-            required={true}
-            validator={FormItem.validators.email}
-            label={__('signupScreen.email')}
-          >
-            <TextInput
-              textContentType={'emailAddress'}
-              autoCapitalize={'none'}
-              autoCorrect={false}
-              onChangeText={this.handleOnChange('email')}
-              onBlur={this.handleCommitValue('email')}
-              val={this.state.form.email}
-            />
-          </FormItem>
-          <FormItem
             required={true}
             value={'firstName'}
             label={__('signupScreen.firstName')}
@@ -135,6 +120,21 @@ class SignupScreen extends React.Component {
               onChangeText={this.handleOnChange('lastName')}
               onBlur={this.handleCommitValue('lastName')}
               val={this.state.form.lastName}
+            />
+          </FormItem>
+          <FormItem
+            value={'email'}
+            required={true}
+            validator={FormItem.validators.email}
+            label={__('signupScreen.email')}
+          >
+            <TextInput
+              textContentType={'emailAddress'}
+              autoCapitalize={'none'}
+              autoCorrect={false}
+              onChangeText={this.handleOnChange('email')}
+              onBlur={this.handleCommitValue('email')}
+              val={this.state.form.email}
             />
           </FormItem>
           <FormItem
