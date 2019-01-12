@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import __ from '../../services/i18n';
 import { login } from '../../state/account/actions';
@@ -62,57 +63,58 @@ class LoginScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Header style={styles.header}>
-          <HeaderBackButton />
-          <HeaderRightButton
-            onPress={this.showResetPassword}
-            title={__('loginScreen.forgotPassword')}
-          />
-        </Header>
-        <Form
-          ref={this.setFormRef}
-          onValidChange={this.onFormValidChange}
-          values={this.state.form}
-          style={styles.form}
-        >
-          <FormItem
-            required={true}
-            validator={FormItem.validators.email}
-            value={'email'}
-            label={__('loginScreen.email')}
-          >
-            <TextInput
-              textContentType={'emailAddress'}
-              autoCapitalize={'none'}
-              autoCorrect={false}
-              onChangeText={this.handleOnChange('email')}
-              onBlur={this.handleCommitValue('email')}
-              val={this.state.form.email}
+      <KeyboardAwareScrollView>
+        <View style={styles.container}>
+          <Header style={styles.header}>
+            <HeaderBackButton />
+            <HeaderRightButton
+              onPress={this.showResetPassword}
+              title={__('loginScreen.forgotPassword')}
             />
-          </FormItem>
-          <FormItem
-            required={true}
-            value={'password'}
-            label={__('loginScreen.password')}
+          </Header>
+          <Form
+            ref={this.setFormRef}
+            onValidChange={this.onFormValidChange}
+            values={this.state.form}
           >
-            <TextInput
-              textContentType={'password'}
-              secureTextEntry={true}
-              onChangeText={this.handleOnChange('password')}
-              onBlur={this.handleCommitValue('password')}
-              val={this.state.form.password}
+            <FormItem
+              required={true}
+              validator={FormItem.validators.email}
+              value={'email'}
+              label={__('loginScreen.email')}
+            >
+              <TextInput
+                textContentType={'emailAddress'}
+                autoCapitalize={'none'}
+                autoCorrect={false}
+                onChangeText={this.handleOnChange('email')}
+                onBlur={this.handleCommitValue('email')}
+                val={this.state.form.email}
+              />
+            </FormItem>
+            <FormItem
+              required={true}
+              value={'password'}
+              label={__('loginScreen.password')}
+            >
+              <TextInput
+                textContentType={'password'}
+                secureTextEntry={true}
+                onChangeText={this.handleOnChange('password')}
+                onBlur={this.handleCommitValue('password')}
+                val={this.state.form.password}
+              />
+            </FormItem>
+            <BigButton
+              style={[S.buttons.submitButton, S.buttons.whiteButton]}
+              disabled={this.props.isFetching}
+              title={__('loginScreen.login')}
+              darkTitle={true}
+              onPress={this.onSubmit}
             />
-          </FormItem>
-          <BigButton
-            style={[S.buttons.submitButton, S.buttons.whiteButton]}
-            disabled={this.props.isFetching}
-            title={__('loginScreen.login')}
-            darkTitle={true}
-            onPress={this.onSubmit}
-          />
-        </Form>
-      </View>
+          </Form>
+        </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
@@ -134,6 +136,7 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: S.dimensions.screenOffset,
   },
   form: {
     flex: 1,

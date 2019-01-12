@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'NotoSans',
     fontSize: 15,
+    letterSpacing: -0.48,
     color: colors.textDefault,
   },
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet, Image } from 'react-native';
+import { ScrollView, StyleSheet, Image } from 'react-native';
 
 import S from '../../config/styles';
 import { showOkMessage } from '../../state/messages/actions';
@@ -9,7 +9,7 @@ import __ from '../../services/i18n';
 import Text from '../../components/Text';
 import BigButton from '../../components/BigButton';
 import Header from '../../components/Header';
-import HeaderTitle from '../../components/HeaderTitle';
+import Title from '../../components/Title';
 import Section from '../../components/Section';
 import LabeledText from '../../components/LabeledText';
 
@@ -30,10 +30,8 @@ class ProfileScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Header>
-          <HeaderTitle>{__('profileScreen.profile')}</HeaderTitle>
-        </Header>
+      <ScrollView style={styles.container}>
+        <Title>{__('profileScreen.profile')}</Title>
         <Section padding={'bottom'}>
           <LabeledText label={__('profileScreen.email')}>
             {this.props.email}
@@ -57,7 +55,7 @@ class ProfileScreen extends React.Component {
             onPress={this.onLogoutPress}
           />
         </Section>
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -79,6 +77,7 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: S.dimensions.screenOffset,
   },
   loggedInAsText: {
     marginVertical: 12,

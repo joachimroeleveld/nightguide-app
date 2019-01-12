@@ -5,7 +5,7 @@ import S from '../../config/styles';
 import __ from '../../services/i18n';
 import SearchBar from '../../components/SearchBar';
 import Text from '../../components/Text';
-import HeaderTitle from '../../components/HeaderTitle';
+import Title from '../../components/Title';
 
 class SearchScreen extends React.Component {
   static navigationOptions = {
@@ -50,9 +50,9 @@ class SearchScreen extends React.Component {
           onCancelPress={this.onCancelPress}
         />
         <View style={styles.content}>
-          <HeaderTitle style={styles.title}>
+          <Title style={styles.title}>
             {__('searchScreen.utrechtFirst')}
-          </HeaderTitle>
+          </Title>
           <Text style={styles.text}>{__('searchScreen.moreSoon')}</Text>
         </View>
         <Image
@@ -69,6 +69,7 @@ export default SearchScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: S.dimensions.screenOffset,
   },
   content: {
     paddingTop: 32,

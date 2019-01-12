@@ -83,11 +83,8 @@ class SearchBar extends React.PureComponent {
 
   render() {
     return (
-      <View style={styles.container}>
-        <TouchableWithoutFeedback
-          onPress={this.onContainerPress}
-          style={[styles.inputContainer, this.props.style]}
-        >
+      <View style={[styles.container, this.props.style]}>
+        <TouchableWithoutFeedback onPress={this.onContainerPress}>
           <Animated.View
             onLayout={this.resetInputWidth}
             style={[

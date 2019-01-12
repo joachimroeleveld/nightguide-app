@@ -10,7 +10,7 @@ import BigButton from '../../components/BigButton';
 
 class SplashScreen extends React.Component {
   static screenOptions = {
-    messages: { err: { 'account.fbLogin.error': {} } },
+    errorMessages: { 'account.fbLogin.error': {} },
     backgroundImage: require('./img/splash-bg.png'),
   };
 
@@ -91,6 +91,7 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: S.dimensions.screenOffset,
   },
   logo: {
     marginVertical: 24,

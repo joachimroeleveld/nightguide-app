@@ -30,11 +30,13 @@ export function handleErrors() {
 
 function initAction({ dispatch }) {
   return next => action => {
+    const retVal = next(action);
+
     if (action.type === REHYDRATE) {
       dispatch(initializeApp());
     }
 
-    return next(action);
+    return retVal;
   };
 }
 

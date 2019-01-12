@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 
@@ -9,7 +9,7 @@ import { sendFeedback } from '../../state/account/actions';
 import __ from '../../services/i18n';
 import Header from '../../components/Header';
 import HeaderBackButton from '../../components/HeaderBackButton';
-import HeaderTitle from '../../components/HeaderTitle';
+import Title from '../../components/Title';
 import BigButton from '../../components/BigButton';
 import Form from '../../components/Form';
 import FormItem from '../../components/FormItem';
@@ -60,39 +60,41 @@ class FeedbackScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header>
+        <Header absolute={true}>
           <HeaderBackButton variant={'close'} />
-          <HeaderTitle>{__('feedbackScreen.feedback')}</HeaderTitle>
         </Header>
-        <Text>{__('profileScreen.feedbackText')}</Text>
-        <Form
-          onValidChange={this.onFormValidChange}
-          values={this.state.form}
-          ref={this.setFormRef}
-        >
-          <FormItem
-            style={styles.messageFormItem}
-            required={true}
-            value={'message'}
+        <ScrollView style={styles.contentContainer}>
+          <Title>{__('feedbackScreen.feedback')}</Title>
+          <Text>{__('profileScreen.feedbackText')}</Text>
+          <Form
+            onValidChange={this.onFormValidChange}
+            values={this.state.form}
+            ref={this.setFormRef}
           >
-            <TextInput
-              onChangeText={this.handleOnChange('message')}
-              onBlur={this.handleCommitValue('message')}
-              val={this.state.form.message}
-              placeholder={__('feedbackScreen.enterMessage')}
-              multiline={true}
-              numberOfLines={4}
-              style={styles.messageInput}
+            <FormItem
+              style={styles.messageFormItem}
+              required={true}
+              value={'message'}
+            >
+              <TextInput
+                onChangeText={this.handleOnChange('message')}
+                onBlur={this.handleCommitValue('message')}
+                val={this.state.form.message}
+                placeholder={__('feedbackScreen.enterMessage')}
+                multiline={true}
+                numberOfLines={4}
+                style={styles.messageInput}
+              />
+            </FormItem>
+            <BigButton
+              onPress={this.onSubmit}
+              style={S.buttons.whiteButton}
+              disabled={this.props.isFetching}
+              title={__('submit')}
+              darkTitle={true}
             />
-          </FormItem>
-          <BigButton
-            onPress={this.onSubmit}
-            style={S.buttons.whiteButton}
-            disabled={this.props.isFetching}
-            title={__('submit')}
-            darkTitle={true}
-          />
-        </Form>
+          </Form>
+        </ScrollView>
       </View>
     );
   }
@@ -117,6 +119,9 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  contentContainer: {
+    padding: S.dimensions.screenOffset,
   },
   messageFormItem: {
     marginVertical: S.dimensions.sectionVPadding,

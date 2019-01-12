@@ -5,6 +5,9 @@
     "loginFb": "Continue with Facebook",
     "login": "Login"
   },
+  "introScreen": {
+    "enableLocation": "Enable location to utilize the\napp’s functionality"
+  },
   "loginScreen": {
     "email": "Email",
     "password": "Password",

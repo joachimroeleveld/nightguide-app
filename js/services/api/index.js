@@ -1,7 +1,10 @@
+import querystring from 'qs';
+
 import constants from '../../config/constants';
 
 import * as users from './users';
 import * as misc from './misc';
+import * as venues from './venues';
 
 let token = null;
 
@@ -14,10 +17,17 @@ export function request({
   method = 'GET',
   headers = {},
   body,
+  qs,
   skipAuth = false,
 }) {
   if (token === null && !skipAuth) {
     throw new Error('no_api_token');
+  }
+
+  let url = constants.apiUrl + path;
+
+  if (qs) {
+    url += '?' + querystring.stringify(qs);
   }
 
   const opts = {
@@ -34,7 +44,7 @@ export function request({
     opts.body = JSON.stringify(body);
   }
 
-  return fetch(constants.apiUrl + path, opts).then(async res => {
+  return fetch(url, opts).then(async res => {
     const json = await res.json();
 
     if (!res.ok) {
@@ -52,4 +62,5 @@ export default {
   setToken,
   users,
   misc,
+  venues,
 };

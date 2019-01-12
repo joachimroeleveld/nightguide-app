@@ -18,7 +18,7 @@ import S from '../config/styles';
  */
 export default function asScreen(screenOpts = {}) {
   return WrappedComponent => {
-    const { backgroundImage, errorMessages } = Object.assign(
+    const { backgroundImage, errorMessages} = Object.assign(
       screenOpts,
       WrappedComponent.screenOptions
     );
@@ -36,11 +36,9 @@ export default function asScreen(screenOpts = {}) {
               <Image source={backgroundImage} style={styles.bgImage} />
             )}
             <SafeAreaViewComponent style={styles.container}>
-              <View style={styles.containerInner}>
-                <ErrorMessageHandler errorMessages={errorMessages} />
-                <StatusBar barStyle="light-content" />
-                <WithNavWrappedComponent />
-              </View>
+              <ErrorMessageHandler errorMessages={errorMessages} />
+              <StatusBar barStyle="light-content" />
+              <WithNavWrappedComponent />
             </SafeAreaViewComponent>
           </View>
         );
@@ -67,10 +65,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-  },
-  containerInner: {
-    flex: 1,
-    padding: S.dimensions.screenOffset,
   },
   bottomModalContainerInner: {},
   bgImage: {

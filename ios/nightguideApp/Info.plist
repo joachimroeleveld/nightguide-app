@@ -57,8 +57,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Use maps, distances and occupancy information</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Use maps, distances and occupancy information</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Use maps and distances</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSans-Bold.ttf</string>
@@ -66,6 +70,10 @@
 		<string>NotoSans-Italic.ttf</string>
 		<string>NotoSans-Regular.ttf</string>
 		<string>NotoSans.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

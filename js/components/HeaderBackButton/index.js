@@ -25,7 +25,7 @@ class HeaderBackButton extends React.PureComponent {
     return (
       <View style={styles.container}>
         <ImageButton
-          size={16}
+          size={S.dimensions.headerHeight}
           image={this.image}
           onPress={this.props.onPress || (() => this.props.navigation.goBack())}
           style={styles.button}

@@ -13,6 +13,7 @@ import ResetPasswordScreen from '../../screens/ResetPasswordScreen';
 import SearchScreen from '../../screens/SearchScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
 import FeedbackScreen from '../../screens/FeedbackScreen';
+import ListScreen from '../../screens/ListScreen';
 
 import { fadeTransition } from './transitionConfigs';
 import S from '../styles';
@@ -23,6 +24,7 @@ const mainStack = {
   Tabs: {
     screen: createBottomTabNavigator(
       {
+        List: mainStackScreen(ListScreen),
         Explore: mainStackScreen(ExploreScreen),
         Profile: mainStackScreen(ProfileScreen),
       },

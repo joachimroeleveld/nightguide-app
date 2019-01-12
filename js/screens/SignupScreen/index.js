@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import _ from 'lodash';
@@ -88,119 +89,120 @@ class SignupScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Header>
-          <HeaderBackButton />
-        </Header>
-        <Form
-          ref={this.setFormRef}
-          onValidChange={this.onFormValidChange}
-          values={this.state.form}
-          style={styles.form}
-        >
-          <FormItem
-            required={true}
-            value={'firstName'}
-            label={__('signupScreen.firstName')}
+      <KeyboardAwareScrollView>
+        <View style={styles.container}>
+          <Header>
+            <HeaderBackButton />
+          </Header>
+          <Form
+            ref={this.setFormRef}
+            onValidChange={this.onFormValidChange}
+            values={this.state.form}
           >
-            <TextInput
-              textContentType={'name'}
-              onChangeText={this.handleOnChange('firstName')}
-              onBlur={this.handleCommitValue('firstName')}
-              val={this.state.form.firstName}
-            />
-          </FormItem>
-          <FormItem
-            required={true}
-            value={'lastName'}
-            label={__('signupScreen.lastName')}
-          >
-            <TextInput
-              textContentType={'familyName'}
-              onChangeText={this.handleOnChange('lastName')}
-              onBlur={this.handleCommitValue('lastName')}
-              val={this.state.form.lastName}
-            />
-          </FormItem>
-          <FormItem
-            value={'email'}
-            required={true}
-            validator={FormItem.validators.email}
-            label={__('signupScreen.email')}
-          >
-            <TextInput
-              textContentType={'emailAddress'}
-              autoCapitalize={'none'}
-              autoCorrect={false}
-              onChangeText={this.handleOnChange('email')}
-              onBlur={this.handleCommitValue('email')}
-              val={this.state.form.email}
-            />
-          </FormItem>
-          <FormItem
-            value={'password'}
-            required={true}
-            validator={SignupScreen.validators.password}
-            label={__('signupScreen.password')}
-          >
-            <TextInput
-              textContentType={'password'}
-              secureTextEntry={true}
-              onChangeText={this.handleOnChange('password')}
-              onBlur={this.handleCommitValue('password')}
-              val={this.state.form.password}
-            />
-          </FormItem>
-          {this.state.form.password !== null && (
-            <Animatable.View animation="fadeInDown">
-              <FormItem
-                value={'passwordRepeat'}
-                validator={FormItem.validators.passwordRepeat}
-                label={__('signupScreen.repeatPassword')}
-              >
-                <TextInput
-                  textContentType={'password'}
-                  secureTextEntry={true}
-                  onChangeText={this.handleOnChange('passwordRepeat')}
-                  onBlur={this.handleCommitValue('passwordRepeat')}
-                  val={this.state.form.passwordRepeat}
-                />
-              </FormItem>
-            </Animatable.View>
-          )}
-          <FormItem
-            value={'birthday'}
-            required={true}
-            label={__('signupScreen.birthday')}
-          >
-            <DatePicker
-              date={this.state.form.birthday}
-              onSelect={this.onBirthdayPicked}
-            />
-          </FormItem>
-          <FormItem
-            value={'gender'}
-            required={true}
-            label={__('signupScreen.gender')}
-          >
-            <Picker
-              title={__('signupScreen.selectGender')}
-              selectedValue={this.state.form.gender}
-              onSelect={this.onGenderPicked}
+            <FormItem
+              required={true}
+              value={'firstName'}
+              label={__('signupScreen.firstName')}
             >
-              <Picker.Item value="male" label={__('signupScreen.male')} />
-              <Picker.Item value="female" label={__('signupScreen.female')} />
-              <Picker.Item value="other" label={__('signupScreen.other')} />
-            </Picker>
-          </FormItem>
-          <BigButton
-            style={[S.buttons.submitButton, S.buttons.purpleButton]}
-            disabled={this.props.isFetching}
-            title={__('signupScreen.createAccount')}
-            onPress={() => this.onSubmit()}
-          />
-        </Form>
-      </View>
+              <TextInput
+                textContentType={'name'}
+                onChangeText={this.handleOnChange('firstName')}
+                onBlur={this.handleCommitValue('firstName')}
+                val={this.state.form.firstName}
+              />
+            </FormItem>
+            <FormItem
+              required={true}
+              value={'lastName'}
+              label={__('signupScreen.lastName')}
+            >
+              <TextInput
+                textContentType={'familyName'}
+                onChangeText={this.handleOnChange('lastName')}
+                onBlur={this.handleCommitValue('lastName')}
+                val={this.state.form.lastName}
+              />
+            </FormItem>
+            <FormItem
+              value={'email'}
+              required={true}
+              validator={FormItem.validators.email}
+              label={__('signupScreen.email')}
+            >
+              <TextInput
+                textContentType={'emailAddress'}
+                autoCapitalize={'none'}
+                autoCorrect={false}
+                onChangeText={this.handleOnChange('email')}
+                onBlur={this.handleCommitValue('email')}
+                val={this.state.form.email}
+              />
+            </FormItem>
+            <FormItem
+              value={'password'}
+              required={true}
+              validator={SignupScreen.validators.password}
+              label={__('signupScreen.password')}
+            >
+              <TextInput
+                textContentType={'password'}
+                secureTextEntry={true}
+                onChangeText={this.handleOnChange('password')}
+                onBlur={this.handleCommitValue('password')}
+                val={this.state.form.password}
+              />
+            </FormItem>
+            {this.state.form.password !== null && (
+              <Animatable.View animation="fadeInDown">
+                <FormItem
+                  value={'passwordRepeat'}
+                  validator={FormItem.validators.passwordRepeat}
+                  label={__('signupScreen.repeatPassword')}
+                >
+                  <TextInput
+                    textContentType={'password'}
+                    secureTextEntry={true}
+                    onChangeText={this.handleOnChange('passwordRepeat')}
+                    onBlur={this.handleCommitValue('passwordRepeat')}
+                    val={this.state.form.passwordRepeat}
+                  />
+                </FormItem>
+              </Animatable.View>
+            )}
+            <FormItem
+              value={'birthday'}
+              required={true}
+              label={__('signupScreen.birthday')}
+            >
+              <DatePicker
+                date={this.state.form.birthday}
+                onSelect={this.onBirthdayPicked}
+              />
+            </FormItem>
+            <FormItem
+              value={'gender'}
+              required={true}
+              label={__('signupScreen.gender')}
+            >
+              <Picker
+                title={__('signupScreen.selectGender')}
+                selectedValue={this.state.form.gender}
+                onSelect={this.onGenderPicked}
+              >
+                <Picker.Item value="male" label={__('signupScreen.male')} />
+                <Picker.Item value="female" label={__('signupScreen.female')} />
+                <Picker.Item value="other" label={__('signupScreen.other')} />
+              </Picker>
+            </FormItem>
+            <BigButton
+              style={[S.buttons.submitButton, S.buttons.purpleButton]}
+              disabled={this.props.isFetching}
+              title={__('signupScreen.createAccount')}
+              onPress={() => this.onSubmit()}
+            />
+          </Form>
+        </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
@@ -223,10 +225,6 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
-  form: {
-    flex: 1,
-    justifyContent: 'center',
+    padding: S.dimensions.screenOffset,
   },
 });

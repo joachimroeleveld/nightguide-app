@@ -6,6 +6,7 @@ import { persistReducer } from 'redux-persist';
 import { LOGOUT } from './account/actions';
 import accountReducer from './account/reducer';
 import messagesReducer from './messages/reducer';
+import venuesReducer from './venues/reducer';
 
 export const INITIALIZE_APP = 'INITIALIZE_APP';
 
@@ -28,6 +29,7 @@ const rootReducer = (state, action) => {
   return combineReducers({
     account: persistedAccountReducer,
     messages: messagesReducer,
+    venues: venuesReducer,
   })(state, action);
 };
 

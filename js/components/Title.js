@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native';
 
 import Text from './Text';
 
-const HeaderTitle = props => (
+const Title = props => (
   <Text style={[styles.text, props.style]}>{props.children}</Text>
 );
 
-export default HeaderTitle;
+export default Title;
 
 const styles = StyleSheet.create({
   text: {

@@ -9,6 +9,10 @@ class ExploreScreen extends React.Component {
     tabBarIcon: <Image source={require('../../img/tabbar/explore.png')} />,
   };
 
+  static TAGS = [
+
+  ];
+
   state = { showSearchCancel: false };
 
   onSearchBarFocus = () => {
@@ -28,6 +32,7 @@ class ExploreScreen extends React.Component {
           showCancel={this.state.showSearchCancel}
           onFocus={this.onSearchBarFocus}
           query={'Utrecht'}
+          style={styles.searchBar}
         />
       </View>
     );
@@ -39,5 +44,9 @@ export default ExploreScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingVertical: S.dimensions.screenOffset,
+  },
+  searchBar: {
+    marginHorizontal: S.dimensions.screenOffset,
   },
 });
