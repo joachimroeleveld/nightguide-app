@@ -1,9 +1,11 @@
 let config = {
   apiUrl: 'https://api.dev.nightguide.app',
+  apiToken: '',
 };
 
 const devConfig = {
   apiUrl: 'http://localhost:8080',
+  apiToken: 'token',
 };
 
 if (__DEV__) {

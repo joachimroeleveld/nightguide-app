@@ -35,6 +35,7 @@ export function request({
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      'App-Token': constants.apiToken,
       Authorization: 'Bearer ' + token,
       ...headers,
     },
