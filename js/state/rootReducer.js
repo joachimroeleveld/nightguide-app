@@ -5,8 +5,11 @@ import { persistReducer } from 'redux-persist';
 
 import { LOGOUT } from './account/actions';
 import accountReducer from './account/reducer';
-import messagesReducer from './messages/reducer';
+import messagesReducer from './messages';
 import venuesReducer from './venues/reducer';
+import permissionsReducer from './permissions';
+import feedbackReducer from './feedback';
+import locationReducer from './location';
 
 export const INITIALIZE_APP = 'INITIALIZE_APP';
 
@@ -30,7 +33,19 @@ const rootReducer = (state, action) => {
     account: persistedAccountReducer,
     messages: messagesReducer,
     venues: venuesReducer,
+    permissions: permissionsReducer,
+    feedback: feedbackReducer,
+    location: locationReducer,
   })(state, action);
 };
 
-export default rootReducer;
+const persistedRootReducer = persistReducer(
+  {
+    key: 'root',
+    storage,
+    whitelist: ['permissions'],
+  },
+  rootReducer
+);
+
+export default persistedRootReducer;

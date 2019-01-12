@@ -69,5 +69,6 @@
   "fixFormErrors": "Please address the form errors",
   "confirm": "Confirm",
   "cancel": "Cancel",
-  "submit": "Submit"
+  "submit": "Submit",
+  "continue": "Continue"
 }

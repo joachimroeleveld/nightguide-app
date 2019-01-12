@@ -1,9 +1,18 @@
 import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
+import { createActions } from 'redux-actions';
 
-import __ from '../../services/i18n';
+import __ from '../services/i18n';
 
-import { showOkMessage, showWarnMessage, showErrMessage } from './actions';
+const SHOW_OK_MESSAGE = 'SHOW_OK_MESSAGE';
+const SHOW_WARN_MESSAGE = 'SHOW_WARN_MESSAGE';
+const SHOW_ERR_MESSAGE = 'SHOW_ERR_MESSAGE';
+
+export const { showOkMessage, showWarnMessage, showErrMessage } = createActions(
+  SHOW_OK_MESSAGE,
+  SHOW_WARN_MESSAGE,
+  SHOW_ERR_MESSAGE
+);
 
 export default handleActions(
   {

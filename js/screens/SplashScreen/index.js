@@ -18,19 +18,17 @@ class SplashScreen extends React.Component {
     super(props);
 
     if (this.props.loggedIn) {
-      this.navigateAuthenticated();
+      const routeName =
+        this.props.locationPermissions === null ? 'Intro' : 'App';
+      this.props.navigation.navigate(routeName);
     }
   }
 
   componentDidUpdate(prevProps) {
     if (!prevProps.loggedIn && this.props.loggedIn) {
-      this.navigateAuthenticated();
+      this.props.navigation.navigate('Intro');
     }
   }
-
-  navigateAuthenticated = () => {
-    this.props.navigation.navigate('App');
-  };
 
   navigateLogin = () => {
     this.props.navigation.navigate('Login');
@@ -75,6 +73,7 @@ class SplashScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  locationPermissions: !state.permissions.location,
   loggedIn: !!state.account.token,
 });
 

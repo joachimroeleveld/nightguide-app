@@ -13,9 +13,6 @@ import {
   signup,
   signupError,
   signupSuccess,
-  sendFeedback,
-  sendFeedbackError,
-  sendFeedbackSuccess,
 } from './actions';
 
 export default handleActions(
@@ -90,28 +87,6 @@ export default handleActions(
           error: { $set: action.payload },
         },
       }),
-    [sendFeedback]: (state, action) =>
-      update(state, {
-        sendFeedback: {
-          isFetching: { $set: true },
-          error: { $set: null },
-          success: { $set: false },
-        },
-      }),
-    [sendFeedbackSuccess]: (state, action) =>
-      update(state, {
-        sendFeedback: {
-          isFetching: { $set: false },
-          success: { $set: true },
-        },
-      }),
-    [sendFeedbackError]: (state, action) =>
-      update(state, {
-        sendFeedback: {
-          isFetching: { $set: false },
-          error: { $set: action.payload },
-        },
-      }),
     [setAccount]: (state, action) =>
       update(state, {
         login: {
@@ -139,11 +114,6 @@ export default handleActions(
       error: null,
     },
     resetPassword: {
-      isFetching: false,
-      success: false,
-      error: null,
-    },
-    sendFeedback: {
       isFetching: false,
       success: false,
       error: null,

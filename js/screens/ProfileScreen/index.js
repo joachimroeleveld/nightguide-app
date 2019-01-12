@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { ScrollView, StyleSheet, Image } from 'react-native';
 
 import S from '../../config/styles';
-import { showOkMessage } from '../../state/messages/actions';
+import { showOkMessage } from '../../state/messages';
 import { logout } from '../../state/account/actions';
 import __ from '../../services/i18n';
 import Text from '../../components/Text';
 import BigButton from '../../components/BigButton';
-import Header from '../../components/Header';
 import Title from '../../components/Title';
 import Section from '../../components/Section';
 import LabeledText from '../../components/LabeledText';

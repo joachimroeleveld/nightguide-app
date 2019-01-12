@@ -28,6 +28,7 @@ class VenueList extends React.PureComponent {
         category={item.category}
         onPress={this.onItemPress}
         imageUrl={item.images[0].url}
+        coordinates={item.location.coordinates}
       />
     );
   };

@@ -6,7 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import __ from '../../services/i18n';
 import { login } from '../../state/account/actions';
-import { showWarnMessage } from '../../state/messages/actions';
+import { showWarnMessage } from '../../state/messages';
 import S from '../../config/styles';
 import Header from '../../components/Header';
 import FormItem from '../../components/FormItem';
@@ -14,7 +14,6 @@ import Form from '../../components/Form';
 import HeaderBackButton from '../../components/HeaderBackButton';
 import BigButton from '../../components/BigButton';
 import TextInput from '../../components/TextInput';
-import Text from '../../components/Text';
 import HeaderRightButton from '../../components/HeaderRightButton';
 
 class LoginScreen extends React.Component {

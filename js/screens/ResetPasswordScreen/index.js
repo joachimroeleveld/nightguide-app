@@ -6,7 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import __ from '../../services/i18n';
 import { resetPassword } from '../../state/account/actions';
-import { showOkMessage, showWarnMessage } from '../../state/messages/actions';
+import { showOkMessage, showWarnMessage } from '../../state/messages';
 import S from '../../config/styles';
 import Header from '../../components/Header';
 import FormItem from '../../components/FormItem';

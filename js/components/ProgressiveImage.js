@@ -5,8 +5,8 @@ import _ from 'lodash';
 
 import S from '../config/styles';
 
-class ProgressiveImage extends React.Component {
-  propTypes = {
+class ProgressiveImage extends React.PureComponent {
+  static propTypes = {
     url: PropTypes.string.isRequired,
     size: PropTypes.number.isRequired,
   };

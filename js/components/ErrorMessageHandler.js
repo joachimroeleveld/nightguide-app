@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import _ from 'lodash';
 
-import { showErrMessage } from '../state/messages/actions';
+import { showErrMessage } from '../state/messages';
 import PropTypes from 'prop-types';
 
 class ErrorMessageHandler extends React.Component {

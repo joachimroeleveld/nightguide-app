@@ -81,7 +81,7 @@ export default handleActions(
       }),
     [fetchVenuesError]: (state, action) =>
       update(state, {
-        sendFeedback: {
+        list: {
           isFetching: { $set: false },
           error: { $set: action.payload },
         },

@@ -5,6 +5,7 @@ import { View, StyleSheet } from 'react-native';
 import S from '../config/styles';
 import Text from './Text';
 import ProgressiveImage from './ProgressiveImage';
+import Distance from './Distance';
 
 class VenueListItem extends React.PureComponent {
   static propTypes = {
@@ -13,7 +14,7 @@ class VenueListItem extends React.PureComponent {
     onPress: PropTypes.func,
     imageUrl: PropTypes.string.isRequired,
     isOpen: PropTypes.bool,
-    distance: PropTypes.number,
+    coordinates: PropTypes.object.isRequired,
   };
 
   state = {
@@ -45,9 +46,16 @@ class VenueListItem extends React.PureComponent {
               }}
               url={this.props.imageUrl}
             />
-            <Text style={styles.category}>
-              {this.props.category.toUpperCase()}
-            </Text>
+            <View style={styles.smallCapsContainer}>
+              <Text style={styles.smallCaps}>
+                {this.props.category.toUpperCase() + ' · '}
+              </Text>
+              <Distance
+                caps={true}
+                style={styles.smallCaps}
+                coordinates={this.props.coordinates}
+              />
+            </View>
             <Text style={styles.name}>{this.props.name}</Text>
           </React.Fragment>
         )}
@@ -62,12 +70,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  category: {
+  smallCapsContainer: {
+    flexDirection: 'row',
+    marginTop: 8,
+    marginBottom: 1,
+  },
+  smallCaps: {
     fontSize: S.text.smallCapsFontSize,
     fontWeight: '700',
     color: '#CACACA',
-    marginTop: 8,
-    marginBottom: 1,
   },
   name: {
     fontWeight: '700',

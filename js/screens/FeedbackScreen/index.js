@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 
 import S from '../../config/styles';
-import { showOkMessage, showWarnMessage } from '../../state/messages/actions';
+import { showOkMessage, showWarnMessage } from '../../state/messages';
 import { sendFeedback } from '../../state/account/actions';
 import __ from '../../services/i18n';
 import Header from '../../components/Header';
@@ -101,8 +101,8 @@ class FeedbackScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  isFetching: state.account.sendFeedback.isFetching,
-  success: state.account.sendFeedback.success,
+  isFetching: state.feedback.isFetching,
+  success: state.feedback.success,
 });
 
 const mapDispatchToProps = dispatch => ({

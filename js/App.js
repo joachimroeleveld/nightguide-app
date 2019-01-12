@@ -7,6 +7,7 @@ import { createAppContainer } from 'react-navigation';
 import AppNavigator from './config/routes';
 import { store, persistor } from './state/store';
 import Toast from './components/Toast';
+import LocationManager from './components/LocationManager';
 
 export default class App extends Component {
   state = { navigator: null };
@@ -33,6 +34,7 @@ export default class App extends Component {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <React.Fragment>
+            <LocationManager />
             <AppContainer />
             <Toast />
           </React.Fragment>

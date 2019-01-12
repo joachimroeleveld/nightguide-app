@@ -20,10 +20,6 @@ export const SET_ACCOUNT = 'SET_ACCOUNT';
 export const REFRESH_ACCOUNT = 'REFRESH_ACCOUNT';
 export const LOGOUT = 'LOGOUT';
 
-export const SEND_FEEDBACK = 'SEND_FEEDBACK';
-export const SEND_FEEDBACK_SUCCESS = 'SEND_FEEDBACK_SUCCESS';
-export const SEND_FEEDBACK_ERROR = 'SEND_FEEDBACK_ERROR';
-
 export const {
   signup,
   signupSuccess,
@@ -40,9 +36,6 @@ export const {
   setAccount,
   refreshAccount,
   logout,
-  sendFeedback,
-  sendFeedbackSuccess,
-  sendFeedbackError,
 } = createActions(
   SIGNUP,
   SIGNUP_SUCCESS,
@@ -59,7 +52,4 @@ export const {
   SET_ACCOUNT,
   REFRESH_ACCOUNT,
   LOGOUT,
-  SEND_FEEDBACK,
-  SEND_FEEDBACK_SUCCESS,
-  SEND_FEEDBACK_ERROR
 );

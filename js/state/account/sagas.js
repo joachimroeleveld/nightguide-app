@@ -16,9 +16,6 @@ import {
   SIGNUP,
   signupError,
   signupSuccess,
-  SEND_FEEDBACK,
-  sendFeedbackError,
-  sendFeedbackSuccess,
 } from './actions';
 
 export function* signup() {
@@ -87,24 +84,6 @@ export function* resetPassword() {
   });
 }
 
-export function* sendFeedback() {
-  yield takeLatest(SEND_FEEDBACK, function*(action) {
-    try {
-      yield call(api.misc.sendFeedback, action.payload);
-
-      yield put(sendFeedbackSuccess());
-    } catch (e) {
-      yield put(sendFeedbackError(e));
-    }
-  });
-}
-
 export default function* root() {
-  yield [
-    fork(signup),
-    fork(login),
-    fork(facebookLogin),
-    fork(resetPassword),
-    fork(sendFeedback),
-  ];
+  yield [fork(signup), fork(login), fork(facebookLogin), fork(resetPassword)];
 }

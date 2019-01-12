@@ -5,6 +5,7 @@ import {
 } from 'react-navigation';
 
 import asScreen from '../../screens/asScreen';
+import IntroScreen from '../../screens/IntroScreen';
 import ExploreScreen from '../../screens/ExploreScreen';
 import SplashScreen from '../../screens/SplashScreen';
 import LoginScreen from '../../screens/LoginScreen';
@@ -21,61 +22,51 @@ import S from '../styles';
 const mainStackScreen = asScreen({});
 
 const mainStack = {
-  Tabs: {
-    screen: createBottomTabNavigator(
-      {
-        List: mainStackScreen(ListScreen),
-        Explore: mainStackScreen(ExploreScreen),
-        Profile: mainStackScreen(ProfileScreen),
+  Tabs: createBottomTabNavigator(
+    {
+      List: mainStackScreen(ListScreen),
+      Explore: mainStackScreen(ExploreScreen),
+      Profile: mainStackScreen(ProfileScreen),
+    },
+    {
+      defaultNavigationOptions: {
+        header: null,
       },
-      {
-        defaultNavigationOptions: {
-          header: null,
-        },
-        tabBarOptions: {
-          activeTintColor: S.tabBar.activeTintColor,
-          inactiveTintColor: S.tabBar.inactiveTintColor,
-          upperCaseLabel: true,
-          style: S.tabBar.container,
-          labelStyle: S.tabBar.label,
-        },
-      }
-    ),
-  },
+      tabBarOptions: {
+        activeTintColor: S.tabBar.activeTintColor,
+        inactiveTintColor: S.tabBar.inactiveTintColor,
+        upperCaseLabel: true,
+        style: S.tabBar.container,
+        labelStyle: S.tabBar.label,
+      },
+    }
+  ),
 };
 
 const fadeModals = {
-  Search: {
-    screen: asScreen()(SearchScreen),
-  },
+  Search: asScreen()(SearchScreen),
 };
 
 const bottomModalScreen = asScreen({ isBottomModal: true });
 
 const fromBottomModals = {
-  Feedback: {
-    screen: bottomModalScreen(FeedbackScreen),
-  },
+  Feedback: bottomModalScreen(FeedbackScreen),
 };
 
 const AppStack = createStackNavigator(
   {
-    Main: {
-      screen: createStackNavigator(
-        {
-          MainInner: {
-            screen: createStackNavigator(mainStack, {
-              headerMode: 'none',
-            }),
-          },
-          ...fromBottomModals,
-        },
-        {
+    Main: createStackNavigator(
+      {
+        MainInner: createStackNavigator(mainStack, {
           headerMode: 'none',
-          mode: 'modal',
-        }
-      ),
-    },
+        }),
+        ...fromBottomModals,
+      },
+      {
+        headerMode: 'none',
+        mode: 'modal',
+      }
+    ),
     ...fadeModals,
   },
   {
@@ -98,9 +89,21 @@ const AuthStack = createStackNavigator(
   }
 );
 
+const introScreen = asScreen({});
+
+const IntroStack = createStackNavigator(
+  {
+    Location: introScreen(IntroScreen),
+  },
+  {
+    headerMode: 'none',
+  }
+);
+
 export default createSwitchNavigator(
   {
     App: AppStack,
+    Intro: IntroStack,
     Auth: AuthStack,
   },
   {
