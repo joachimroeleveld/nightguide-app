@@ -18,7 +18,7 @@ import S from '../config/styles';
  */
 export default function asScreen(screenOpts = {}) {
   return WrappedComponent => {
-    const { backgroundImage, errorMessages} = Object.assign(
+    const { backgroundImage, errorMessages } = Object.assign(
       screenOpts,
       WrappedComponent.screenOptions
     );

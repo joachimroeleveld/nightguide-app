@@ -1,5 +1,6 @@
 import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
+import { persistReducer } from 'redux-persist';
 
 import {
   login,
@@ -13,9 +14,32 @@ import {
   signup,
   signupError,
   signupSuccess,
+  logout,
 } from './actions';
 
-export default handleActions(
+const INITIAL_STATE = {
+  signup: {
+    isFetching: false,
+    success: false,
+    error: null,
+  },
+  login: {
+    isFetching: false,
+    error: null,
+  },
+  fbLogin: {
+    error: null,
+  },
+  resetPassword: {
+    isFetching: false,
+    success: false,
+    error: null,
+  },
+  user: {},
+  token: null,
+};
+
+const reducer = handleActions(
   {
     [signup]: (state, action) =>
       update(state, {
@@ -99,26 +123,17 @@ export default handleActions(
         token: { $set: action.payload.token },
         user: { $set: action.payload.user },
       }),
+    [logout]: () => INITIAL_STATE,
   },
-  {
-    signup: {
-      isFetching: false,
-      success: false,
-      error: null,
-    },
-    login: {
-      isFetching: false,
-      error: null,
-    },
-    fbLogin: {
-      error: null,
-    },
-    resetPassword: {
-      isFetching: false,
-      success: false,
-      error: null,
-    },
-    user: {},
-    token: null,
-  }
+  INITIAL_STATE
 );
+
+export default persistConfig =>
+  persistReducer(
+    {
+      ...persistConfig,
+      key: 'account',
+      whitelist: ['token', 'user'],
+    },
+    reducer
+  );

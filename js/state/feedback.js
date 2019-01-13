@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, fork } from 'redux-saga/effects';
 import update from 'immutability-helper';
 
 import api from '../services/api';
@@ -18,7 +18,7 @@ export const {
   SEND_FEEDBACK_ERROR,
 );
 
-export function* sendFeedbackSaga() {
+function* sendFeedbackSaga() {
   yield takeLatest(SEND_FEEDBACK, function*(action) {
     try {
       yield call(api.misc.sendFeedback, action.payload);
@@ -28,6 +28,10 @@ export function* sendFeedbackSaga() {
       yield put(sendFeedbackError(e));
     }
   });
+}
+
+export function* sagas() {
+  yield [fork(sendFeedbackSaga)];
 }
 
 export default handleActions(

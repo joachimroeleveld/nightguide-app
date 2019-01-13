@@ -13,11 +13,17 @@ class Distance extends React.Component {
       latitude: PropTypes.number.isRequired,
     }).isRequired,
     caps: PropTypes.bool,
+    fallbackText: PropTypes.string,
   };
 
   static defaultProps = {
     caps: false,
+    fallbackText: '',
   };
+
+  get enabled() {
+    return this.props.currentLocation.longitude !== null;
+  }
 
   get distance() {
     return this.calculateDistance(this.props.currentLocation);
@@ -59,7 +65,8 @@ class Distance extends React.Component {
   );
 
   render() {
-    return <Text style={this.props.style}>{this.distanceText}</Text>;
+    const value = this.enabled ? this.distanceText : this.props.fallbackText;
+    return <Text style={this.props.style}>{value}</Text>;
   }
 }
 

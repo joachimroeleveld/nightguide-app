@@ -32,7 +32,7 @@ function initAction({ dispatch }) {
   return next => action => {
     const retVal = next(action);
 
-    if (action.type === REHYDRATE) {
+    if (action.type === REHYDRATE && action.key === 'account') {
       dispatch(initializeApp());
     }
 
@@ -54,13 +54,16 @@ function authenticateApi({ getState }) {
   };
 }
 
-function purgePersistorOnLogout() {
+function flushPersistorOnLogout() {
   return next => action => {
+    const retVal = next(action);
+
     if (action.type === LOGOUT) {
-      persistor.purge();
+      // Write state after logout
+      persistor.flush();
     }
 
-    return next(action);
+    return retVal;
   };
 }
 
@@ -78,6 +81,6 @@ export default [
   handleErrors,
   initAction,
   authenticateApi,
-  purgePersistorOnLogout,
+  flushPersistorOnLogout,
   // refreshAccountOnInit,
 ];

@@ -1,6 +1,6 @@
 let config = {
   apiUrl: 'https://api.dev.nightguide.app',
-  apiToken: '',
+  apiToken: 'token',
 };
 
 const devConfig = {
