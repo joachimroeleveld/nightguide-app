@@ -11,6 +11,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "RNSplashScreen.h"
 
 @implementation AppDelegate
 
@@ -32,7 +33,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 //  return YES;
-
+  [RNSplashScreen show];
   return [[FBSDKApplicationDelegate sharedInstance] application:application
                                   didFinishLaunchingWithOptions:launchOptions];
 }

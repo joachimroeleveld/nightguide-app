@@ -3,6 +3,7 @@ import { Platform, PermissionsAndroid } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { createAppContainer } from 'react-navigation';
+import SplashScreen from 'react-native-splash-screen';
 
 import AppNavigator from './config/routes';
 import { store, persistor } from './state/store';
@@ -13,6 +14,8 @@ export default class App extends Component {
   state = { navigator: null };
 
   async componentDidMount() {
+    SplashScreen.hide();
+
     // On Android, request location permission as soon as possible
     if (Platform.OS === 'android') {
       if (
