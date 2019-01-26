@@ -28,6 +28,7 @@ class IntroScreen extends React.Component {
       type: 'location',
       value: response,
     });
+
     this.navigateApp();
   };
 
@@ -38,13 +39,16 @@ class IntroScreen extends React.Component {
           <Text style={styles.enableLocationText}>
             {__('introScreen.enableLocation')}
           </Text>
-          <BigButton
-            style={[S.buttons.whiteButton, styles.continueButton]}
-            darkTitle={true}
-            title={__('continue')}
-            onPress={this.requestPermissions}
-          />
+          <Text style={styles.enableLocationDescription}>
+            {__('introScreen.enableLocationDescription')}
+          </Text>
         </View>
+        <BigButton
+          style={[S.buttons.whiteButton, styles.continueButton]}
+          darkTitle={true}
+          title={__('continue')}
+          onPress={this.requestPermissions}
+        />
       </View>
     );
   }
@@ -71,12 +75,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   enableLocationText: {
-    fontSize: 22,
+    fontSize: 17,
     textAlign: 'center',
     marginTop: '10%',
+    fontWeight: '700',
   },
-  textContainer: {},
+  enableLocationDescription: {
+    fontSize: 13,
+    marginTop: 16,
+    textAlign: 'center',
+  },
+  textContainer: {
+    width: '80%',
+  },
   continueButton: {
     marginTop: 32,
+    width: '85%',
   },
 });

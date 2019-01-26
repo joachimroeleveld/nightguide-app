@@ -20,7 +20,7 @@ const reducer = handleActions(
           $set: action.payload.value,
         },
       }),
-    [logout]: () => INITIAL_STATE,
+    [logout]: state => state, // Keep permissions
   },
   INITIAL_STATE
 );

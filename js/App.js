@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Platform, PermissionsAndroid } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { createAppContainer } from 'react-navigation';
@@ -15,19 +14,6 @@ export default class App extends Component {
 
   async componentDidMount() {
     SplashScreen.hide();
-
-    // On Android, request location permission as soon as possible
-    if (Platform.OS === 'android') {
-      if (
-        !(await PermissionsAndroid.check(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-        ))
-      ) {
-        await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-        );
-      }
-    }
   }
 
   render() {

@@ -6,7 +6,8 @@
     "login": "Login"
   },
   "introScreen": {
-    "enableLocation": "Enable location to utilize the\napp’s functionality"
+    "enableLocation": "Enable location to utilize the\napp’s functionality",
+    "enableLocationDescription": "Maps, distance and occupation use location services"
   },
   "loginScreen": {
     "email": "Email",
