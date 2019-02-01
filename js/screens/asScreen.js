@@ -1,9 +1,9 @@
 import React from 'react';
 import { SafeAreaView } from 'react-navigation';
 import {
+  View,
   StyleSheet,
   StatusBar,
-  View,
   Image,
   SafeAreaView as RNSafeAreaView,
 } from 'react-native';
@@ -18,28 +18,37 @@ import S from '../config/styles';
  */
 export default function asScreen(screenOpts = {}) {
   return WrappedComponent => {
-    const { backgroundImage, errorMessages } = Object.assign(
-      screenOpts,
-      WrappedComponent.screenOptions
-    );
+    const {
+      backgroundImage,
+      errorMessages,
+      bleed,
+      isBottomModal,
+    } = Object.assign(screenOpts, WrappedComponent.screenOptions);
 
     const WithNavWrappedComponent = withNavigation(WrappedComponent);
 
     class AsScreen extends React.PureComponent {
+      get SafeAreaViewComponent() {
+        if (bleed) {
+          return View;
+        }
+        if (isBottomModal) {
+          return RNSafeAreaView;
+        }
+        return SafeAreaView;
+      }
+
       render() {
-        const SafeAreaViewComponent = screenOpts.isBottomModal
-          ? RNSafeAreaView
-          : SafeAreaView;
         return (
           <View style={styles.bgContainer}>
             {!!backgroundImage && (
               <Image source={backgroundImage} style={styles.bgImage} />
             )}
-            <SafeAreaViewComponent style={styles.container}>
+            <this.SafeAreaViewComponent style={styles.container}>
               <ErrorMessageHandler errorMessages={errorMessages} />
               <StatusBar barStyle="light-content" />
               <WithNavWrappedComponent />
-            </SafeAreaViewComponent>
+            </this.SafeAreaViewComponent>
           </View>
         );
       }

@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
+import TouchableScale from 'react-native-touchable-scale';
+import _ from 'lodash';
 
 import S from '../config/styles';
 import Text from './Text';
 import ProgressiveImage from './ProgressiveImage';
 import Distance from './Distance';
+import __ from '../services/i18n';
 
 class VenueListItem extends React.PureComponent {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
+    categories: PropTypes.arrayOf(PropTypes.string).isRequired,
     onPress: PropTypes.func,
     imageUrl: PropTypes.string.isRequired,
     isOpen: PropTypes.bool,
@@ -18,9 +21,12 @@ class VenueListItem extends React.PureComponent {
   };
 
   state = {
-    category: '',
     layoutWidth: null,
   };
+
+  get category() {
+    return __(`venueCategories.${_.camelCase(this.props.categories[0])}`);
+  }
 
   onLayout = ({
     nativeEvent: {
@@ -32,7 +38,9 @@ class VenueListItem extends React.PureComponent {
 
   render() {
     return (
-      <View
+      <TouchableScale
+        activeScale={0.98}
+        onPress={this.props.onPress}
         onLayout={this.onLayout}
         style={[styles.container, this.props.style]}
       >
@@ -50,7 +58,7 @@ class VenueListItem extends React.PureComponent {
             />
             <View style={styles.smallCapsContainer}>
               <Text style={styles.smallCaps}>
-                {this.props.category.toUpperCase() + ' · '}
+                {this.category.toUpperCase() + ' · '}
               </Text>
               <Distance
                 caps={true}
@@ -61,7 +69,7 @@ class VenueListItem extends React.PureComponent {
             <Text style={styles.name}>{this.props.name}</Text>
           </React.Fragment>
         )}
-      </View>
+      </TouchableScale>
     );
   }
 }

@@ -3,6 +3,9 @@ import update from 'immutability-helper';
 import _ from 'lodash';
 
 import {
+  fetchVenue,
+  fetchVenueSuccess,
+  fetchVenueError,
   fetchVenues,
   fetchVenuesSuccess,
   fetchVenuesError,
@@ -13,6 +16,27 @@ import {
 
 export default handleActions(
   {
+    [fetchVenue]: (state, action) =>
+      update(state, {
+        current: {
+          isFetching: { $set: true },
+          error: { $set: null },
+        },
+      }),
+    [fetchVenueSuccess]: (state, action) =>
+      update(state, {
+        current: {
+          isFetching: { $set: false },
+          data: { $set: action.payload },
+        },
+      }),
+    [fetchVenueError]: (state, action) =>
+      update(state, {
+        current: {
+          isFetching: { $set: false },
+          error: { $set: action.payload },
+        },
+      }),
     [fetchExploreVenues]: (state, action) =>
       update(state, {
         byTag: {
@@ -75,7 +99,7 @@ export default handleActions(
             $merge: _.keyBy(action.payload, 'id'),
           },
           allIds: {
-            $push: action.payload.map(venue => venue.id)
+            $push: action.payload.map(venue => venue.id),
           },
         },
       }),
@@ -97,6 +121,10 @@ export default handleActions(
       filters: null,
       sort: null,
     },
-    current: {},
+    current: {
+      isFetching: false,
+      error: null,
+      data: null,
+    },
   }
 );

@@ -15,18 +15,17 @@ import SearchScreen from '../../screens/SearchScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
 import FeedbackScreen from '../../screens/FeedbackScreen';
 import ListScreen from '../../screens/ListScreen';
+import VenueScreen from '../../screens/VenueScreen'
 
 import { fadeTransition } from './transitionConfigs';
 import S from '../styles';
 
-const mainStackScreen = asScreen({});
-
 const mainStack = {
   Tabs: createBottomTabNavigator(
     {
-      List: mainStackScreen(ListScreen),
-      Explore: mainStackScreen(ExploreScreen),
-      Profile: mainStackScreen(ProfileScreen),
+      List: asScreen({})(ListScreen),
+      Explore: asScreen({})(ExploreScreen),
+      Profile: asScreen({})(ProfileScreen),
     },
     {
       defaultNavigationOptions: {
@@ -41,6 +40,7 @@ const mainStack = {
       },
     }
   ),
+  Venue: asScreen({ bleed: true })(VenueScreen),
 };
 
 const fadeModals = {

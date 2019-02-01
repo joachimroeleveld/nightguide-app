@@ -1,7 +1,4 @@
 import { request } from './index';
-import { normalize } from 'normalizr';
-
-import venue from './venues';
 
 export function getVenues({ skip, limit, filters, sort, fields }) {
   return request({
@@ -15,4 +12,11 @@ export function getVenues({ skip, limit, filters, sort, fields }) {
       fields,
     },
   }).then(data => data.results);
+}
+
+export function getVenue(venueId) {
+  return request({
+    path: `/venues/${venueId}`,
+    method: 'GET',
+  });
 }

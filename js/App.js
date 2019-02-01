@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { YellowBox } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { createAppContainer } from 'react-navigation';
@@ -8,6 +9,8 @@ import AppNavigator from './config/routes';
 import { store, persistor } from './state/store';
 import Toast from './components/Toast';
 import LocationManager from './components/LocationManager';
+
+YellowBox.ignoreWarnings(['Module RCTMFBLoginManager']);
 
 export default class App extends Component {
   state = { navigator: null };

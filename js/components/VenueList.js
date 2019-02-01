@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import S from '../config/styles';
 import VenueListItem from './VenueListItem';
@@ -10,6 +11,7 @@ class VenueList extends React.PureComponent {
     venues: PropTypes.array.isRequired,
     numColumns: PropTypes.number,
     horizontal: PropTypes.bool,
+    onItemPress: PropTypes.func,
   };
 
   static defaultProps = {
@@ -25,13 +27,15 @@ class VenueList extends React.PureComponent {
       <VenueListItem
         style={style}
         name={item.name}
-        category={item.category}
-        onPress={this.onItemPress}
+        categories={item.categories}
+        onPress={this.getOnItemPress(item.id)}
         imageUrl={item.images[0].url}
         coordinates={item.location.coordinates}
       />
     );
   };
+
+  getOnItemPress = _.memoize(venueId => () => this.props.onItemPress(venueId));
 
   keyExtractor = venue => venue.id;
 

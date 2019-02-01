@@ -33,10 +33,8 @@ class ListScreen extends React.Component {
   toggleCancel = () =>
     this.setState({ showSearchCancel: !this.state.showSearchCancel });
 
-  onItemPress = venue => {
-    this.props.navigation.navigate('Venue', {
-      venueId: venue.id,
-    });
+  onItemPress = venueId => {
+    this.props.navigation.navigate('Venue', { venueId });
   };
 
   render() {
@@ -65,7 +63,7 @@ const mapDispatchToProps = {
     fetchVenues({
       offset,
       limit,
-      fields: ['name', 'images', 'category', 'location'],
+      fields: ['name', 'images', 'categories', 'location'],
     }),
 };
 

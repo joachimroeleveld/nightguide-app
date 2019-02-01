@@ -64,6 +64,14 @@
     "enterMessage": "Enter your message",
     "submitSuccess": "Thanks for your feedback!"
   },
+  "venueCategories": {
+    "club": "Club",
+    "bar": "Bar",
+    "lounge": "Lounge",
+    "specialBeerBar": "Special beer bar",
+    "cocktailBar": "Cocktail bar",
+    "concertVenue": "Concert venue",
+  },
   "genericErrorTitle": "Something went wrong",
   "appInitError": "Could not start the app",
   "requiredField": "This field is required",
