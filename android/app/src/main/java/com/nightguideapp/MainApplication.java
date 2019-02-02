@@ -3,6 +3,7 @@ package com.nightguideapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.github.droibit.android.reactnative.customtabs.CustomTabsPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new CustomTabsPackage(),
             new LinearGradientPackage(),
             new SplashScreenReactPackage(),
             new RNGestureHandlerPackage(),
