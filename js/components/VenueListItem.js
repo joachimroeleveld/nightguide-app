@@ -25,7 +25,7 @@ class VenueListItem extends React.PureComponent {
   };
 
   get category() {
-    return __(`venueCategories.${_.camelCase(this.props.categories[0])}`);
+    return __(`venue.categories.${_.camelCase(this.props.categories[0])}`);
   }
 
   onLayout = ({
@@ -83,16 +83,17 @@ const styles = StyleSheet.create({
   smallCapsContainer: {
     flexDirection: 'row',
     marginTop: 8,
-    marginBottom: 1,
+    marginBottom: 4,
   },
   smallCaps: {
     fontSize: S.text.smallCapsFontSize,
     fontWeight: '700',
-    color: '#CACACA',
+    color: S.colors.textSmallCaps,
   },
   name: {
     fontWeight: '700',
     fontSize: 14,
+    lineHeight: 17,
   },
   thumbnail: {
     height: 130,

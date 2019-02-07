@@ -1,8 +1,8 @@
 import React from 'react';
-import {} from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
-import { fetchVenue } from '../../state/venues/actions';
+import { fetchVenue, resetVenue } from '../../state/venues/actions';
 import Venue from '../../components/Venue';
 
 class VenueScreen extends React.Component {
@@ -18,12 +18,20 @@ class VenueScreen extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    this.props.resetVenue();
+  }
+
   render() {
     if (!this.props.venue) {
       return null;
     }
 
-    return <Venue {...this.props.venue || {}} />;
+    return (
+      <ScrollView style={{ flex: 1 }}>
+        <Venue {...this.props.venue || {}} />
+      </ScrollView>
+    );
   }
 }
 
@@ -33,6 +41,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  resetVenue,
   fetchVenue,
 };
 

@@ -11,4 +11,13 @@ function __(...args) {
   return i18n.t(...args);
 }
 
+export function _o(translatedObject) {
+  if (translatedObject[i18n.locale]) {
+    return translatedObject[i18n.locale];
+  } else if (translatedObject.en) {
+    return translatedObject.en;
+  }
+  return false;
+}
+
 export default __;

@@ -11,7 +11,7 @@ import BigButton from '../../components/BigButton';
 class SplashScreen extends React.Component {
   static screenOptions = {
     errorMessages: { 'account.fbLogin.error': {} },
-    backgroundImage: require('./img/splash-bg.png'),
+    backgroundImage: require('./img/splash-bg.jpg'),
   };
 
   constructor(props) {

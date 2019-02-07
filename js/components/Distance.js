@@ -37,7 +37,7 @@ class Distance extends React.Component {
     } else {
       if (this.distance < 10000) {
         // Show kms with 2 decimals
-        val = Math.round(((this.distance + 0.00001) * 100) / 100);
+        val = Math.round(((this.distance / 1000 + 0.00001) * 100) / 100);
       } else {
         // Show kms without decimals
         val = Math.round(this.distance / 1000);
@@ -51,7 +51,7 @@ class Distance extends React.Component {
   }
 
   calculateDistance = _.memoize(({ latitude, longitude, accuracy }) =>
-    geolib.getDistanceSimple(
+    geolib.getDistance(
       {
         latitude,
         longitude,

@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     padding: 14,
     backgroundColor: 'transparent',
   },
-  title: {
+  name: {
     textAlign: 'center',
     color: TITLE_COLOR,
     fontSize: TITLE_FONT_SIZE,

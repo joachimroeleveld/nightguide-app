@@ -12,6 +12,7 @@ import {
   fetchExploreVenues,
   fetchExploreVenuesSuccess,
   fetchExploreVenuesError,
+  resetVenue,
 } from './actions';
 
 export default handleActions(
@@ -35,6 +36,13 @@ export default handleActions(
         current: {
           isFetching: { $set: false },
           error: { $set: action.payload },
+        },
+      }),
+    [resetVenue]: (state, action) =>
+      update(state, {
+        current: {
+          isFetching: { $set: false },
+          data: { $set: null },
         },
       }),
     [fetchExploreVenues]: (state, action) =>

@@ -3,6 +3,8 @@ package com.nightguideapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.github.amarcruz.rntextsize.RNTextSizePackage;
+import com.swmansion.rnscreens.RNScreensPackage;
 import com.github.droibit.android.reactnative.customtabs.CustomTabsPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -29,6 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNTextSizePackage(),
+            new RNScreensPackage(),
             new CustomTabsPackage(),
             new LinearGradientPackage(),
             new SplashScreenReactPackage(),

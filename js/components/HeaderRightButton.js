@@ -5,7 +5,7 @@ import Text from './Text';
 
 const HeaderRightButton = props => (
   <TouchableOpacity onPress={props.onPress}>
-    <Text style={styles.text}>{props.title}</Text>
+    <Text style={styles.text}>{props.name}</Text>
   </TouchableOpacity>
 );
 

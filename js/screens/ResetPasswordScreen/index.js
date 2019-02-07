@@ -23,7 +23,7 @@ class ResetPasswordScreen extends React.Component {
         validation_error: __('resetPasswordScreen.invalidEmail'),
       },
     },
-    backgroundImage: require('../../img/login-bg.png'),
+    backgroundImage: require('../../img/login-bg.jpg'),
   };
 
   state = {

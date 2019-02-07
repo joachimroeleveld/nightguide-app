@@ -25,7 +25,7 @@ class SignupScreen extends React.Component {
         email_exists: __('signupScreen.emailAlreadyExists'),
       },
     },
-    backgroundImage: require('./img/signup-bg.png'),
+    backgroundImage: require('./img/signup-bg.jpg'),
   };
 
   static validators = {

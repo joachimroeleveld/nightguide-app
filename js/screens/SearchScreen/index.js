@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   content: {
     paddingTop: 32,
   },
-  title: {
+  name: {
     fontSize: 22,
     marginBottom: 14,
   },

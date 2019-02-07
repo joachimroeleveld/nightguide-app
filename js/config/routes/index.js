@@ -3,6 +3,9 @@ import {
   createStackNavigator,
   createSwitchNavigator,
 } from 'react-navigation';
+import { useScreens } from 'react-native-screens';
+
+useScreens();
 
 import asScreen from '../../screens/asScreen';
 import IntroScreen from '../../screens/IntroScreen';

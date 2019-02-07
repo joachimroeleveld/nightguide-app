@@ -3,11 +3,13 @@ import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
 import S from '../config/styles';
+import Text from './Text';
 
 class Section extends React.PureComponent {
   static propTypes = {
     border: PropTypes.oneOf(['top', 'bottom', 'none']),
     padding: PropTypes.oneOf(['top', 'bottom', 'none']),
+    title: PropTypes.string,
   };
 
   render() {
@@ -35,10 +37,13 @@ class Section extends React.PureComponent {
         padding = styles.paddingBottom;
         break;
       default:
-        padding = styles.paddingBoth
+        padding = styles.paddingBoth;
     }
     return (
       <View style={[styles.section, borderStyle, padding, this.props.styles]}>
+        {!!this.props.title && (
+          <Text style={styles.title}>{this.props.title}</Text>
+        )}
         {this.props.children}
       </View>
     );
@@ -52,6 +57,11 @@ const styles = StyleSheet.create({
     marginHorizontal: -S.dimensions.screenOffset,
     paddingHorizontal: S.dimensions.screenOffset,
     borderColor: S.colors.sectionBorderColor,
+  },
+  title: {
+    fontSize: 13,
+    fontWeight: '700',
+    marginBottom: 16,
   },
   borderTop: {
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -73,5 +83,5 @@ const styles = StyleSheet.create({
   },
   paddingNone: {
     padding: 0,
-  }
+  },
 });

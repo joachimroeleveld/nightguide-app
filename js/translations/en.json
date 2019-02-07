@@ -64,13 +64,32 @@
     "enterMessage": "Enter your message",
     "submitSuccess": "Thanks for your feedback!"
   },
-  "venueCategories": {
-    "club": "Club",
-    "bar": "Bar",
-    "lounge": "Lounge",
-    "specialBeerBar": "Special beer bar",
-    "cocktailBar": "Cocktail bar",
-    "concertVenue": "Concert venue",
+  "venueScreen": {
+    "music": "Music",
+    "typicalVisitors": "Typical visitors"
+  },
+  "venue": {
+    "categories": {
+      "club": "Club",
+      "bar": "Bar",
+      "lounge": "Lounge",
+      "craftBeerBar": "Craft beer bar",
+      "cocktailBar": "Cocktail bar",
+      "concertVenue": "Concert venue"
+    },
+    "musicTypes": {
+      "varying": "Varying",
+      "dance": "Dance / Top 40",
+      "jazz": "Jazz / Blues",
+      "live": "Live",
+      "hiphop": "Hip-hop"
+    },
+    "visitorTypes": {
+      "students": "Students",
+      "youngProfessionals": "Young professionals",
+      "middleAged": "Middle aged",
+      "varying": "Varying"
+    }
   },
   "genericErrorTitle": "Something went wrong",
   "appInitError": "Could not start the app",
@@ -79,5 +98,7 @@
   "confirm": "Confirm",
   "cancel": "Cancel",
   "submit": "Submit",
-  "continue": "Continue"
+  "continue": "Continue",
+  "readMore": "Read more",
+  "readLess": "Read less"
 }

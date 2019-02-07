@@ -27,7 +27,7 @@ class LoginScreen extends React.Component {
         invalid_auth_type: __('loginScreen.invalidAuthType'),
       },
     },
-    backgroundImage: require('../../img/login-bg.png'),
+    backgroundImage: require('../../img/login-bg.jpg'),
   };
 
   state = {

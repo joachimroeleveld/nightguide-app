@@ -29,21 +29,19 @@ class Carousel extends React.PureComponent {
     return this.props.height * widthHeightRatio;
   };
 
-  onIndexChange = (e, state, context) => {
-    this.setState({ activeIndex: state.index });
+  onIndexChange = index => {
+    this.setState({ activeIndex: index });
   };
 
   render() {
     return (
-      <View
-        onLayout={this.onLayout}
-        style={[styles.container, { height: this.props.height }]}
-      >
+      <View style={[styles.container, { height: this.props.height }]}>
         <Swiper
+          loop={false}
           height={this.props.height}
           style={styles.swiper}
           showsPagination={false}
-          onMomentumScrollEnd={this.onIndexChange}
+          onIndexChanged={this.onIndexChange}
         >
           {this.props.images.map((image, index) => (
             <ProgressiveImage
@@ -85,7 +83,9 @@ class Carousel extends React.PureComponent {
 export default Carousel;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: 'yellow',
+  },
   swiper: {
     zIndex: 0,
   },
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     zIndex: 2,
-    paddingVertical: 6,
+    paddingVertical: 8,
   },
   dots: {
     flexDirection: 'row',
@@ -120,9 +120,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   dot: {
-    marginHorizontal: 4,
-    width: 8,
-    height: 8,
+    marginHorizontal: 3,
+    width: 6,
+    height: 6,
     borderRadius: 8,
     backgroundColor: 'rgba(255,255,255,0.6)',
   },
