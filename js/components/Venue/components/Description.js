@@ -13,7 +13,7 @@ export default class VenueDescription extends React.PureComponent {
   };
 
   state = {
-    lineCount: 0,
+    lineCount: 2,
     expanded: false,
   };
 

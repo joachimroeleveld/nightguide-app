@@ -1,13 +1,15 @@
 import React from 'react';
-import { StyleSheet, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { withNavigationFocus } from 'react-navigation';
 
 import S from '../../../../config/styles';
 import Text from '../../../Text';
+import Image from '../../../Image';
 import __ from '../../../../services/i18n';
 
-export default class VenueMusicTypes extends React.PureComponent {
+class VenueMusicTypes extends React.PureComponent {
   static propTypes = {
     types: PropTypes.arrayOf(PropTypes.string),
   };
@@ -45,6 +47,7 @@ export default class VenueMusicTypes extends React.PureComponent {
             ]}
           >
             <Image
+              lazy={true}
               source={this.getImage(type)}
               style={[styles.image, { width: tileWidth }]}
             />
@@ -57,6 +60,8 @@ export default class VenueMusicTypes extends React.PureComponent {
     );
   }
 }
+
+export default withNavigationFocus(VenueMusicTypes);
 
 const styles = StyleSheet.create({
   container: {
@@ -76,6 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
+    backgroundColor: S.colors.tileBackgroundColor,
   },
   lastTile: {
     marginRight: 0,

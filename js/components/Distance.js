@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import Text from './Text';
 
-class Distance extends React.Component {
+class Distance extends React.PureComponent {
   static propTypes = {
     coordinates: PropTypes.shape({
       longitude: PropTypes.number.isRequired,

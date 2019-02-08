@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { NavigationEvents } from 'react-navigation';
 
 import S from '../config/styles';
 
@@ -9,7 +10,21 @@ class ProgressiveImage extends React.PureComponent {
   static propTypes = {
     url: PropTypes.string.isRequired,
     size: PropTypes.number.isRequired,
+    lazy: PropTypes.bool,
   };
+
+  thumbnailAnimated = new Animated.Value(0);
+  imageAnimated = new Animated.Value(0);
+
+  constructor(props) {
+    super(props);
+
+    if (this.props.lazy) {
+      this.state = {
+        loaded: false,
+      };
+    }
+  }
 
   getSource = () =>
     _.memoize((uri, size) => ({ uri: `${uri}=s${size}-c` }))(
@@ -20,9 +35,11 @@ class ProgressiveImage extends React.PureComponent {
   getThumbnailSource = () =>
     _.memoize(uri => ({ uri: `${uri}=s10-c` }))(this.props.url);
 
-  thumbnailAnimated = new Animated.Value(0);
-
-  imageAnimated = new Animated.Value(0);
+  onScreenFocus = () => {
+    this.setState({
+      loaded: true,
+    });
+  };
 
   handleThumbnailLoad = () => {
     Animated.timing(this.thumbnailAnimated, {
@@ -37,7 +54,15 @@ class ProgressiveImage extends React.PureComponent {
   };
 
   render() {
-    const { style } = this.props;
+    const { style, lazy } = this.props;
+
+    if (lazy && !this.state.loaded) {
+      return (
+        <View style={[styles.container, style]}>
+          <NavigationEvents onDidFocus={this.onScreenFocus} />
+        </View>
+      );
+    }
 
     return (
       <View style={styles.container}>

@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   section: {
     marginHorizontal: -S.dimensions.screenOffset,
     paddingHorizontal: S.dimensions.screenOffset,
-    borderColor: S.colors.sectionBorderColor,
+    borderColor: S.colors.separatorColor,
   },
   title: {
     fontSize: 13,
