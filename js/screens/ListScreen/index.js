@@ -17,21 +17,21 @@ class ListScreen extends React.Component {
     errorMessages: { 'venues.list.error': {} },
   };
 
-  state = { showSearchCancel: false };
+  state = { searchIsFocused: false };
 
   componentDidMount() {
     this.props.fetchVenues(0, 8);
   }
 
-  onSearchBarFocus = () => {
-    this.props.navigation.navigate('Search', {
-      query: 'Utrecht',
-      toggleCancel: this.toggleCancel,
+  focusSearch = () =>
+    this.setState({
+      searchIsFocused: true,
     });
-  };
 
-  toggleCancel = () =>
-    this.setState({ showSearchCancel: !this.state.showSearchCancel });
+  blurSearch = () =>
+    this.setState({
+      searchIsFocused: false,
+    });
 
   onItemPress = venueId => {
     this.props.navigation.navigate('Venue', { venueId });
@@ -41,9 +41,11 @@ class ListScreen extends React.Component {
     return (
       <View style={styles.container}>
         <SearchBar
-          showCancel={this.state.showSearchCancel}
-          onFocus={this.onSearchBarFocus}
-          query={'Utrecht'}
+          query={this.props.query}
+          focused={this.state.searchIsFocused}
+          onFocus={this.focusSearch}
+          onCancelPress={this.blurSearch}
+          onSubmit={this.blurSearch}
           style={styles.searchBar}
         />
         <VenueList venues={this.props.venues} onItemPress={this.onItemPress} />
@@ -55,6 +57,7 @@ class ListScreen extends React.Component {
 const getVenueList = makeGetVenueList();
 
 const mapStateToProps = state => ({
+  query: state.venues.query,
   venues: getVenueList(state),
 });
 

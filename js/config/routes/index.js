@@ -14,7 +14,7 @@ import SplashScreen from '../../screens/SplashScreen';
 import LoginScreen from '../../screens/LoginScreen';
 import SignupScreen from '../../screens/SignupScreen';
 import ResetPasswordScreen from '../../screens/ResetPasswordScreen';
-import SearchScreen from '../../screens/SearchScreen';
+import CityScreen from '../../screens/CityScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
 import FeedbackScreen from '../../screens/FeedbackScreen';
 import ListScreen from '../../screens/ListScreen';
@@ -47,7 +47,7 @@ const mainStack = {
 };
 
 const fadeModals = {
-  Search: asScreen()(SearchScreen),
+  City: asScreen()(CityScreen),
 };
 
 const bottomModalScreen = asScreen({ isBottomModal: true });

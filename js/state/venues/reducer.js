@@ -13,6 +13,8 @@ import {
   fetchExploreVenuesSuccess,
   fetchExploreVenuesError,
   resetVenue,
+  queryVenues,
+  resetVenuesQuery,
 } from './actions';
 
 export default handleActions(
@@ -118,6 +120,14 @@ export default handleActions(
           error: { $set: action.payload },
         },
       }),
+    [queryVenues]: (state, action) =>
+      update(state, {
+        query: { $set: action.payload.text },
+      }),
+    [resetVenuesQuery]: (state, action) =>
+      update(state, {
+        query: { $set: null },
+      }),
   },
   {
     byTag: {},
@@ -126,13 +136,15 @@ export default handleActions(
       error: null,
       byId: {},
       allIds: [],
-      filters: null,
-      sort: null,
     },
     current: {
       isFetching: false,
       error: null,
       data: null,
     },
+    query: null,
+    filters: {},
+    sort: null,
+    city: 'Utrecht',
   }
 );

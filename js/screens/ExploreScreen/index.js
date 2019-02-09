@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
+import { connect } from 'react-redux';
 
 import S from '../../config/styles';
 import SearchBar from '../../components/SearchBar';
@@ -9,29 +10,34 @@ class ExploreScreen extends React.Component {
     tabBarIcon: <Image source={require('../../img/tabbar/explore.png')} />,
   };
 
-  static TAGS = [
+  static TAGS = [];
 
-  ];
+  state = { searchIsFocused: false };
 
-  state = { showSearchCancel: false };
-
-  onSearchBarFocus = () => {
-    this.props.navigation.navigate('Search', {
-      query: 'Utrecht',
-      toggleCancel: this.toggleCancel,
+  focusSearch = () =>
+    this.setState({
+      searchIsFocused: true,
     });
-  };
 
-  toggleCancel = () =>
-    this.setState({ showSearchCancel: !this.state.showSearchCancel });
+  blurSearch = () =>
+    this.setState({
+      searchIsFocused: false,
+    });
+
+  onSubmit = () => {
+    this.blurSearch();
+    this.props.navigation.navigate('List');
+  };
 
   render() {
     return (
       <View style={styles.container}>
         <SearchBar
-          showCancel={this.state.showSearchCancel}
-          onFocus={this.onSearchBarFocus}
-          query={'Utrecht'}
+          query={this.props.query}
+          focused={this.state.searchIsFocused}
+          onFocus={this.focusSearch}
+          onCancelPress={this.blurSearch}
+          onSubmit={this.onSubmit}
           style={styles.searchBar}
         />
       </View>
@@ -39,7 +45,11 @@ class ExploreScreen extends React.Component {
   }
 }
 
-export default ExploreScreen;
+const mapStateToProps = state => ({
+  query: state.venues.query,
+});
+
+export default connect(mapStateToProps)(ExploreScreen);
 
 const styles = StyleSheet.create({
   container: {

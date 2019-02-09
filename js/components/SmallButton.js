@@ -2,7 +2,6 @@ import React from 'react';
 import { TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
-import colors from '../config/styles/colors';
 import Text from './Text';
 
 class SmallButton extends React.PureComponent {

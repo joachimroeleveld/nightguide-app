@@ -5,6 +5,11 @@
     "loginFb": "Continue with Facebook",
     "login": "Login"
   },
+  "searchBar": {
+    "inCity": "in {{city}}",
+    "lookForVenue": "Look for a venue...",
+    "allVenues": "All venues"
+  },
   "introScreen": {
     "enableLocation": "Enable location to utilize the\napp’s functionality",
     "enableLocationDescription": "Maps, distance and occupation use location services"
@@ -48,7 +53,7 @@
   },
   "searchScreen": {
     "utrechtFirst": "Utrecht is the first to have its nightlife mapped!",
-    "moreSoon": "NightGuide has set out to become the best source of information for nightlife available.\n\nExpect more cities and countries to be added soon. This is just getting started."
+    "moreSoon": "NightGuide has set out to become the best source of information for nightlife available.\n\nExpect more cities and countries to be added soon. This is just getting started.",
   },
   "profileScreen": {
     "profile": "Profile",

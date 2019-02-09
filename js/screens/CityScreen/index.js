@@ -1,58 +1,32 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
 import S from '../../config/styles';
 import __ from '../../services/i18n';
 import SearchBar from '../../components/SearchBar';
 import Text from '../../components/Text';
 import Title from '../../components/Title';
+import { queryVenues, resetVenuesQuery } from '../../state/venues/actions';
 
-class SearchScreen extends React.Component {
+class CityScreen extends React.Component {
   static navigationOptions = {
     gesturesEnabled: false,
   };
 
-  toggleParentScreenCancel = this.props.navigation.getParam('toggleCancel');
-
-  state = { showCancel: false, query: this.props.navigation.getParam('query') };
-
-  componentDidMount() {
-    this.addScreenEventListeners();
-  }
-
-  addScreenEventListeners = () => {
-    this.onFocusListener = this.props.navigation.addListener('didFocus', () => {
-      this.toggleParentScreenCancel();
-      this.setState({ showCancel: true });
-      this.onFocusListener.remove();
-    });
-    this.onBlurListener = this.props.navigation.addListener('didBlur', () => {
-      this.toggleParentScreenCancel();
-      this.onBlurListener.remove();
-    });
-  };
-
-  onChangeQuery = query => {
-    this.setState({ query });
-  };
-
-  onCancelPress = () => {
-    this.props.navigation.goBack();
-  };
+  onCancelPress = this.props.navigation.getParam('onCancelPress');
 
   render() {
     return (
       <View style={styles.container}>
         <SearchBar
-          query={this.state.query}
-          onChangeQuery={this.onChangeQuery}
-          showCancel={this.state.showCancel}
+          query={this.props.query}
           onCancelPress={this.onCancelPress}
+          focused={true}
+          focusElem={'city'}
         />
         <View style={styles.content}>
-          <Title style={styles.title}>
-            {__('searchScreen.utrechtFirst')}
-          </Title>
+          <Title style={styles.title}>{__('searchScreen.utrechtFirst')}</Title>
           <Text style={styles.text}>{__('searchScreen.moreSoon')}</Text>
         </View>
         <Image
@@ -64,7 +38,19 @@ class SearchScreen extends React.Component {
   }
 }
 
-export default SearchScreen;
+const mapStateToProps = state => ({
+  query: state.venues.query,
+});
+
+const mapDispatchToProps = {
+  queryVenues,
+  resetVenuesQuery,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CityScreen);
 
 const styles = StyleSheet.create({
   container: {
@@ -74,7 +60,7 @@ const styles = StyleSheet.create({
   content: {
     paddingTop: 32,
   },
-  name: {
+  title: {
     fontSize: 22,
     marginBottom: 14,
   },
