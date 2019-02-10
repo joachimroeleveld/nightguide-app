@@ -24,9 +24,9 @@ class ExploreScreen extends React.Component {
       searchIsFocused: false,
     });
 
-  onSubmit = () => {
+  onSubmit = query => {
     this.blurSearch();
-    this.props.navigation.navigate('List');
+    this.props.navigation.navigate('List', { query });
   };
 
   render() {
@@ -39,6 +39,7 @@ class ExploreScreen extends React.Component {
           onCancelPress={this.blurSearch}
           onSubmit={this.onSubmit}
           style={styles.searchBar}
+          city={this.props.city}
         />
       </View>
     );
@@ -46,7 +47,8 @@ class ExploreScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  query: state.venues.query,
+  city: state.venues.city,
+  query: state.venues.list.query,
 });
 
 export default connect(mapStateToProps)(ExploreScreen);

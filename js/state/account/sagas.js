@@ -18,7 +18,7 @@ import {
   signupSuccess,
 } from './actions';
 
-export function* signup() {
+function* signupSaga() {
   yield takeLatest(SIGNUP, function*(action) {
     try {
       yield call(api.users.signup, action.payload);
@@ -30,7 +30,7 @@ export function* signup() {
   });
 }
 
-export function* login() {
+function* loginSaga() {
   yield takeLatest(LOGIN, function*(action) {
     try {
       const response = yield call(
@@ -46,7 +46,7 @@ export function* login() {
   });
 }
 
-export function* facebookLogin() {
+function* facebookLoginSaga() {
   yield takeLatest(LOGIN_FB, function*(action) {
     yield put(loginFbDialog());
 
@@ -72,7 +72,7 @@ export function* facebookLogin() {
   });
 }
 
-export function* resetPassword() {
+function* resetPasswordSaga() {
   yield takeLatest(RESET_PASSWORD, function*(action) {
     try {
       yield call(api.users.resetPassword, { email: action.payload.email });
@@ -84,6 +84,11 @@ export function* resetPassword() {
   });
 }
 
-export default function* root() {
-  yield [fork(signup), fork(login), fork(facebookLogin), fork(resetPassword)];
+export default function* rootSaga() {
+  yield [
+    fork(signupSaga),
+    fork(loginSaga),
+    fork(facebookLoginSaga),
+    fork(resetPasswordSaga),
+  ];
 }

@@ -21,6 +21,7 @@ class CityScreen extends React.Component {
       <View style={styles.container}>
         <SearchBar
           query={this.props.query}
+          city={this.props.city}
           onCancelPress={this.onCancelPress}
           focused={true}
           focusElem={'city'}
@@ -39,7 +40,8 @@ class CityScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  query: state.venues.query,
+  city: state.venues.city,
+  query: state.venues.list.query,
 });
 
 const mapDispatchToProps = {

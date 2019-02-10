@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import S from '../../config/styles';
 import SearchBar from '../../components/SearchBar';
-import { fetchVenues } from '../../state/venues/actions';
+import { fetchVenues, queryVenues } from '../../state/venues/actions';
 import { makeGetVenueList } from '../../state/venues/selectors';
 import VenueList from '../../components/VenueList';
 
@@ -19,9 +20,17 @@ class ListScreen extends React.Component {
 
   state = { searchIsFocused: false };
 
-  componentDidMount() {
-    this.props.fetchVenues(0, 8);
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!prevProps.lastLocationUpdate && this.props.lastLocationUpdate) {
+      this.props.fetchVenues(0, 8);
+    }
   }
+
+  onQueryChange = text => {
+    this.props.queryVenues(text);
+  };
+
+  onQueryChangeDebounced = _.debounce(this.onQueryChange);
 
   focusSearch = () =>
     this.setState({
@@ -47,6 +56,8 @@ class ListScreen extends React.Component {
           onCancelPress={this.blurSearch}
           onSubmit={this.blurSearch}
           style={styles.searchBar}
+          onQueryChange={this.onQueryChangeDebounced}
+          city={this.props.city}
         />
         <VenueList venues={this.props.venues} onItemPress={this.onItemPress} />
       </View>
@@ -57,16 +68,27 @@ class ListScreen extends React.Component {
 const getVenueList = makeGetVenueList();
 
 const mapStateToProps = state => ({
-  query: state.venues.query,
+  city: state.venues.city,
+  query: state.venues.list.query,
   venues: getVenueList(state),
+  lastLocationUpdate: state.location.currentLocation.lastUpdate,
 });
+
+const FIELDS = ['name', 'images', 'categories', 'location'];
 
 const mapDispatchToProps = {
   fetchVenues: (offset, limit) =>
     fetchVenues({
       offset,
       limit,
-      fields: ['name', 'images', 'categories', 'location'],
+      fields: FIELDS,
+    }),
+  queryVenues: (text, offset, limit) =>
+    queryVenues({
+      text,
+      offset,
+      limit,
+      fields: FIELDS,
     }),
 };
 
@@ -79,6 +101,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: S.dimensions.screenOffset,
+    paddingBottom: 20,
   },
   searchBar: {
     marginHorizontal: S.dimensions.screenOffset,

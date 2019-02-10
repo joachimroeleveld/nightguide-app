@@ -1,16 +1,37 @@
 import { request } from './index';
 
-export function getVenues({ skip, limit, filters, sort, fields }) {
+export function getVenues({
+  skip,
+  limit,
+  filters,
+  sort,
+  fields,
+  latitude,
+  longitude,
+  query,
+}) {
+  const qs = {
+    skip,
+    limit,
+    filters,
+    query,
+    fields,
+    latitude,
+    longitude,
+  };
+
+  if (sort && sort.length) {
+    qs.sortBy = sort.map(obj => {
+      const by = Object.keys(obj)[0];
+      const order = obj[by] === 1 ? 'asc' : 'desc';
+      return `${by},${order}`;
+    });
+  }
+
   return request({
     path: '/venues',
     method: 'GET',
-    qs: {
-      skip,
-      limit,
-      filters,
-      sort,
-      fields,
-    },
+    qs,
   }).then(data => data.results);
 }
 

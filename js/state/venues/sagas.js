@@ -1,4 +1,11 @@
-import { call, fork, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import {
+  call,
+  fork,
+  put,
+  takeEvery,
+  takeLatest,
+  select,
+} from 'redux-saga/effects';
 
 import api from '../../services/api';
 import {
@@ -11,9 +18,12 @@ import {
   FETCH_VENUES,
   fetchVenuesSuccess,
   fetchVenuesError,
+  fetchVenues,
+  QUERY_VENUES,
 } from './actions';
+import { getCurrentLocation } from '../location';
 
-export function* fetchVenue() {
+function* fetchVenueSaga() {
   yield takeLatest(FETCH_VENUE, function*(action) {
     const { venueId } = action.payload;
 
@@ -27,7 +37,7 @@ export function* fetchVenue() {
   });
 }
 
-export function* fetchExploreVenues() {
+function* fetchExploreVenuesSaga() {
   yield takeEvery(FETCH_EXPLORE_VENUES, function*(action) {
     const { tag } = action.payload;
 
@@ -50,18 +60,30 @@ export function* fetchExploreVenues() {
   });
 }
 
-export function* fetchVenues() {
+function* fetchVenuesSaga() {
   yield takeEvery(FETCH_VENUES, function*(action) {
-    const { filters, sort, fields, offset, limit } = action.payload;
+    let { filters, sort, query, fields, offset, limit } = action.payload;
+
+    const params = {
+      offset,
+      limit,
+      filters,
+      sort,
+      fields,
+      query,
+    };
+
+    const currentLocation = yield select(getCurrentLocation);
+
+    // Sort by distance by default
+    if (!sort && currentLocation) {
+      params.sort = [{ distance: 1 }];
+      params.latitude = currentLocation.latitude;
+      params.longitude = currentLocation.longitude;
+    }
 
     try {
-      const results = yield call(api.venues.getVenues, {
-        offset,
-        limit,
-        filters,
-        sort,
-        fields,
-      });
+      const results = yield call(api.venues.getVenues, params);
 
       yield put(fetchVenuesSuccess(results));
     } catch (error) {
@@ -70,6 +92,23 @@ export function* fetchVenues() {
   });
 }
 
-export default function* root() {
-  yield [fork(fetchExploreVenues), fork(fetchVenues), fork(fetchVenue)];
+function* queryVenuesSaga() {
+  yield takeLatest(QUERY_VENUES, function*(action) {
+    let { text, ...otherParams } = action.payload;
+
+    if (!text || (text && text.length > 2)) {
+      yield put(fetchVenues({ query: text, ...otherParams }));
+    } else if (text) {
+      yield put(fetchVenuesSuccess([]));
+    }
+  });
+}
+
+export default function* rootSaga() {
+  yield [
+    fork(fetchExploreVenuesSaga),
+    fork(fetchVenuesSaga),
+    fork(fetchVenueSaga),
+    fork(queryVenuesSaga),
+  ];
 }

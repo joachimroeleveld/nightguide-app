@@ -10,12 +10,9 @@ import {
   Dimensions,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { withNavigation } from 'react-navigation';
-import _ from 'lodash';
+import { withNavigation, withNavigationFocus } from 'react-navigation';
 
 import __ from '../../services/i18n';
-import { queryVenues } from '../../state/venues/actions';
 import S from '../../config/styles';
 import Text from '../../components/Text';
 import SmallButton from '../SmallButton';
@@ -24,16 +21,20 @@ const CANCEL_BUTTON_OFFSET_WIDTH = 74;
 
 class SearchBar extends React.PureComponent {
   static propTypes = {
+    onCancelPress: PropTypes.func.isRequired,
+    city: PropTypes.string.isRequired,
+    onSubmit: PropTypes.func,
+    onQueryChange: PropTypes.func,
     onFocus: PropTypes.func,
     query: PropTypes.string,
-    onCancelPress: PropTypes.func,
     focused: PropTypes.bool,
-    onSubmit: PropTypes.func,
     focusElem: PropTypes.oneOf(['city', 'query']),
   };
 
   static defaultProps = {
+    focused: false,
     focusElem: 'query',
+    onQueryChange: () => {},
   };
 
   state = {
@@ -87,9 +88,10 @@ class SearchBar extends React.PureComponent {
     this.forceUpdate();
   };
 
-  onChangeQuery = query => {
-    this.setState({ query: query.trim() });
-    this.applyQueryDebounced();
+  onQueryChange = query => {
+    const text = query ? query.trim() : null;
+    this.setState({ query: text });
+    this.props.onQueryChange(text);
   };
 
   onCityFocus = () => {
@@ -112,7 +114,10 @@ class SearchBar extends React.PureComponent {
         duration: 100,
       }).start();
     } else {
-      this.props.navigation.goBack();
+      // If current screen
+      if (this.props.isFocused) {
+        this.props.navigation.goBack();
+      }
     }
 
     this.setState({
@@ -127,14 +132,7 @@ class SearchBar extends React.PureComponent {
     }).start();
   };
 
-  applyQuery = () => {
-    this.props.queryVenues({ text: this.state.query });
-  };
-
-  applyQueryDebounced = _.debounce(this.applyQuery);
-
   onSubmit = () => {
-    this.applyQuery();
     this.props.onSubmit(this.state.query);
   };
 
@@ -142,7 +140,8 @@ class SearchBar extends React.PureComponent {
     if (this.state.cityIsFocused) {
       this.props.navigation.goBack();
     } else {
-      this.setState({ query: this.state.initialQuery }, this.applyQuery);
+      this.setState({ query: this.state.initialQuery });
+      this.onQueryChange(this.state.initialQuery);
     }
     this.props.onCancelPress();
   };
@@ -154,7 +153,7 @@ class SearchBar extends React.PureComponent {
 
   resetQueryInput = () => {
     this.setState({ query: null });
-    this.applyQuery();
+    this.onQueryChange(null);
   };
 
   render() {
@@ -166,9 +165,7 @@ class SearchBar extends React.PureComponent {
         >
           {!this.props.focused && (
             <View style={styles.textContainer}>
-              <TouchableWithoutFeedback
-                onPress={this.onTextPress}
-              >
+              <TouchableWithoutFeedback onPress={this.onTextPress}>
                 <View style={styles.textBox}>
                   <Image
                     style={styles.searchIcon}
@@ -228,7 +225,7 @@ class SearchBar extends React.PureComponent {
                       this.state.cityIsFocused && styles.blurredInput,
                     ]}
                     ref={ref => (this.queryInput = ref)}
-                    onChangeText={this.onChangeQuery}
+                    onChangeText={this.onQueryChange}
                     onFocus={this.onQueryFocus}
                     onBlur={this.onQueryBlur}
                     value={this.state.query}
@@ -296,20 +293,7 @@ class SearchBar extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  city: state.venues.city,
-});
-
-const mapDispatchToProps = {
-  queryVenues,
-};
-
-export default withNavigation(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(SearchBar)
-);
+export default withNavigationFocus(withNavigation(SearchBar));
 
 const styles = StyleSheet.create({
   container: {

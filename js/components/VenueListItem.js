@@ -33,7 +33,7 @@ class VenueListItem extends React.PureComponent {
       layout: { width },
     },
   }) => {
-    this.setState({ layoutWidth: Math.floor(width) });
+    this.setState({ layoutWidth: Math.round(width) });
   };
 
   render() {
@@ -78,7 +78,6 @@ export default VenueListItem;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
   },
   smallCapsContainer: {
     flexDirection: 'row',

@@ -84,32 +84,25 @@ export default handleActions(
           },
         },
       }),
-    [fetchVenues]: (state, action) => {
-      const resetData = _.isEqual(
-        _.pick(state.list, ['filters', 'sort']),
-        _.pick(action.payload, ['filters', 'sort'])
-      );
-      // Reset data if sort/filters have changed
-      const data = resetData ? [] : state.list.data;
-      return update(state, {
+    [fetchVenues]: (state, action) =>
+      update(state, {
         list: {
           isFetching: { $set: true },
           error: { $set: null },
-          data: { $set: data },
+          query: { $set: action.payload.query || null },
           filters: { $set: action.payload.filters || null },
           sort: { $set: action.payload.sort || null },
         },
-      });
-    },
+      }),
     [fetchVenuesSuccess]: (state, action) =>
       update(state, {
         list: {
           isFetching: { $set: false },
           byId: {
-            $merge: _.keyBy(action.payload, 'id'),
+            $set: _.keyBy(action.payload, 'id'),
           },
           allIds: {
-            $push: action.payload.map(venue => venue.id),
+            $set: action.payload.map(venue => venue.id),
           },
         },
       }),
@@ -122,11 +115,15 @@ export default handleActions(
       }),
     [queryVenues]: (state, action) =>
       update(state, {
-        query: { $set: action.payload.text },
+        list: {
+          query: { $set: action.payload.text },
+        },
       }),
     [resetVenuesQuery]: (state, action) =>
       update(state, {
-        query: { $set: null },
+        list: {
+          query: { $set: null },
+        },
       }),
   },
   {
@@ -136,15 +133,15 @@ export default handleActions(
       error: null,
       byId: {},
       allIds: [],
+      query: null,
+      filters: {},
+      sort: null,
     },
     current: {
       isFetching: false,
       error: null,
       data: null,
     },
-    query: null,
-    filters: {},
-    sort: null,
     city: 'Utrecht',
   }
 );

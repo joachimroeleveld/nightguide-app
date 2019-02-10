@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, Dimensions, View } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -19,19 +19,36 @@ class VenueList extends React.PureComponent {
     horizontal: false,
   };
 
-  renderListItem = ({ item }) => {
+  renderListItem = ({ item, index }) => {
     const style = this.props.horizontal
       ? styles.itemHorizontal
       : styles.itemVertical;
+
+    let itemWidth;
+    if (!this.props.horizontal) {
+      itemWidth =
+        (Dimensions.get('window').width -
+          S.dimensions.screenOffset * 2 -
+          S.dimensions.listItemMargin * (this.props.numColumns - 1)) /
+        this.props.numColumns;
+    }
+
+    const Separator = () => <View style={styles.separator} />;
+
     return (
-      <VenueListItem
-        style={style}
-        name={item.name}
-        categories={item.categories}
-        onPress={this.getOnItemPress(item.id)}
-        imageUrl={item.images[0].url}
-        coordinates={item.location.coordinates}
-      />
+      <View style={styles.itemContainer}>
+        <VenueListItem
+          style={[style, { width: itemWidth }]}
+          name={item.name}
+          categories={item.categories}
+          onPress={this.getOnItemPress(item.id)}
+          imageUrl={item.images[0].url}
+          coordinates={item.location.coordinates}
+        />
+        {!this.props.horizontal && index % this.props.numColumns === 0 && (
+          <Separator />
+        )}
+      </View>
     );
   };
 
@@ -44,13 +61,14 @@ class VenueList extends React.PureComponent {
       ? styles.containerHorizontal
       : styles.containerVertical;
     return (
-      <FlatList
-        keyExtractor={this.keyExtractor}
-        renderItem={this.renderListItem}
-        data={this.props.venues}
-        numColumns={this.props.numColumns}
-        style={style}
-      />
+      <View style={style}>
+        <FlatList
+          keyExtractor={this.keyExtractor}
+          renderItem={this.renderListItem}
+          data={this.props.venues}
+          numColumns={this.props.numColumns}
+        />
+      </View>
     );
   }
 }
@@ -59,11 +77,17 @@ export default VenueList;
 
 const styles = StyleSheet.create({
   containerVertical: {
-    paddingHorizontal: S.dimensions.screenOffset / 2,
-    paddingVertical: 5,
+    marginHorizontal: S.dimensions.screenOffset,
+    paddingVertical: S.dimensions.listItemMargin / 2,
   },
   itemVertical: {
-    marginHorizontal: S.dimensions.screenOffset / 2,
-    marginVertical: 10,
+    marginVertical: S.dimensions.listItemMargin / 2,
+  },
+  itemContainer: {
+    flexDirection: 'row',
+  },
+  separator: {
+    width: S.dimensions.listItemMargin,
+    height: '100%',
   },
 });
