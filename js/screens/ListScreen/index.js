@@ -18,13 +18,23 @@ class ListScreen extends React.Component {
     errorMessages: { 'venues.list.error': {} },
   };
 
-  state = { searchIsFocused: false };
+  state = { searchIsFocused: false, fetchedVenues: false };
+
+  componentDidMount() {
+    this.fetchVenues();
+  }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (!prevProps.lastLocationUpdate && this.props.lastLocationUpdate) {
-      this.props.fetchVenues(0, 8);
+      this.fetchVenues();
     }
   }
+
+  fetchVenues = () => {
+    if (!this.state.fetchedVenues) {
+      this.props.fetchVenues(0, 8);
+    }
+  };
 
   onQueryChange = text => {
     this.props.queryVenues(text);
