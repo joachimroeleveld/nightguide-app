@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>FacebookAppID</key>
 	<string>1961866330558110</string>
 	<key>FacebookDisplayName</key>
@@ -57,12 +57,28 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Use maps, distances and occupancy information</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Apple music usage</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Bluetooth usage</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Calendar usage</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera usage</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Use maps, distances and occupancy information</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Use maps and distances</string>
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>Use maps, distances and occupancy information</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>Use maps and distances</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Motion usage</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Photo library add usage</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo library usage</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Speech recognition usage</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSans-Bold.ttf</string>

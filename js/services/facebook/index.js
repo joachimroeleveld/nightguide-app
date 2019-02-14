@@ -6,9 +6,6 @@ const PERMISSIONS = [
   'email',
   'user_gender',
   'user_birthday',
-  'user_events',
-  'user_friends',
-  'user_likes',
 ];
 
 function showLoginDialog() {

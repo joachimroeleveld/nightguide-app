@@ -27,7 +27,7 @@ const mainStack = {
   Tabs: createBottomTabNavigator(
     {
       List: asScreen({})(ListScreen),
-      Explore: asScreen({})(ExploreScreen),
+      // Explore: asScreen({})(ExploreScreen),
       Profile: asScreen({})(ProfileScreen),
     },
     {
