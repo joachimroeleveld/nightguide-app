@@ -86,12 +86,27 @@ apply from: "../../node_modules/react-native/react.gradle"
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
-def enableSeparateBuildPerCPUArchitecture = false
+def enableSeparateBuildPerCPUArchitecture = true
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
 def enableProguardInReleaseBuilds = false
+
+def getPassword(String currentUser, String keyChain) {
+   def stdout = new ByteArrayOutputStream()
+   def stderr = new ByteArrayOutputStream()
+   exec {
+       commandLine 'security', '-q', 'find-generic-password', '-a', currentUser, '-s', keyChain, '-w'
+       standardOutput = stdout
+       errorOutput = stderr
+       ignoreExitValue true
+   }
+   //noinspection GroovyAssignabilityCheck
+  stdout.toString().trim()
+}
+
+def keystorePass = getPassword("nightguide","nightguide_keystore_passphrase")
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -102,6 +117,16 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+    }
+    signingConfigs {
+        release {
+            if (project.hasProperty('NIGHTGUIDE_RELEASE_STORE_FILE')) {
+                storeFile file(NIGHTGUIDE_RELEASE_STORE_FILE)
+                storePassword keystorePass
+                keyAlias NIGHTGUIDE_RELEASE_KEY_ALIAS
+                keyPassword keystorePass
+            }
+        }
     }
     splits {
         abi {
@@ -115,6 +140,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
