@@ -82,16 +82,15 @@ class FeedbackScreen extends React.Component {
                 val={this.state.form.message}
                 placeholder={__('feedbackScreen.enterMessage')}
                 multiline={true}
-                numberOfLines={4}
                 style={styles.messageInput}
               />
             </FormItem>
             <BigButton
               onPress={this.onSubmit}
               style={S.buttons.whiteButton}
-              disabled={this.props.isFetching}
               title={__('submit')}
               darkTitle={true}
+              loading={this.props.isFetching}
             />
           </Form>
         </ScrollView>

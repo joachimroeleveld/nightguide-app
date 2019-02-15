@@ -1,7 +1,14 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, View, Image } from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  Image,
+  Platform,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { CustomTabs } from 'react-native-custom-tabs';
 
 import Text from '../../Text';
 import browser from '../../../services/browser';
@@ -32,7 +39,13 @@ export default class VenueLinks extends React.PureComponent {
     return null;
   }
 
-  getOpenLink = _.memoize(href => () => browser.openUrl(href));
+  getOpenLink = _.memoize(href => () => {
+    if (Platform.OS === 'android') {
+      CustomTabs.openURL(href);
+    } else {
+      browser.openURL(href);
+    }
+  });
 
   render() {
     const Link = props => (

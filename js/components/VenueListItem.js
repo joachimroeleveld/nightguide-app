@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
   },
   name: {
     fontWeight: '700',
-    fontSize: 14,
     lineHeight: 17,
   },
   thumbnail: {

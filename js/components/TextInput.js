@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, TextInput as RNTextInput } from 'react-native';
-import PropTypes from 'prop-types';
 
 import S from '../config/styles';
 
@@ -40,5 +39,6 @@ const styles = StyleSheet.create({
   textInput: {
     color: S.colors.textDefault,
     fontSize: 15,
+    paddingVertical: 0,
   },
 });

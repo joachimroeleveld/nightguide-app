@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   label: {
-    fontSize: 14,
     color: S.colors.textDefault,
     marginBottom: 2,
   },

@@ -308,9 +308,11 @@ const styles = StyleSheet.create({
     right: 0,
   },
   queryText: {
+    fontSize: 15,
     flexShrink: 1,
   },
   inCityText: {
+    fontSize: 15,
     color: S.colors.textSecondary,
     marginLeft: 5,
     flexGrow: 1,

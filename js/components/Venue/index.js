@@ -141,6 +141,5 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   distance: {
-    fontSize: 14,
   },
 });

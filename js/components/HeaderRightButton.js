@@ -13,7 +13,6 @@ export default HeaderRightButton;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 14,
     lineHeight: 16,
     marginBottom: 16,
   },

@@ -1,3 +1,4 @@
+import { Platform } from 'react-native'
 import {
   createBottomTabNavigator,
   createStackNavigator,
@@ -5,7 +6,10 @@ import {
 } from 'react-navigation';
 import { useScreens } from 'react-native-screens';
 
-useScreens();
+// TODO: enable for Android https://github.com/kmagiera/react-native-screens/issues/54
+if (Platform.OS !== 'android') {
+  useScreens();
+}
 
 import asScreen from '../../screens/asScreen';
 import IntroScreen from '../../screens/IntroScreen';

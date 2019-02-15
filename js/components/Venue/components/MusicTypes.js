@@ -74,6 +74,5 @@ const styles = StyleSheet.create({
   },
   tileTitle: {
     position: 'absolute',
-    fontSize: 14,
   },
 });

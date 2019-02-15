@@ -36,5 +36,6 @@ export default PickerAndroid;
 const styles = StyleSheet.create({
   container: {
     ...S.inputs.containerStyle,
+    paddingVertical: 0,
   },
 });

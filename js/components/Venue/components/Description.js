@@ -26,6 +26,7 @@ export default class VenueDescription extends React.PureComponent {
       width,
       fontFamily: 'Noto Sans',
       fontSize: 14,
+      letterSpacing: -0.48,
     });
     this.setState({
       lineCount,
@@ -82,7 +83,6 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   text: {
-    fontSize: 14,
     lineHeight: 22,
   },
   toggle: {

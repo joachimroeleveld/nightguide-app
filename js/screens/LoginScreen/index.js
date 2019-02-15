@@ -106,10 +106,10 @@ class LoginScreen extends React.Component {
             </FormItem>
             <BigButton
               style={[S.buttons.submitButton, S.buttons.whiteButton]}
-              disabled={this.props.isFetching}
               title={__('loginScreen.login')}
               darkTitle={true}
               onPress={this.onSubmit}
+              loading={this.props.isFetching}
             />
           </Form>
         </View>

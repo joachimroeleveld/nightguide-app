@@ -61,5 +61,7 @@ const styles = StyleSheet.create({
   container: {
     ...S.inputs.containerStyle,
   },
-  value: {},
+  value: {
+    height: 28, // Same height as TextInput
+  },
 });
