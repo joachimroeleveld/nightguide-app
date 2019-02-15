@@ -1,30 +1,16 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { withNavigationFocus } from 'react-navigation';
 
-import S from '../../../../config/styles';
-import Text from '../../../Text';
-import Image from '../../../Image';
-import __ from '../../../../services/i18n';
+import S from '../../../config/styles';
+import Text from '../../Text';
+import __ from '../../../services/i18n';
 
 class VenueMusicTypes extends React.PureComponent {
   static propTypes = {
     types: PropTypes.arrayOf(PropTypes.string),
-  };
-
-  getImage = type => {
-    switch (type) {
-      case 'varying':
-        return require('./img/varying.jpg');
-      case 'jazz':
-        return require('./img/jazz.jpg');
-      case 'live':
-        return require('./img/live.jpg');
-      case 'dance':
-        return require('./img/dance.jpg');
-    }
   };
 
   render() {
@@ -47,8 +33,7 @@ class VenueMusicTypes extends React.PureComponent {
             ]}
           >
             <Image
-              lazy={true}
-              source={this.getImage(type)}
+              source={{ uri: `music-${type}` }}
               style={[styles.image, { width: tileWidth }]}
             />
             <Text style={styles.tileTitle}>
@@ -73,6 +58,7 @@ const styles = StyleSheet.create({
   },
   image: {
     position: 'absolute',
+    height: 112,
   },
   tile: {
     marginRight: 10,

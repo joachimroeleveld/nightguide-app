@@ -44,12 +44,14 @@ class ProgressiveImage extends React.PureComponent {
   handleThumbnailLoad = () => {
     Animated.timing(this.thumbnailAnimated, {
       toValue: 1,
+      useNativeDriver: true,
     }).start();
   };
 
   onImageLoad = () => {
     Animated.timing(this.imageAnimated, {
       toValue: 1,
+      useNativeDriver: true,
     }).start();
   };
 

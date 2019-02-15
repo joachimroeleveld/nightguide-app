@@ -34,6 +34,7 @@ class Image extends React.PureComponent {
         Animated.timing(this.state.imageOpacity, {
           toValue: 1,
           duration: 300,
+          useNativeDriver: true,
         }).start();
       }
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Image, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -40,7 +40,12 @@ export default class VenueLinks extends React.PureComponent {
         style={[styles.link, props.style]}
         onPress={this.getOpenLink(props.href)}
       >
-        <Image style={styles.linkIcon} source={props.iconSrc} />
+        <Image
+          style={styles.linkIcon}
+          source={{
+            uri: props.asset,
+          }}
+        />
         <Text style={styles.linkText}>{props.title}</Text>
       </TouchableOpacity>
     );
@@ -48,23 +53,19 @@ export default class VenueLinks extends React.PureComponent {
     return (
       <View style={styles.links}>
         {this.facebookUrl && (
-          <Link
-            href={this.facebookUrl}
-            iconSrc={require('../img/fb-icon.png')}
-            title={'Facebook'}
-          />
+          <Link href={this.facebookUrl} asset={'fb-icon'} title={'Facebook'} />
         )}
         {this.props.website && (
           <Link
             href={this.props.website}
-            iconSrc={require('../img/website-icon.png')}
+            asset={'website-icon'}
             title={'Website'}
           />
         )}
         {this.instagramUrl && (
           <Link
             href={this.instagramUrl}
-            iconSrc={require('../img/instagram-icon.png')}
+            asset={'instagram-icon'}
             title={'Instagram'}
           />
         )}
@@ -90,6 +91,8 @@ const styles = StyleSheet.create({
     marginRight: 0,
   },
   linkIcon: {
+    width: 12,
+    height: 12,
     marginRight: 8,
   },
 });
