@@ -53,19 +53,19 @@ export default class VenueLinks extends React.PureComponent {
     return (
       <View style={styles.links}>
         {this.facebookUrl && (
-          <Link href={this.facebookUrl} asset={'fb-icon'} title={'Facebook'} />
+          <Link href={this.facebookUrl} asset={'fb_icon'} title={'Facebook'} />
         )}
         {this.props.website && (
           <Link
             href={this.props.website}
-            asset={'website-icon'}
+            asset={'website_icon'}
             title={'Website'}
           />
         )}
         {this.instagramUrl && (
           <Link
             href={this.instagramUrl}
-            asset={'instagram-icon'}
+            asset={'instagram_icon'}
             title={'Instagram'}
           />
         )}

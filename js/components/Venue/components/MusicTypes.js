@@ -33,7 +33,7 @@ class VenueMusicTypes extends React.PureComponent {
             ]}
           >
             <Image
-              source={{ uri: `music-${type}` }}
+              source={{ uri: `music_${type}` }}
               style={[styles.image, { width: tileWidth }]}
             />
             <Text style={styles.tileTitle}>
