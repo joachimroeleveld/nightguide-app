@@ -14,7 +14,6 @@ import {
   fetchExploreVenuesError,
   resetVenue,
   queryVenues,
-  resetVenuesQuery,
 } from './actions';
 
 export default handleActions(
@@ -89,20 +88,18 @@ export default handleActions(
         list: {
           isFetching: { $set: true },
           error: { $set: null },
-          query: { $set: action.payload.query || null },
-          filters: { $set: action.payload.filters || null },
-          sort: { $set: action.payload.sort || null },
         },
       }),
-    [fetchVenuesSuccess]: (state, action) =>
+    [fetchVenuesSuccess]: (state, { payload: { results, reachedEnd } }) =>
       update(state, {
         list: {
           isFetching: { $set: false },
+          reachedEnd: { $set: reachedEnd },
           byId: {
-            $set: _.keyBy(action.payload, 'id'),
+            $merge: _.keyBy(results, 'id'),
           },
           allIds: {
-            $set: action.payload.map(venue => venue.id),
+            $push: results.map(venue => venue.id),
           },
         },
       }),
@@ -116,13 +113,10 @@ export default handleActions(
     [queryVenues]: (state, action) =>
       update(state, {
         list: {
-          query: { $set: action.payload.text },
-        },
-      }),
-    [resetVenuesQuery]: (state, action) =>
-      update(state, {
-        list: {
-          query: { $set: null },
+          reachedEnd: { $set: false },
+          byId: { $set: {} },
+          allIds: { $set: [] },
+          query: { $set: action.payload.text || null },
         },
       }),
   },
@@ -136,6 +130,7 @@ export default handleActions(
       query: null,
       filters: {},
       sort: null,
+      reachedEnd: false,
     },
     current: {
       isFetching: false,

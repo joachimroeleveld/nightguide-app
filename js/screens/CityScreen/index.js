@@ -7,7 +7,6 @@ import __ from '../../services/i18n';
 import SearchBar from '../../components/SearchBar';
 import Text from '../../components/Text';
 import Title from '../../components/Title';
-import { queryVenues, resetVenuesQuery } from '../../state/venues/actions';
 
 class CityScreen extends React.Component {
   static navigationOptions = {
@@ -44,14 +43,8 @@ const mapStateToProps = state => ({
   query: state.venues.list.query,
 });
 
-const mapDispatchToProps = {
-  queryVenues,
-  resetVenuesQuery,
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
 )(CityScreen);
 
 const styles = StyleSheet.create({

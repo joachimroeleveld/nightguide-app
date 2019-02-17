@@ -9,7 +9,7 @@ const devConfig = {
 };
 
 if (__DEV__) {
-  // config = Object.assign(config, devConfig);
+  config = Object.assign(config, devConfig);
 }
 
 export default config;

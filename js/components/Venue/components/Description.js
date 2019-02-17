@@ -46,9 +46,7 @@ export default class VenueDescription extends React.PureComponent {
 
     const Toggle = props => (
       <TouchableOpacity style={styles.toggle} onPress={props.handler}>
-        <Text style={styles.toggleText}>
-          {'...' + props.text.toLowerCase()}
-        </Text>
+        <Text style={styles.toggleText}>{props.text.toLowerCase()}</Text>
       </TouchableOpacity>
     );
 

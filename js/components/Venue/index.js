@@ -20,8 +20,6 @@ import MusicTypes from './components/MusicTypes';
 import Section from '../Section';
 import VisitorTypes from './components/VisitorTypes';
 
-const CAROUSEL_HEIGHT = Math.min(Dimensions.get('window').height * 0.4, 800);
-
 class Venue extends React.PureComponent {
   static propTypes = {
     name: PropTypes.string.isRequired,
@@ -37,11 +35,11 @@ class Venue extends React.PureComponent {
     twitterHandle: PropTypes.string,
     musicTypes: PropTypes.arrayOf(PropTypes.string),
     visitorTypes: PropTypes.arrayOf(PropTypes.string),
+    carouselHeight: PropTypes.number.isRequired,
   };
 
   state = {
     belowFoldOpacity: new Animated.Value(0),
-    carouselHeight: CAROUSEL_HEIGHT,
     carouselWidth: Dimensions.get('window').width,
   };
 
@@ -56,13 +54,11 @@ class Venue extends React.PureComponent {
   render() {
     return (
       <View style={[styles.container, this.props.style]}>
-        {this.props.images && (
-          <Carousel
-            width={this.state.carouselWidth}
-            height={this.state.carouselHeight}
-            images={this.props.images}
-          />
-        )}
+        <Carousel
+          width={this.state.carouselWidth}
+          height={this.props.carouselHeight}
+          images={this.props.images}
+        />
         <SafeAreaView style={styles.content}>
           <View style={styles.header}>
             <Text style={styles.categories}>
@@ -140,6 +136,5 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     marginTop: 8,
   },
-  distance: {
-  },
+  distance: {},
 });

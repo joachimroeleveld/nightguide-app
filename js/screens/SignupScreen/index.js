@@ -199,6 +199,7 @@ class SignupScreen extends React.Component {
               disabled={this.props.isFetching}
               title={__('signupScreen.createAccount')}
               onPress={() => this.onSubmit()}
+              loading={this.props.isFetching}
             />
           </Form>
         </View>

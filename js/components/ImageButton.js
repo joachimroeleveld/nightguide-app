@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 
 export default class ImageButton extends React.PureComponent {
   static propTypes = {
-    size: PropTypes.number,
-    width: PropTypes.number,
-    height: PropTypes.number,
-    image: PropTypes.any,
+    image: PropTypes.any.isRequired,
     onPress: PropTypes.func.isRequired,
     disabledImage: PropTypes.any,
     disabled: PropTypes.bool,
@@ -17,14 +14,7 @@ export default class ImageButton extends React.PureComponent {
     return (
       <TouchableOpacity
         disabled={this.props.disabled}
-        style={[
-          styles.container,
-          {
-            width: this.props.width || this.props.size,
-            height: this.props.height || this.props.size,
-          },
-          this.props.style,
-        ]}
+        style={[styles.container, this.props.style]}
         onPress={this.props.onPress}
       >
         <Image
@@ -39,10 +29,9 @@ export default class ImageButton extends React.PureComponent {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+  },
   image: {
-    flex: 1,
     resizeMode: 'cover',
-    position: 'absolute',
   },
 });

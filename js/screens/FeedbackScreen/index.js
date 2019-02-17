@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import S from '../../config/styles';
 import { showOkMessage, showWarnMessage } from '../../state/messages';
-import { sendFeedback } from '../../state/account/actions';
+import { sendFeedback } from '../../state/feedback';
 import __ from '../../services/i18n';
 import Header from '../../components/Header';
 import HeaderBackButton from '../../components/HeaderBackButton';
@@ -33,6 +33,7 @@ class FeedbackScreen extends React.Component {
   componentDidUpdate(prevProps) {
     if (!prevProps.success && this.props.success) {
       this.props.showOkMessage(__('feedbackScreen.submitSuccess'));
+      this.props.navigation.goBack();
     }
   }
 
@@ -42,7 +43,6 @@ class FeedbackScreen extends React.Component {
       return this.props.showWarnMessage(__('fixFormErrors'));
     }
     this.props.sendFeedback(this.state.form.message);
-    this.props.navigation.goBack();
   };
 
   handleOnChange = _.memoize(key => val => {
@@ -104,11 +104,11 @@ const mapStateToProps = state => ({
   success: state.feedback.success,
 });
 
-const mapDispatchToProps = dispatch => ({
-  showWarnMessage: message => dispatch(showWarnMessage(message)),
-  showOkMessage: message => dispatch(showOkMessage(message)),
-  sendFeedback: message => dispatch(sendFeedback(message)),
-});
+const mapDispatchToProps = {
+  showWarnMessage,
+  showOkMessage,
+  sendFeedback,
+};
 
 export default connect(
   mapStateToProps,

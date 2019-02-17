@@ -77,8 +77,7 @@ class VenueListItem extends React.PureComponent {
 export default VenueListItem;
 
 const styles = StyleSheet.create({
-  container: {
-  },
+  container: {},
   smallCapsContainer: {
     flexDirection: 'row',
     marginTop: 8,
@@ -94,6 +93,6 @@ const styles = StyleSheet.create({
     lineHeight: 17,
   },
   thumbnail: {
-    height: 130,
+    height: S.dimensions.venueListItemHeight,
   },
 });

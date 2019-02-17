@@ -20,9 +20,9 @@ class VenueList extends React.PureComponent {
   };
 
   renderListItem = ({ item, index }) => {
-    const style = this.props.horizontal
-      ? styles.itemHorizontal
-      : styles.itemVertical;
+    const style = [
+      this.props.horizontal ? styles.itemHorizontal : styles.itemVertical,
+    ];
 
     let itemWidth;
     if (!this.props.horizontal) {
@@ -31,6 +31,12 @@ class VenueList extends React.PureComponent {
           S.dimensions.screenOffset * 2 -
           S.dimensions.listItemMargin * (this.props.numColumns - 1)) /
         this.props.numColumns;
+
+      if (index <= this.props.numColumns) {
+        style.push(styles.topItem);
+      } else if (index >= this.props.venues.length - this.props.numColumns) {
+        style.push(styles.bottomItem);
+      }
     }
 
     const Separator = () => <View style={styles.separator} />;
@@ -61,14 +67,14 @@ class VenueList extends React.PureComponent {
       ? styles.containerHorizontal
       : styles.containerVertical;
     return (
-      <View style={style}>
-        <FlatList
-          keyExtractor={this.keyExtractor}
-          renderItem={this.renderListItem}
-          data={this.props.venues}
-          numColumns={this.props.numColumns}
-        />
-      </View>
+      <FlatList
+        keyExtractor={this.keyExtractor}
+        renderItem={this.renderListItem}
+        data={this.props.venues}
+        numColumns={this.props.numColumns}
+        contentContainerStyle={[style, this.props.style]}
+        {...this.props}
+      />
     );
   }
 }
@@ -78,7 +84,6 @@ export default VenueList;
 const styles = StyleSheet.create({
   containerVertical: {
     marginHorizontal: S.dimensions.screenOffset,
-    paddingVertical: S.dimensions.listItemMargin / 2,
   },
   itemVertical: {
     marginVertical: S.dimensions.listItemMargin / 2,
@@ -89,5 +94,11 @@ const styles = StyleSheet.create({
   separator: {
     width: S.dimensions.listItemMargin,
     height: '100%',
+  },
+  topItem: {
+    marginTop: 0,
+  },
+  bottomItem: {
+    marginBottom: 0,
   },
 });

@@ -1,11 +1,4 @@
-import {
-  call,
-  fork,
-  put,
-  takeEvery,
-  takeLatest,
-  select,
-} from 'redux-saga/effects';
+import { call, fork, put, takeLatest, select } from 'redux-saga/effects';
 
 import api from '../../services/api';
 import {
@@ -38,7 +31,7 @@ function* fetchVenueSaga() {
 }
 
 function* fetchExploreVenuesSaga() {
-  yield takeEvery(FETCH_EXPLORE_VENUES, function*(action) {
+  yield takeLatest(FETCH_EXPLORE_VENUES, function*(action) {
     const { tag } = action.payload;
 
     try {
@@ -61,7 +54,7 @@ function* fetchExploreVenuesSaga() {
 }
 
 function* fetchVenuesSaga() {
-  yield takeEvery(FETCH_VENUES, function*(action) {
+  yield takeLatest(FETCH_VENUES, function*(action) {
     let { filters, sort, query, fields, offset, limit } = action.payload;
 
     const params = {
@@ -84,8 +77,9 @@ function* fetchVenuesSaga() {
 
     try {
       const results = yield call(api.venues.getVenues, params);
+      const reachedEnd = results.length < limit;
 
-      yield put(fetchVenuesSuccess(results));
+      yield put(fetchVenuesSuccess({ results, reachedEnd }));
     } catch (error) {
       yield put(fetchVenuesError(error));
     }
@@ -96,7 +90,7 @@ function* queryVenuesSaga() {
   yield takeLatest(QUERY_VENUES, function*(action) {
     let { text, ...otherParams } = action.payload;
 
-    if (!text || (text && text.length > 2)) {
+    if (!text || (text && text.length >= 2)) {
       yield put(fetchVenues({ query: text, ...otherParams }));
     } else if (text) {
       yield put(fetchVenuesSuccess([]));

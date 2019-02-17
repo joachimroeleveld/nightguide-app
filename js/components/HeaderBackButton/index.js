@@ -25,7 +25,6 @@ class HeaderBackButton extends React.PureComponent {
     return (
       <View style={styles.container}>
         <ImageButton
-          size={S.dimensions.headerHeight}
           image={this.image}
           onPress={this.props.onPress || (() => this.props.navigation.goBack())}
           style={styles.button}
@@ -40,9 +39,12 @@ export default withNavigation(HeaderBackButton);
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    marginBottom: 16,
   },
   button: {
+    width: 30,
+    marginLeft: -10,
+    paddingHorizontal: 10,
+    paddingVertical: 14,
     tintColor: S.colors.textDefault,
   },
 });

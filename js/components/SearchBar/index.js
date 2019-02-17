@@ -158,7 +158,10 @@ class SearchBar extends React.PureComponent {
 
   render() {
     return (
-      <View style={[styles.container, this.props.style]}>
+      <View
+        style={[styles.container, this.props.style]}
+        onLayout={this.props.onLayout}
+      >
         <Animated.View
           onLayout={this.resetInputWidth}
           style={{ width: this.inputWidth }}

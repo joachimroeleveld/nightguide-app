@@ -18,7 +18,7 @@ class BigButton extends React.PureComponent {
     loading: PropTypes.bool,
   };
 
-  defaultProps = {
+  static defaultProps = {
     loading: false,
   };
 

@@ -24,5 +24,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   name: {
+    fontSize: 13,
   },
 });
