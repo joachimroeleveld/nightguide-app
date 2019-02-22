@@ -3,6 +3,7 @@ package com.nightguideapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.sentry.RNSentryPackage;
 import com.github.amarcruz.rntextsize.RNTextSizePackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.github.droibit.android.reactnative.customtabs.CustomTabsPackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSentryPackage(),
             new RNTextSizePackage(),
             new RNScreensPackage(),
             new CustomTabsPackage(),
