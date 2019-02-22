@@ -5,10 +5,13 @@ import _ from 'lodash';
 
 import S from '../config/styles';
 import VenueListItem from './VenueListItem';
+import RefreshControl from '../components/RefreshControl';
 
 class VenueList extends React.PureComponent {
   static propTypes = {
     venues: PropTypes.array.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    refreshHandler: PropTypes.func.isRequired,
     numColumns: PropTypes.number,
     horizontal: PropTypes.bool,
     onItemPress: PropTypes.func,
@@ -32,7 +35,7 @@ class VenueList extends React.PureComponent {
           S.dimensions.listItemMargin * (this.props.numColumns - 1)) /
         this.props.numColumns;
 
-      if (index <= this.props.numColumns) {
+      if (index < this.props.numColumns) {
         style.push(styles.topItem);
       } else if (index >= this.props.venues.length - this.props.numColumns) {
         style.push(styles.bottomItem);
@@ -73,6 +76,12 @@ class VenueList extends React.PureComponent {
         data={this.props.venues}
         numColumns={this.props.numColumns}
         contentContainerStyle={[style, this.props.style]}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.props.isFetching}
+            onRefresh={this.props.refreshHandler}
+          />
+        }
         {...this.props}
       />
     );

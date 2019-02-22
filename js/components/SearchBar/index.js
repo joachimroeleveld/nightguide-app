@@ -285,7 +285,7 @@ class SearchBar extends React.PureComponent {
         </Animated.View>
         <Animated.View
           style={[
-            styles.submitButtonContainer,
+            styles.cancelContainer,
             { opacity: this.state.focusAnim },
           ]}
         >
@@ -301,12 +301,13 @@ export default withNavigationFocus(withNavigation(SearchBar));
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   searchIcon: {
     marginHorizontal: 12,
   },
-  submitButtonContainer: {
+  cancelContainer: {
+    height: '100%',
+    justifyContent: 'center',
     position: 'absolute',
     right: 0,
   },

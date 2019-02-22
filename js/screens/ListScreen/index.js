@@ -123,7 +123,11 @@ class ListScreen extends React.Component {
 
   loadNextPage = () => this.fetchVenues();
 
-  onRefresh = () => this.fetchVenues(true);
+  onRefresh = () => {
+    if (this.props.fetchError) {
+      this.fetchVenues(true);
+    }
+  };
 
   render() {
     return (
@@ -138,16 +142,16 @@ class ListScreen extends React.Component {
           onQueryChange={this.onQueryChangeDebounced}
           city={this.props.city}
           onLayout={this.onSearchBarLayout}
-          onRefresh={this.onRefresh}
-          refreshing={this.props.isFetching}
         />
         <VenueList
           venues={this.props.venues}
           onItemPress={this.onItemPress}
           onEndReached={this.loadNextPage}
-          onEndReachedThreshold={2}
+          onEndReachedThreshold={0.5}
           numColumns={NUM_COLUMNS}
           style={styles.list}
+          isFetching={this.props.isFetching}
+          refreshHandler={this.onRefresh}
         />
       </View>
     );
@@ -163,6 +167,7 @@ const mapStateToProps = state => ({
   reachedEnd: state.venues.list.reachedEnd,
   venues: getVenueList(state),
   lastLocationUpdate: state.location.currentLocation.lastUpdate,
+  fetchError: state.venues.list.error,
 });
 
 const FIELDS = ['name', 'images', 'categories', 'location'];
@@ -194,9 +199,10 @@ const styles = StyleSheet.create({
   searchBar: {
     marginTop: S.dimensions.screenOffset,
     marginHorizontal: S.dimensions.screenOffset,
-    paddingBottom: S.dimensions.screenOffset,
+    paddingBottom: 10,
   },
   list: {
+    paddingTop: 5,
     paddingBottom: S.dimensions.screenOffset,
   },
 });
