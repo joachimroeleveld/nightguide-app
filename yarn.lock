@@ -5078,6 +5078,11 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
+opencollective-postinstall@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.2.tgz#5657f1bede69b6e33a45939b061eb53d3c6c3a89"
+  integrity sha512-pVOEP16TrAO2/fjej1IdOyupJY8KDUM1CvsaScRbw6oddvpQoOfGk4ywha0HKKVAD6RkW4x6Q+tNBwhf3Bgpuw==
+
 opn@^3.0.2:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/opn/-/opn-3.0.3.tgz#b6d99e7399f78d65c3baaffef1fb288e9b85243a"
@@ -5680,6 +5685,14 @@ react-native-facebook-login@^1.6.1:
   integrity sha512-1jRIxUy9FLEPXA/czhhhL0nOgaT/cq7s9STUXUaNfTq23j5wOiC3LrvBSRGXSqQjisnmxwr1/vxAMVNy7oKm+Q==
   dependencies:
     itypeof "^1.1.2"
+
+react-native-firebase@^5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-5.2.2.tgz#68abdb65978bcf1f98d837f6602687fa18b82e71"
+  integrity sha512-+mm7zxpYDfxwqPgSw4pNS6XT3VSEwCmydANS8DnvRCYmZ93Ruti+GkdEyPnj6fmQHEsdWO5zPCe5ynlpBlMpCg==
+  dependencies:
+    opencollective-postinstall "^2.0.0"
+    prop-types "^15.6.2"
 
 react-native-gesture-handler@^1.0.10, react-native-gesture-handler@~1.0.14:
   version "1.0.15"
@@ -7412,9 +7425,9 @@ xcode@^1.0.0:
     simple-plist "^0.2.1"
     uuid "^3.3.2"
 
-"xcode@git+https://github.com/apache/cordova-node-xcode.git#e7646f0680d509b590b839e567c217590451505b":
+"xcode@https://github.com/apache/cordova-node-xcode#e7646f0680d509b590b839e567c217590451505b":
   version "1.0.1-dev"
-  resolved "git+https://github.com/apache/cordova-node-xcode.git#e7646f0680d509b590b839e567c217590451505b"
+  resolved "https://github.com/apache/cordova-node-xcode#e7646f0680d509b590b839e567c217590451505b"
   dependencies:
     simple-plist "^0.2.1"
     uuid "3.0.1"

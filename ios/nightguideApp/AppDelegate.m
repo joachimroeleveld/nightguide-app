@@ -17,12 +17,15 @@
 #import "RNSentry.h" // This is used for versions of react < 0.40
 #endif
 #import "RNSplashScreen.h"
+#import <Firebase.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
+  
+  [FIRApp configure];
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
