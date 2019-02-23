@@ -1,6 +1,7 @@
 import { call, fork, put, takeLatest } from 'redux-saga/effects';
 
 import api from '../../services/api';
+import { eventBus } from '../../services/analytics';
 import facebook from '../../services/facebook';
 import {
   LOGIN,
@@ -22,6 +23,7 @@ function* signupSaga() {
   yield takeLatest(SIGNUP, function*(action) {
     try {
       yield call(api.users.signup, action.payload);
+      eventBus.signup({ method: eventBus.PARAM_SIGNUP_METHOD_NORMAL });
 
       yield put(signupSuccess());
     } catch (e) {
@@ -38,9 +40,16 @@ function* loginSaga() {
         action.payload.email,
         action.payload.password
       );
+      eventBus.login({
+        method: eventBus.PARAM_LOGIN_METHOD_NORMAL,
+        userId: response.user.id,
+      });
 
       yield put(setAccount(response));
     } catch (e) {
+      if (e.type === 'incorrect_credentials') {
+        eventBus.loginWithIncorrectCredentials();
+      }
       yield put(loginError(e));
     }
   });
@@ -64,6 +73,14 @@ function* facebookLoginSaga() {
         token,
         userId,
       });
+      if (response.isNew) {
+        eventBus.signup({ method: eventBus.PARAM_SIGNUP_METHOD_FACEBOOK });
+      } else {
+        eventBus.login({
+          userId: response.user.id,
+          method: eventBus.PARAM_LOGIN_METHOD_FACEBOOK,
+        });
+      }
 
       yield put(setAccount(response));
     } catch (e) {
@@ -75,7 +92,9 @@ function* facebookLoginSaga() {
 function* resetPasswordSaga() {
   yield takeLatest(RESET_PASSWORD, function*(action) {
     try {
-      yield call(api.users.resetPassword, { email: action.payload.email });
+      const { email } = action.payload;
+      yield call(api.users.resetPassword, { email });
+      eventBus.resetPassword();
 
       yield put(resetPasswordSuccess());
     } catch (e) {

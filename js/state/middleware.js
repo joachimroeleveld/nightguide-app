@@ -1,11 +1,6 @@
 import { REHYDRATE } from 'redux-persist';
 
-import {
-  LOGOUT,
-  SET_ACCOUNT,
-  setAccount,
-  refreshAccount,
-} from './account/actions';
+import { LOGOUT, SET_ACCOUNT, refreshAccount } from './account/actions';
 import { initializeApp, INITIALIZE_APP } from './rootReducer';
 import { persistor } from './store';
 import api from '../services/api';

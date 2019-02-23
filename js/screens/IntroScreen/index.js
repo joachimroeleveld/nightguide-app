@@ -8,6 +8,7 @@ import __ from '../../services/i18n';
 import Text from '../../components/Text';
 import { setPermission } from '../../state/permissions';
 import BigButton from '../../components/BigButton';
+import { eventBus } from '../../services/analytics';
 
 class IntroScreen extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class IntroScreen extends React.Component {
       type: 'location',
       value: response,
     });
+    eventBus.updatePermission({ permission: 'location', value: response });
 
     this.navigateApp();
   };

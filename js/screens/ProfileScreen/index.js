@@ -11,6 +11,7 @@ import BigButton from '../../components/BigButton';
 import Title from '../../components/Title';
 import Section from '../../components/Section';
 import LabeledText from '../../components/LabeledText';
+import { eventBus } from '../../services/analytics';
 
 class ProfileScreen extends React.Component {
   static navigationOptions = {
@@ -21,6 +22,7 @@ class ProfileScreen extends React.Component {
     this.props.logout();
     this.props.navigation.navigate('Auth');
     this.props.showOkMessage(__('profileScreen.loggedOutMessage'));
+    eventBus.logout();
   };
 
   onFeedbackPress = () => {

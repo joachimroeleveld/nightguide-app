@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Platform,
+} from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import dateFns from 'date-fns';
 import PropTypes from 'prop-types';
@@ -62,6 +67,10 @@ const styles = StyleSheet.create({
     ...S.inputs.containerStyle,
   },
   value: {
-    height: 28, // Same height as TextInput
+    ...Platform.select({
+      android: {
+        height: 28, // Same height as TextInput
+      },
+    }),
   },
 });

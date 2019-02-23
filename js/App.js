@@ -10,6 +10,7 @@ import { store, persistor } from './state/store';
 import Toast from './components/Toast';
 import LocationManager from './components/LocationManager';
 import sentry from './services/sentry';
+import analytics from './services/analytics';
 
 YellowBox.ignoreWarnings(['Module RCTMFBLoginManager']);
 
@@ -22,6 +23,7 @@ export default class App extends Component {
 
   onNavigationStateChange = (prevState, newState, action) => {
     sentry.addNavigationBreadCrumb(action);
+    analytics.handleNavigationChange(prevState, newState, action);
   };
 
   render() {
