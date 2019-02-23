@@ -6,6 +6,7 @@ import { fetchVenue, resetVenue } from '../../state/venues/actions';
 import Venue from '../../components/Venue';
 import Header from '../../components/Header';
 import HeaderBackButton from '../../components/HeaderBackButton';
+import ScreenLoader from '../../components/ScreenLoader';
 
 const CAROUSEL_HEIGHT = Math.min(Dimensions.get('window').height * 0.4, 800);
 
@@ -32,7 +33,7 @@ class VenueScreen extends React.Component {
 
   render() {
     if (!this.props.venue) {
-      return null;
+      return <ScreenLoader />;
     }
 
     return (
@@ -59,7 +60,6 @@ class VenueScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  isFetching: state.venues.current.isFetching,
   venue: state.venues.current.data,
 });
 

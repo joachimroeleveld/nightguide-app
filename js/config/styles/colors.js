@@ -21,4 +21,6 @@ export default {
   linkColor: '#79A7E6',
   tagBorderColor: '#3E3E3E',
   tileBackgroundColor: '#2C2C2C',
+  loaderColor: '#9A9A9A',
 };
+
