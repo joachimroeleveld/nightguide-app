@@ -1,10 +1,16 @@
 import { REHYDRATE } from 'redux-persist';
 
-import { LOGOUT, SET_ACCOUNT, refreshAccount } from './account/actions';
+import {
+  LOGOUT,
+  SET_ACCOUNT,
+  setAccount,
+  refreshAccount,
+} from './account/actions';
 import { initializeApp, INITIALIZE_APP } from './rootReducer';
 import { persistor } from './store';
 import api from '../services/api';
 import { handleError } from '../services/errors';
+import sentry from '../services/sentry';
 
 export function handleErrors() {
   return next => action => {
@@ -28,7 +34,7 @@ export function handleErrors() {
   };
 }
 
-function initAction({ dispatch }) {
+function initActions({ dispatch }) {
   return next => action => {
     const retVal = next(action);
 
@@ -67,6 +73,22 @@ function flushPersistorOnLogout() {
   };
 }
 
+function setSentryUserContext({ getState }) {
+  return next => action => {
+    const retVal = next(action);
+    const state = getState();
+
+    if (
+      (action.type === INITIALIZE_APP && state.account.user.id) ||
+      action.type === SET_ACCOUNT
+    ) {
+      sentry.setUserContext(state.account.user);
+    }
+
+    return retVal;
+  };
+}
+
 function refreshAccountOnInit({ dispatch }) {
   return next => action => {
     if (action.type === INITIALIZE_APP) {
@@ -79,8 +101,9 @@ function refreshAccountOnInit({ dispatch }) {
 
 export default [
   handleErrors,
-  initAction,
+  initActions,
   authenticateApi,
   flushPersistorOnLogout,
+  setSentryUserContext,
   // refreshAccountOnInit,
 ];
