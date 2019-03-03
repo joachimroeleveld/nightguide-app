@@ -6,23 +6,21 @@ import { persistor } from './store';
 import api from '../services/api';
 import { handleError } from '../services/errors';
 import sentry from '../services/sentry';
+import NgApiError from '../services/api/NgApiError';
 
 export function handleErrors() {
   return next => action => {
-    if (
-      action.payload &&
-      action.payload.__api_error__ &&
-      !action.payload.__error_handled__
-    ) {
-      action.payload.__error_handled__ = true;
-      handleError(action.payload);
+    let error = action.payload;
+    if (error && error instanceof NgApiError && !error.handled) {
+      error.handled = true;
+      handleError(error, 'api');
     }
 
     let returnValue;
     try {
       returnValue = next(action);
     } catch (e) {
-      handleError(e);
+      handleError(e, 'redux');
     }
 
     return returnValue;

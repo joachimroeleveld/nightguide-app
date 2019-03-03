@@ -4,8 +4,8 @@ import { Platform } from 'react-native';
 const PERMISSIONS = [
   'public_profile',
   'email',
-  'user_gender',
-  'user_birthday',
+  // 'user_gender',
+  // 'user_birthday',
 ];
 
 function showLoginDialog() {

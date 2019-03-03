@@ -8,6 +8,7 @@ import SearchBar from '../../components/SearchBar';
 import { fetchVenues, queryVenues } from '../../state/venues/actions';
 import { makeGetVenueList } from '../../state/venues/selectors';
 import VenueList from '../../components/VenueList';
+import { getHasPermission } from '../../state/permissions';
 
 const ITEM_HEIGHT = 174; // Average height of list item
 const NUM_COLUMNS = 2;
@@ -54,7 +55,7 @@ class ListScreen extends React.Component {
 
   fetchVenues = (reset = false) => {
     if (
-      !this.props.lastLocationUpdate ||
+      (!this.props.lastLocationUpdate && this.props.isLocationEnabled) ||
       !this.state.searchBarHeight ||
       !this.state.containerHeight ||
       this.props.isFetching ||
@@ -166,6 +167,7 @@ const mapStateToProps = state => ({
   isFetching: state.venues.list.isFetching,
   reachedEnd: state.venues.list.reachedEnd,
   venues: getVenueList(state),
+  isLocationEnabled: getHasPermission(state, 'location'),
   lastLocationUpdate: state.location.currentLocation.lastUpdate,
   fetchError: state.venues.list.error,
 });

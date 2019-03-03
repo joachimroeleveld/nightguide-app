@@ -34,6 +34,10 @@ export function updatePermission({ permission, value }) {
   });
 }
 
+export function submitFeedback() {
+  analytics.logEvent('submit_feedback');
+}
+
 export function logout() {
   analytics.logEvent('logout');
 }

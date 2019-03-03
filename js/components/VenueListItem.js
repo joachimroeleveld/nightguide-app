@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import S from '../config/styles';
 import Text from './Text';
 import ProgressiveImage from './ProgressiveImage';
 import Distance from './Distance';
 import __ from '../services/i18n';
+import { getHasPermission } from '../state/permissions';
 
 class VenueListItem extends React.PureComponent {
   static propTypes = {
@@ -58,13 +60,18 @@ class VenueListItem extends React.PureComponent {
             />
             <View style={styles.smallCapsContainer}>
               <Text style={styles.smallCaps}>
-                {this.category.toUpperCase() + ' · '}
+                {this.category.toUpperCase()}
               </Text>
-              <Distance
-                caps={true}
-                style={styles.smallCaps}
-                coordinates={this.props.coordinates}
-              />
+              {this.props.isLocationEnabled && (
+                <React.Fragment>
+                  <Text style={styles.smallCaps}>{' · '}</Text>
+                  <Distance
+                    caps={true}
+                    style={styles.smallCaps}
+                    coordinates={this.props.coordinates}
+                  />
+                </React.Fragment>
+              )}
             </View>
             <Text style={styles.name}>{this.props.name}</Text>
           </React.Fragment>
@@ -74,7 +81,11 @@ class VenueListItem extends React.PureComponent {
   }
 }
 
-export default VenueListItem;
+const mapStateToProps = state => ({
+  isLocationEnabled: getHasPermission(state, 'location'),
+});
+
+export default connect(mapStateToProps)(VenueListItem);
 
 const styles = StyleSheet.create({
   container: {},

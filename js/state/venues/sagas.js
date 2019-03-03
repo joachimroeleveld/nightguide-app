@@ -95,7 +95,7 @@ function* queryVenuesSaga() {
     if (!text || (text && text.length >= 2)) {
       yield put(fetchVenues({ query, ...otherParams }));
     } else if (text) {
-      yield put(fetchVenuesSuccess([]));
+      yield put(fetchVenuesSuccess({ results: [] }));
     }
   });
 }

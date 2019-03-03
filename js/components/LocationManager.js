@@ -2,38 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { setLocation } from '../state/location';
+import { getHasPermission } from '../state/permissions';
 
-class LocationManager extends React.Component {
-  watcher;
-
-  get enabled() {
-    return !(
-      this.props.permissions === null || this.props.permissions === 'denied'
-    );
-  }
-
+class LocationManager extends React.PureComponent {
   componentDidMount() {
-    this.init();
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (
-      (prevProps.permissions === null || prevProps.permissions === 'denied') &&
-      this.props.permissions !== prevProps.permissions
-    ) {
-      this.init();
-    }
-  }
-
-  init() {
-    if (this.enabled) {
+    if (this.props.enabled) {
       this.watchPosition();
     }
   }
 
-  componentWillUnmount() {
-    if (this.enabled) {
-      this.stopWatching();
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.enabled !== prevProps.enabled) {
+      if (this.props.enabled) {
+        this.watchPosition();
+      } else {
+        this.stopWatching();
+      }
     }
   }
 
@@ -64,7 +48,7 @@ class LocationManager extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  permissions: state.permissions.location,
+  enabled: getHasPermission(state, 'location'),
 });
 
 const mapDispatchToProps = {

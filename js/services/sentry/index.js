@@ -9,9 +9,9 @@ function configure() {
   }
 }
 
-function handleError(error) {
+function handleError(error, logger = undefined) {
   Sentry.captureException(error, {
-    logger: error.__api_error__ ? 'api' : 'redux',
+    logger,
   });
 }
 

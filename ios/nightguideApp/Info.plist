@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>5</string>
 	<key>FacebookAppID</key>
 	<string>1961866330558110</string>
 	<key>FacebookDisplayName</key>
@@ -65,9 +65,9 @@
 	<string>Calendar usage</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera usage</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Use maps, distances and occupancy information</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Use maps, distances and occupancy information</string>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Use maps, distances and occupancy information</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Use maps and distances</string>

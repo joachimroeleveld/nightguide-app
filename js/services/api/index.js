@@ -5,6 +5,7 @@ import constants from '../../config/constants';
 import * as users from './users';
 import * as misc from './misc';
 import * as venues from './venues';
+import NgApiError from './NgApiError';
 
 let token = null;
 
@@ -49,15 +50,14 @@ export function request({
     const json = await res.json();
 
     if (!res.ok) {
-      throw {
-        ...json,
-        __api_error__: true,
-      };
+      throw new NgApiError(json);
     }
 
     return json;
   });
 }
+
+export NgApiError from './NgApiError';
 
 export default {
   setToken,
