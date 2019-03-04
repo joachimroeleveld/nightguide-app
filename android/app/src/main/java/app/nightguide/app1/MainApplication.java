@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import io.invertase.firebase.perf.RNFirebasePerformancePackage;
 import io.sentry.RNSentryPackage;
 import com.github.amarcruz.rntextsize.RNTextSizePackage;
@@ -36,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNFirebasePackage(),
             new RNFirebasePerformancePackage(),
+            new RNFirebaseAnalyticsPackage(),
             new RNSentryPackage(),
             new RNTextSizePackage(),
             new RNScreensPackage(),
