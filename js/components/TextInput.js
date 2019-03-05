@@ -20,7 +20,10 @@ class TextInput extends React.PureComponent {
         <RNTextInput
           {...this.props}
           placeholderTextColor={S.colors.inputs.placeholderColor}
-          style={[styles.textInput]}
+          style={[
+            styles.textInput,
+            this.props.multiline && styles.multilineInput,
+          ]}
         />
       </View>
     );
@@ -37,9 +40,11 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   textInput: {
-    height: '100%',
     color: S.colors.textDefault,
     fontSize: 15,
     paddingVertical: 0,
+  },
+  multilineInput: {
+    height: '100%',
   },
 });

@@ -11,9 +11,15 @@ import NgApiError from '../services/api/NgApiError';
 export function handleErrors() {
   return next => action => {
     let error = action.payload;
-    if (error && error instanceof NgApiError && !error.handled) {
+
+    if (error && error instanceof NgApiError) {
+      if (error.status >= 500) {
+        handleError(error, 'api');
+      }
       error.handled = true;
-      handleError(error, 'api');
+    }
+    if (error && error.handled) {
+      return;
     }
 
     let returnValue;
