@@ -13,13 +13,9 @@ export function handleErrors() {
     let error = action.payload;
 
     if (error && error instanceof NgApiError) {
-      if (error.status >= 500) {
-        handleError(error, 'api');
-      }
-      error.handled = true;
-    }
-    if (error && error.handled) {
-      return;
+      handleError(error, 'api');
+    } else if (error instanceof Error) {
+      handleError(error);
     }
 
     let returnValue;

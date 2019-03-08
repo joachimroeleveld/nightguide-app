@@ -59,6 +59,7 @@ class SplashScreen extends React.Component {
             onPress={() => this.fbLogin()}
             style={S.buttons.blueButton}
             title={__('splashScreen.loginFb')}
+            loading={this.props.isFbLoginFetching}
           />
           <BigButton
             onPress={() => this.navigateLogin()}
@@ -75,6 +76,7 @@ class SplashScreen extends React.Component {
 const mapStateToProps = state => ({
   locationPermissions: !state.permissions.location,
   userId: state.account.user.id,
+  isFbLoginFetching: state.account.fbLogin.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({

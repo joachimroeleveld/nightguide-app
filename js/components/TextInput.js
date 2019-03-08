@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
   },
   multilineInput: {
+    textAlignVertical: 'top',
     height: '100%',
   },
 });

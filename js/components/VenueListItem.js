@@ -10,7 +10,6 @@ import Text from './Text';
 import ProgressiveImage from './ProgressiveImage';
 import Distance from './Distance';
 import __ from '../services/i18n';
-import { getHasPermission } from '../state/permissions';
 
 class VenueListItem extends React.PureComponent {
   static propTypes = {
@@ -62,7 +61,7 @@ class VenueListItem extends React.PureComponent {
               <Text style={styles.smallCaps}>
                 {this.category.toUpperCase()}
               </Text>
-              {this.props.isLocationEnabled && (
+              {this.props.hasLocation && (
                 <React.Fragment>
                   <Text style={styles.smallCaps}>{' · '}</Text>
                   <Distance
@@ -82,7 +81,7 @@ class VenueListItem extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  isLocationEnabled: getHasPermission(state, 'location'),
+  hasLocation: !!state.location.currentLocation.latitude,
 });
 
 export default connect(mapStateToProps)(VenueListItem);

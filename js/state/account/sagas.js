@@ -60,11 +60,7 @@ function* facebookLoginSaga() {
     yield put(loginFbDialog());
 
     try {
-      const { credentials, isCancelled } = yield call(facebook.showLoginDialog);
-
-      if (isCancelled) {
-        return yield put(loginFbCancel());
-      }
+      const { credentials } = yield call(facebook.showLoginDialog);
 
       const { permissions, token, userId } = credentials;
 
@@ -84,6 +80,9 @@ function* facebookLoginSaga() {
 
       yield put(setAccount(response));
     } catch (e) {
+      if (e === 'Cancel') {
+        return yield put(loginFbCancel());
+      }
       yield put(loginFbError(e));
     }
   });

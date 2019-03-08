@@ -55,7 +55,6 @@ class ListScreen extends React.Component {
 
   fetchVenues = (reset = false) => {
     if (
-      (!this.props.lastLocationUpdate && this.props.isLocationEnabled) ||
       !this.state.searchBarHeight ||
       !this.state.containerHeight ||
       this.props.isFetching ||

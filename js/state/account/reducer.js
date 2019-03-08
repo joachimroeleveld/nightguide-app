@@ -5,6 +5,7 @@ import { persistReducer } from 'redux-persist';
 import {
   login,
   loginError,
+  loginFbCancel,
   loginFbDialog,
   loginFbError,
   resetPassword,
@@ -80,7 +81,14 @@ const reducer = handleActions(
     [loginFbDialog]: (state, action) =>
       update(state, {
         fbLogin: {
+          isFetching: { $set: true },
           error: { $set: null },
+        },
+      }),
+    [loginFbCancel]: (state, action) =>
+      update(state, {
+        fbLogin: {
+          isFetching: { $set: false },
         },
       }),
     [loginFbError]: (state, action) =>
