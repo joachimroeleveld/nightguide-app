@@ -1,7 +1,7 @@
 import { request } from './index';
 
 export function getVenues({
-  skip,
+  offset,
   limit,
   filters,
   sort,
@@ -11,7 +11,7 @@ export function getVenues({
   query,
 }) {
   const qs = {
-    skip,
+    offset,
     limit,
     filters,
     query,
