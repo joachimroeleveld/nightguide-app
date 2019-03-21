@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   text: {
-    lineHeight: 22,
+    lineHeight: 21,
   },
   toggle: {
     marginTop: 4,

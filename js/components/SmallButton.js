@@ -7,7 +7,7 @@ import Text from './Text';
 class SmallButton extends React.PureComponent {
   static propTypes = {
     onPress: PropTypes.func.isRequired,
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
   };
 

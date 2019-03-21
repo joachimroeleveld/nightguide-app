@@ -73,11 +73,12 @@
   },
   "venueScreen": {
     "music": "Music",
-    "typicalVisitors": "Typical visitors"
-  },
-  "venue": {
+    "typicalVisitors": "Typical visitors",
     "openUntilTime": "Open until {{time}}",
     "openAt": "Opens at {{date}}",
+    "timeSchedule": "Time schedule"
+  },
+  "venue": {
     "categories": {
       "adult": "Adult",
       "bar": "Bar",
@@ -139,6 +140,7 @@
   "confirm": "Confirm",
   "cancel": "Cancel",
   "submit": "Submit",
+  "close": "Close",
   "continue": "Continue",
   "readMore": "Read more",
   "readLess": "Read less"

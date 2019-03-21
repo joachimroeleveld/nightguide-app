@@ -41,7 +41,7 @@ class VenueOpeningHours extends React.PureComponent {
 
   get openText() {
     if (this.isOpen) {
-      return __('venue.openUntilTime', {
+      return __('venueScreen.openUntilTime', {
         time: this.todayScheduleParsed.to.format(MOMENT_TIME_FORMAT),
       });
     }
@@ -55,7 +55,7 @@ class VenueOpeningHours extends React.PureComponent {
         openAt = nextOpenMoment.format(`ddd ${MOMENT_TIME_FORMAT}`);
       }
 
-      return __('venue.openAt', { date: openAt });
+      return __('venueScreen.openAt', { date: openAt });
     }
     return null;
   }

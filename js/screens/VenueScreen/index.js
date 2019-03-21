@@ -7,6 +7,8 @@ import Venue from '../../components/Venue';
 import Header from '../../components/Header';
 import HeaderBackButton from '../../components/HeaderBackButton';
 import ScreenLoader from '../../components/ScreenLoader';
+import Modal from '../../components/Modal';
+import __ from '../../services/i18n';
 
 const CAROUSEL_HEIGHT = Math.min(Dimensions.get('window').height * 0.4, 800);
 
@@ -54,6 +56,9 @@ class VenueScreen extends React.Component {
         >
           <Venue {...this.props.venue || {}} carouselHeight={CAROUSEL_HEIGHT} />
         </Animated.ScrollView>
+        <Modal show={true} title={__('venueScreen.timeSchedule')}>
+          <React.Fragment />
+        </Modal>
       </React.Fragment>
     );
   }
