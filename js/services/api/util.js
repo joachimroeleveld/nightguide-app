@@ -1,5 +1,5 @@
-import dateFnsFormat from 'date-fns/format';
+import moment from 'moment';
 
 export function formatDate(date) {
-  return dateFnsFormat(date, 'YYYY-MM-DD');
+  return moment(date).format('YYYY-MM-DD');
 }

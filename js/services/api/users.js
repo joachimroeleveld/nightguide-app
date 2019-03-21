@@ -10,7 +10,6 @@ export function signup({
   birthday,
 }) {
   return request({
-    skipAuth: true,
     path: '/users',
     method: 'POST',
     body: {
@@ -26,7 +25,6 @@ export function signup({
 
 export function login(email, password) {
   return request({
-    skipAuth: true,
     path: '/users/login',
     method: 'POST',
     body: {
@@ -38,7 +36,6 @@ export function login(email, password) {
 
 export function loginWithFacebook({ token, permissions, userId }) {
   return request({
-    skipAuth: true,
     path: '/users/login-fb',
     method: 'POST',
     body: {
@@ -51,7 +48,6 @@ export function loginWithFacebook({ token, permissions, userId }) {
 
 export function resetPassword({ email }) {
   return request({
-    skipAuth: true,
     path: '/users/send-password-reset',
     method: 'POST',
     body: {

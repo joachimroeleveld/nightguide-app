@@ -6,8 +6,8 @@ import {
   Platform,
 } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import dateFns from 'date-fns';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import S from '../config/styles';
 import Text from './Text';
@@ -44,7 +44,7 @@ class DatePicker extends React.PureComponent {
         <TouchableWithoutFeedback onPress={this.togglePicker}>
           <Text style={styles.value}>
             {(this.props.date &&
-              dateFns.format(this.props.date, 'DD-MM-YYYY')) ||
+              moment(this.props.date).format('DD-MM-YYYY')) ||
               ' '}
           </Text>
         </TouchableWithoutFeedback>

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 export default class ImageButton extends React.PureComponent {
   static propTypes = {
     image: PropTypes.any.isRequired,
+    imageStyle: PropTypes.any,
     onPress: PropTypes.func.isRequired,
     disabledImage: PropTypes.any,
     disabled: PropTypes.bool,
@@ -21,7 +22,7 @@ export default class ImageButton extends React.PureComponent {
           source={
             this.props.disabled ? this.props.disabledImage : this.props.image
           }
-          style={styles.image}
+          style={[styles.image, this.props.imageStyle]}
         />
       </TouchableOpacity>
     );

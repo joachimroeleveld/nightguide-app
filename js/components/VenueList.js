@@ -22,6 +22,18 @@ class VenueList extends React.PureComponent {
     horizontal: false,
   };
 
+  getImage = images => {
+    const frontVenueImage = images.find(
+      image => image.perspective === 'front_venue'
+    );
+
+    if (frontVenueImage) {
+      return frontVenueImage.url;
+    } else if (images.length) {
+      return images[0].url;
+    }
+  };
+
   renderListItem = ({ item, index }) => {
     const style = [
       this.props.horizontal ? styles.itemHorizontal : styles.itemVertical,
@@ -50,8 +62,9 @@ class VenueList extends React.PureComponent {
           style={[style, { width: itemWidth }]}
           name={item.name}
           categories={item.categories}
+          timeSchedule={item.timeSchedule}
           onPress={this.getOnItemPress(item.id)}
-          imageUrl={item.images[0].url}
+          imageUrl={this.getImage(item.images)}
           coordinates={item.location.coordinates}
         />
         {!this.props.horizontal && index % this.props.numColumns === 0 && (

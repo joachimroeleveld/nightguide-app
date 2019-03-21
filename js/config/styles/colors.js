@@ -22,5 +22,5 @@ export default {
   tagBorderColor: '#3E3E3E',
   tileBackgroundColor: '#2C2C2C',
   loaderColor: '#9A9A9A',
+  elevatedBgColor: '#2C2C2C',
 };
-

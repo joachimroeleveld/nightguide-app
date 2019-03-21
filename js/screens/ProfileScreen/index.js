@@ -29,33 +29,54 @@ class ProfileScreen extends React.Component {
     this.props.navigation.navigate('Feedback');
   };
 
+  onLoginPress = () => {
+    this.props.navigation.navigate('Splash');
+  };
+
   render() {
     return (
       <ScrollView style={styles.container}>
         <Title>{__('profileScreen.profile')}</Title>
-        <Section padding={'bottom'}>
-          <LabeledText label={__('profileScreen.email')}>
-            {this.props.email}
-          </LabeledText>
-        </Section>
-        <Section>
-          <Text style={styles.feedbackText}>
-            {__('profileScreen.feedbackText')}
-          </Text>
-          <BigButton
-            title={__('profileScreen.giveFeedback')}
-            style={S.buttons.whiteButtonSecondary}
-            onPress={this.onFeedbackPress}
-          />
-        </Section>
-        <Section border={'none'}>
-          <BigButton
-            title={__('profileScreen.logout')}
-            style={S.buttons.whiteButton}
-            darkTitle={true}
-            onPress={this.onLogoutPress}
-          />
-        </Section>
+        {this.props.email === undefined && (
+          <Section padding={'bottom'}>
+            <Text style={styles.buttonText}>
+              {__('profileScreen.loginText')}
+            </Text>
+            <BigButton
+              title={__('profileScreen.login')}
+              style={S.buttons.whiteButton}
+              darkTitle={true}
+              onPress={this.onLoginPress}
+            />
+          </Section>
+        )}
+        {this.props.email !== undefined && (
+          <React.Fragment>
+            <Section padding={'bottom'}>
+              <LabeledText label={__('profileScreen.email')}>
+                {this.props.email}
+              </LabeledText>
+            </Section>
+            <Section>
+              <Text style={styles.buttonText}>
+                {__('profileScreen.feedbackText')}
+              </Text>
+              <BigButton
+                title={__('profileScreen.giveFeedback')}
+                style={S.buttons.whiteButtonSecondary}
+                onPress={this.onFeedbackPress}
+              />
+            </Section>
+            <Section border={'none'}>
+              <BigButton
+                title={__('profileScreen.logout')}
+                style={S.buttons.whiteButton}
+                darkTitle={true}
+                onPress={this.onLogoutPress}
+              />
+            </Section>
+          </React.Fragment>
+        )}
       </ScrollView>
     );
   }
@@ -83,7 +104,7 @@ const styles = StyleSheet.create({
   loggedInAsText: {
     marginVertical: 12,
   },
-  feedbackText: {
+  buttonText: {
     marginBottom: 14,
   },
 });

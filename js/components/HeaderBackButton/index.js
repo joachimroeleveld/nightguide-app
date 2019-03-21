@@ -9,6 +9,7 @@ import ImageButton from '../ImageButton';
 class HeaderBackButton extends React.PureComponent {
   static propTypes = {
     variant: PropTypes.oneOf(['back', 'close']),
+    imageStyle: PropTypes.any,
   };
 
   static defaultProps = {
@@ -23,10 +24,11 @@ class HeaderBackButton extends React.PureComponent {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.style]}>
         <ImageButton
           image={this.image}
           onPress={this.props.onPress || (() => this.props.navigation.goBack())}
+          imageStyle={this.props.imageStyle}
           style={styles.button}
         />
       </View>

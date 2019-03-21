@@ -10,6 +10,8 @@ import Text from './Text';
 import ProgressiveImage from './ProgressiveImage';
 import Distance from './Distance';
 import __ from '../services/i18n';
+import { checkIsOpenFromSchedule } from './Venue/util';
+import Image from './Image';
 
 class VenueListItem extends React.PureComponent {
   static propTypes = {
@@ -19,6 +21,7 @@ class VenueListItem extends React.PureComponent {
     imageUrl: PropTypes.string.isRequired,
     isOpen: PropTypes.bool,
     coordinates: PropTypes.object.isRequired,
+    timeSchedule: PropTypes.object,
   };
 
   state = {
@@ -27,6 +30,13 @@ class VenueListItem extends React.PureComponent {
 
   get category() {
     return __(`venue.categories.${_.camelCase(this.props.categories[0])}`);
+  }
+
+  get isOpen() {
+    return (
+      this.props.timeSchedule &&
+      checkIsOpenFromSchedule(this.props.timeSchedule.open)
+    );
   }
 
   onLayout = ({
@@ -71,6 +81,12 @@ class VenueListItem extends React.PureComponent {
                   />
                 </React.Fragment>
               )}
+              {this.isOpen && (
+                <Image
+                  style={styles.openIndicator}
+                  source={require('../img/open_indicator.png')}
+                />
+              )}
             </View>
             <Text style={styles.name}>{this.props.name}</Text>
           </React.Fragment>
@@ -89,6 +105,7 @@ export default connect(mapStateToProps)(VenueListItem);
 const styles = StyleSheet.create({
   container: {},
   smallCapsContainer: {
+    alignItems: 'center',
     flexDirection: 'row',
     marginTop: 8,
     marginBottom: 4,
@@ -101,6 +118,9 @@ const styles = StyleSheet.create({
   name: {
     fontWeight: '700',
     lineHeight: 17,
+  },
+  openIndicator: {
+    marginLeft: 7,
   },
   thumbnail: {
     height: S.dimensions.venueListItemHeight,

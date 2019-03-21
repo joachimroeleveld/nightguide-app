@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View, Platform } from 'react-native';
 import { connect } from 'react-redux';
 
 import __ from '../../services/i18n';
@@ -7,6 +7,7 @@ import S from '../../config/styles';
 import { login, loginFb } from '../../state/account/actions';
 import Text from '../../components/Text';
 import BigButton from '../../components/BigButton';
+import HeaderBackButton from '../../components/HeaderBackButton';
 
 class SplashScreen extends React.Component {
   static screenOptions = {
@@ -42,10 +43,22 @@ class SplashScreen extends React.Component {
     this.props.loginWithFacebook();
   };
 
+  skipAuth = () => {
+    this.props.navigation.navigate('App');
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.brandContainer}>
+          {Platform.OS === 'ios' && (
+            <HeaderBackButton
+              style={styles.closeButton}
+              imageStyle={styles.closeButtonImage}
+              variant={'close'}
+              onPress={this.skipAuth}
+            />
+          )}
           <Image style={styles.logo} source={require('../../img/logo.png')} />
           <Text style={styles.slogan}>{__('splashScreen.slogan')}</Text>
         </View>
@@ -110,5 +123,13 @@ const styles = StyleSheet.create({
     height: '60%',
     paddingTop: '20%',
     justifyContent: 'center',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 8,
+    right: 0,
+  },
+  closeButtonImage: {
+    tintColor: '#878787',
   },
 });

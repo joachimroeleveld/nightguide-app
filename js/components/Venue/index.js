@@ -19,6 +19,16 @@ import VenueDescription from './components/Description';
 import MusicTypes from './components/MusicTypes';
 import Section from '../Section';
 import VisitorTypes from './components/VisitorTypes';
+import OpeningHours from './components/OpeningHours';
+
+const IMAGE_SORT_ORDER = [
+  'front_venue',
+  'front_stage',
+  'from_bar',
+  'from_stage',
+  'atmosphere',
+  'front_bar',
+];
 
 class Venue extends React.PureComponent {
   static propTypes = {
@@ -26,15 +36,18 @@ class Venue extends React.PureComponent {
     images: PropTypes.array,
     categories: PropTypes.arrayOf(PropTypes.string).isRequired,
     location: PropTypes.shape({
-      address1: PropTypes.string,
+      city: PropTypes.string.isRequired,
+      country: PropTypes.string.isRequired,
+      address1: PropTypes.string.isRequired,
       address2: PropTypes.string,
-    }),
+    }).isRequired,
     facebook: PropTypes.shape({
       id: PropTypes.string,
     }),
     twitterHandle: PropTypes.string,
     musicTypes: PropTypes.arrayOf(PropTypes.string),
     visitorTypes: PropTypes.arrayOf(PropTypes.string),
+    timeSchedule: PropTypes.object,
     carouselHeight: PropTypes.number.isRequired,
   };
 
@@ -42,6 +55,17 @@ class Venue extends React.PureComponent {
     belowFoldOpacity: new Animated.Value(0),
     carouselWidth: Dimensions.get('window').width,
   };
+
+  get sortedImages() {
+    return this.props.images.sort((a, b) => {
+      const indexA = IMAGE_SORT_ORDER.indexOf(a);
+      const indexB = IMAGE_SORT_ORDER.indexOf(b);
+      if (indexA === -1) {
+        return 1;
+      }
+      return indexA < indexB ? -1 : 1;
+    });
+  }
 
   get address() {
     let address = this.props.location.address1;
@@ -57,7 +81,7 @@ class Venue extends React.PureComponent {
         <Carousel
           width={this.state.carouselWidth}
           height={this.props.carouselHeight}
-          images={this.props.images}
+          images={this.sortedImages}
         />
         <SafeAreaView style={styles.content}>
           <View style={styles.header}>
@@ -78,6 +102,11 @@ class Venue extends React.PureComponent {
               <Distance
                 style={styles.distance}
                 coordinates={this.props.location.coordinates}
+              />
+              <OpeningHours
+                style={styles.openingHours}
+                schedule={this.props.timeSchedule.open}
+                city={this.props.location.city}
               />
             </View>
           </View>
@@ -128,6 +157,8 @@ const styles = StyleSheet.create({
     color: S.colors.textSecondary,
   },
   infoBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginHorizontal: -S.dimensions.screenOffset,
     paddingHorizontal: S.dimensions.screenOffset,
     borderColor: S.colors.separatorColor,
@@ -137,4 +168,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   distance: {},
+  openingHours: {
+    marginLeft: 14,
+  },
 });

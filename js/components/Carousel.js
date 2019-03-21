@@ -24,9 +24,7 @@ class Carousel extends React.PureComponent {
   };
 
   getImageSize = image => {
-    const widthHeightRatio = image.width / image.height;
-
-    return this.props.height * widthHeightRatio;
+    return Math.min(image.width, image.height, this.props.width);
   };
 
   onIndexChange = index => {
@@ -48,7 +46,7 @@ class Carousel extends React.PureComponent {
               key={index}
               style={[styles.image, { height: this.props.height }]}
               url={image.url}
-              size={Math.floor(this.getImageSize(image))}
+              size={this.getImageSize(image)}
             />
           ))}
         </Swiper>

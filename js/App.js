@@ -12,6 +12,8 @@ import LocationManager from './components/LocationManager';
 import sentry from './services/sentry';
 import analytics from './services/analytics';
 
+import './config/datetime';
+
 YellowBox.ignoreWarnings(['Module RCTMFBLoginManager']);
 
 export default class App extends Component {

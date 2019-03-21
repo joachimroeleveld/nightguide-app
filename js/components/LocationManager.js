@@ -22,6 +22,10 @@ class LocationManager extends React.PureComponent {
   }
 
   watchPosition = () => {
+    // Request location based on network to get a response asap
+    navigator.geolocation.getCurrentPosition(this.setLocation, null, {
+      enableHighAccuracy: false,
+    });
     navigator.geolocation.watchPosition(this.setLocation, null, {
       enableHighAccuracy: true,
     });

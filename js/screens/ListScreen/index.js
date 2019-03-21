@@ -55,6 +55,7 @@ class ListScreen extends React.Component {
 
   fetchVenues = (reset = false) => {
     if (
+      (this.props.isLocationEnabled && !this.props.lastLocationUpdate) ||
       !this.state.searchBarHeight ||
       !this.state.containerHeight ||
       this.props.isFetching ||
@@ -171,7 +172,7 @@ const mapStateToProps = state => ({
   fetchError: state.venues.list.error,
 });
 
-const FIELDS = ['name', 'images', 'categories', 'location'];
+const FIELDS = ['name', 'images', 'categories', 'location', 'timeSchedule'];
 
 const mapDispatchToProps = {
   fetchVenues: (offset, limit) =>

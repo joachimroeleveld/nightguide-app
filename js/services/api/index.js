@@ -13,22 +13,15 @@ function setToken(newToken) {
   token = newToken;
 }
 
-export function request({
-  path,
-  method = 'GET',
-  headers = {},
-  body,
-  qs,
-  skipAuth = false,
-}) {
-  if (token === null && !skipAuth) {
-    throw new Error('no_api_token');
-  }
-
+export function request({ path, method = 'GET', headers = {}, body, qs }) {
   let url = constants.apiUrl + path;
 
   if (qs) {
     url += '?' + querystring.stringify(qs);
+  }
+
+  if (token) {
+    headers.Authorization = 'Bearer ' + token;
   }
 
   const opts = {
@@ -37,7 +30,6 @@ export function request({
       Accept: 'application/json',
       'Content-Type': 'application/json',
       'App-Token': constants.apiToken,
-      Authorization: 'Bearer ' + token,
       ...headers,
     },
   };

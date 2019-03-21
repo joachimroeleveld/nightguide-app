@@ -61,8 +61,10 @@
     "logout": "Logout",
     "loggedInAs": "Logged in as: {{email}}",
     "loggedOutMessage": "You are logged out",
+    "loginText": "Log in for a more personalized experience.",
     "feedbackText": "We welcome any feedback you have. Don't hesitate to let us know the things you like, dislike or any other comments you may have.",
-    "giveFeedback": "Give feedback"
+    "giveFeedback": "Give feedback",
+    "login": "Login"
   },
   "feedbackScreen": {
     "feedback": "Feedback",
@@ -74,6 +76,8 @@
     "typicalVisitors": "Typical visitors"
   },
   "venue": {
+    "openUntilTime": "Open until {{time}}",
+    "openAt": "Opens at {{date}}",
     "categories": {
       "adult": "Adult",
       "bar": "Bar",
@@ -93,7 +97,8 @@
       "loungeBar": "Lounge bar",
       "pianoBar": "Piano bar",
       "sportsBar": "Sports bar",
-      "wineBar": "Wine bar"
+      "wineBar": "Wine bar",
+      "whiskyBar": "Whisky bar"
     },
     "musicTypes": {
       "apresSki": "Apres Ski",
@@ -110,7 +115,7 @@
       "techno": "Techno",
       "varying": "Varying",
       "classical": "Classical",
-      "80s90S": "80s & 90s",
+      "80S90S": "80s & 90s",
       "disco": "Soul/Funk/Disco",
       "latin": "Latin/Salsa",
       "electro": "Electro"
