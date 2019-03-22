@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Animated} from 'react-native';
+import { Dimensions, Animated } from 'react-native';
 import { connect } from 'react-redux';
 
 import { fetchVenue, resetVenue } from '../../state/venues/actions';
@@ -41,7 +41,7 @@ class VenueScreen extends React.Component {
         <Header
           absolute={true}
           backgroundAnimatedValue={this.state.scrollY}
-          backgroundAnimatedValueRange={CAROUSEL_HEIGHT}
+          backgroundAnimatedValueUpperBound={CAROUSEL_HEIGHT}
         >
           <HeaderBackButton />
         </Header>
@@ -52,7 +52,11 @@ class VenueScreen extends React.Component {
           )}
           scrollEventThrottle={100}
         >
-          <Venue {...this.props.venue || {}} carouselHeight={CAROUSEL_HEIGHT} />
+          <Venue
+            {...this.props.venue || {}}
+            carouselHeight={CAROUSEL_HEIGHT}
+            scrollAnimValue={this.state.scrollY}
+          />
         </Animated.ScrollView>
       </React.Fragment>
     );

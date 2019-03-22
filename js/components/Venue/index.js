@@ -51,6 +51,7 @@ class Venue extends React.PureComponent {
     visitorTypes: PropTypes.arrayOf(PropTypes.string),
     timeSchedule: PropTypes.object,
     carouselHeight: PropTypes.number.isRequired,
+    scrollAnimValue: PropTypes.instanceOf(Animated.Value),
   };
 
   state = {
@@ -91,6 +92,7 @@ class Venue extends React.PureComponent {
           width={this.state.carouselWidth}
           height={this.props.carouselHeight}
           images={this.sortedImages}
+          scrollAnimValue={this.props.scrollAnimValue}
         />
         <SafeAreaView style={styles.content}>
           <View style={styles.header}>

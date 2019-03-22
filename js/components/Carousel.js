@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Animated } from 'react-native';
 import Swiper from 'react-native-swiper';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -17,6 +17,7 @@ class Carousel extends React.PureComponent {
     ).isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
+    scrollAnimValue: PropTypes.instanceOf(Animated.Value),
   };
 
   state = {
@@ -34,26 +35,37 @@ class Carousel extends React.PureComponent {
   render() {
     return (
       <View style={[styles.container, { height: this.props.height }]}>
-        <Swiper
-          loop={false}
-          height={this.props.height}
-          style={styles.swiper}
-          showsPagination={false}
-          onIndexChanged={this.onIndexChange}
+        <Animated.View
+          style={{
+            height: this.props.height,
+            width: this.props.width,
+            transform: [
+              {
+                translateY: this.props.scrollAnimValue.interpolate({
+                  inputRange: [0, this.props.height],
+                  outputRange: [0, (this.props.height / 2)],
+                }),
+              },
+            ],
+          }}
         >
-          {this.props.images.map((image, index) => (
-            <ProgressiveImage
-              key={index}
-              style={[styles.image, { height: this.props.height }]}
-              url={image.url}
-              size={this.getImageSize(image)}
-            />
-          ))}
-        </Swiper>
-        <LinearGradient
-          style={styles.topGradient}
-          colors={['rgba(0,0,0,0.5)', 'rgba(0,0,0,0)']}
-        />
+          <Swiper
+            loop={false}
+            height={this.props.height}
+            style={styles.swiper}
+            showsPagination={false}
+            onIndexChanged={this.onIndexChange}
+          >
+            {this.props.images.map((image, index) => (
+              <ProgressiveImage
+                key={index}
+                style={[styles.image, { height: this.props.height }]}
+                url={image.url}
+                size={this.getImageSize(image)}
+              />
+            ))}
+          </Swiper>
+        </Animated.View>
         <LinearGradient
           style={styles.bottomGradient}
           colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.6)']}
@@ -82,7 +94,7 @@ export default Carousel;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'yellow',
+    overflow: 'hidden',
   },
   swiper: {
     zIndex: 0,
