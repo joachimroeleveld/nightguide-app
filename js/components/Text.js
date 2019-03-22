@@ -2,7 +2,7 @@ import React from 'react';
 import { Text as RNText, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
-import colors from '../config/styles/colors';
+import S from '../config/styles';
 
 class Text extends React.PureComponent {
   static propTypes = {
@@ -22,9 +22,9 @@ export default Text;
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: 'NotoSans',
-    letterSpacing: -0.48,
-    color: colors.textDefault,
-    fontSize: 14,
+    fontFamily: S.text.fontFamily,
+    letterSpacing: S.text.defaultLetterSpacing,
+    color: S.colors.textDefault,
+    fontSize: S.text.paragraph.fontSize,
   },
 });

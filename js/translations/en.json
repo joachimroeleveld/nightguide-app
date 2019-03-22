@@ -75,7 +75,8 @@
     "music": "Music",
     "typicalVisitors": "Typical visitors",
     "openUntilTime": "Open until {{time}}",
-    "openAt": "Opens at {{date}}",
+    "opensAt": "Opens at {{date}}",
+    "opensOn": "Opens on {{date}}",
     "timeSchedule": "Time schedule"
   },
   "venue": {
@@ -131,6 +132,15 @@
       "locals": "Locals",
       "lgbtq": "LGBTQ",
       "varying": "Varying"
+    },
+    "timelineItems": {
+      "open": "Open",
+      "kitchen": "Kitchen",
+      "terrace": "Terrace",
+      "drinksFrom": "Drinks from",
+      "busyFrom": "Busy from",
+      "dancingFrom": "Dancing from",
+      "bitesUntil": "Bites available until"
     }
   },
   "genericErrorTitle": "Something went wrong",

@@ -1,57 +1,86 @@
-import React from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import S from '../config/styles';
+import Text from './Text';
 
-class Modal extends React.PureComponent {
-  static propTypes = {
-    title: PropTypes.string,
-    show: PropTypes.bool,
+function HorizontalTabs(props) {
+  const [currentKey, setCurrentKey] = useState(props.tabs[0].key);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  const onItemPress = key => {
+    setCurrentKey(key);
   };
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.show !== prevProps.show) {
-      this.toggleModal();
+  const onTabLayout = ({
+    nativeEvent: {
+      layout: { height },
+    },
+  }) => {
+    if (height > contentHeight) {
+      setContentHeight(height);
     }
-  }
+  };
 
-  toggleModal = () => {};
-
-  render() {
-    if (!this.props.show) {
-      return null;
-    }
-
-    return (
-      <View style={styles.container}>
-        <TouchableWithoutFeedback style={styles.touchContainer}>
-          <TouchableWithoutFeedback style={styles.modal} onPress={() => {}}>
-            {this.props.children}
-          </TouchableWithoutFeedback>
-        </TouchableWithoutFeedback>
+  return (
+    <View style={[styles.container, props.style]}>
+      <ScrollView contentContainerStyle={styles.tabs} horizontal={true}>
+        {props.tabs.map((tab, index) => (
+          <TouchableOpacity key={tab.key} onPress={() => onItemPress(tab.key)}>
+            <Text
+              style={[
+                styles.tabTitle,
+                tab.key === currentKey && styles.activeTabTitle,
+                index === 0 && { paddingLeft: 0 },
+                index === props.tabs.length - 1 && { paddingRight: 0 },
+              ]}
+            >
+              {tab.title}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+      <View
+        style={[styles.content, { height: contentHeight }]}
+        onLayout={onTabLayout}
+      >
+        {props.tabs[_.findIndex(props.tabs, { key: currentKey })].content}
       </View>
-    );
-  }
+    </View>
+  );
 }
 
-export default Modal;
+HorizontalTabs.propTypes = {
+  tabs: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      content: PropTypes.element,
+    })
+  ).isRequired,
+};
+
+export default HorizontalTabs;
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    flex: 1,
+  container: {},
+  tabs: {
+    flexDirection: 'row',
   },
-  touchContainer: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.75)',
-    justifyContent: 'center',
+  content: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: S.colors.separatorColor,
+    marginHorizontal: -S.dimensions.screenOffset,
+    paddingHorizontal: S.dimensions.screenOffset,
   },
-  modal: {
-    height: '50%',
-    backgroundColor: S.colors.defaultScreenColor,
-    marginHorizontal: S.dimensions.screenOffset,
+  tabTitle: {
+    color: S.colors.textSecondary,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+  },
+  activeTabTitle: {
+    color: S.colors.textDefault,
   },
 });

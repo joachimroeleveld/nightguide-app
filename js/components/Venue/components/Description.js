@@ -24,9 +24,10 @@ export default class VenueDescription extends React.PureComponent {
     const { lineCount } = await TextSize.measure({
       text: this.props.text,
       width,
-      fontFamily: 'Noto Sans',
-      fontSize: 14,
-      letterSpacing: -0.48,
+      fontFamily: S.text.fontFamily,
+      fontSize: S.text.paragraph.fontSize,
+      letterSpacing: S.text.defaultLetterSpacing,
+      lineHeight: S.text.paragraph.lineHeight,
     });
     this.setState({
       lineCount,
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   text: {
-    lineHeight: 21,
+    ...S.text.paragraph,
   },
   toggle: {
     marginTop: 4,

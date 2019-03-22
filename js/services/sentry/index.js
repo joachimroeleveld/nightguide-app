@@ -3,10 +3,8 @@ import { NavigationActions } from 'react-navigation';
 
 import constants from '../../config/constants';
 
-function configure() {
-  if (!__DEV__) {
-    Sentry.config(constants.sentryDsn).install();
-  }
+if (!__DEV__) {
+  Sentry.config(constants.sentryDsn).install();
 }
 
 function handleError(error, logger = undefined) {
@@ -38,7 +36,6 @@ function addNavigationBreadCrumb(action) {
 }
 
 export default {
-  configure,
   setUserContext,
   addBreadcrumb,
   handleError,

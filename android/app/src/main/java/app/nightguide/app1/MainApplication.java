@@ -3,7 +3,6 @@ package app.nightguide.app1;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.swmansion.reanimated.ReanimatedPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import io.invertase.firebase.perf.RNFirebasePerformancePackage;
@@ -37,7 +36,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ReanimatedPackage(),
             new RNFirebasePackage(),
             new RNFirebasePerformancePackage(),
             new RNFirebaseAnalyticsPackage(),

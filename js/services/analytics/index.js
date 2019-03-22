@@ -11,10 +11,8 @@ const analytics = firebase.analytics();
 const SESSION_TIMEOUT_DURATION = 1800000; // 30 minutes
 const SESSION_MINIMUM_DURATION = 5000; // 5 seconds
 
-function configure() {
-  analytics.setSessionTimeoutDuration(SESSION_TIMEOUT_DURATION);
-  analytics.setMinimumSessionDuration(SESSION_MINIMUM_DURATION);
-}
+analytics.setSessionTimeoutDuration(SESSION_TIMEOUT_DURATION);
+analytics.setMinimumSessionDuration(SESSION_MINIMUM_DURATION);
 
 function handleNavigationChange(prevState, newState) {
   const prevRoute = navigation.getActiveRouteName(prevState);
@@ -32,7 +30,6 @@ function setUserProperty(name, val) {
 }
 
 export default {
-  configure,
   handleNavigationChange,
   setUserProperty,
 };

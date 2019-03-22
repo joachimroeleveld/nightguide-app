@@ -20,6 +20,8 @@ import MusicTypes from './components/MusicTypes';
 import Section from '../Section';
 import VisitorTypes from './components/VisitorTypes';
 import OpeningHours from './components/OpeningHours';
+import Modal from '../Modal';
+import Timeline from './components/Timeline';
 
 const IMAGE_SORT_ORDER = [
   'front_venue',
@@ -54,6 +56,7 @@ class Venue extends React.PureComponent {
   state = {
     belowFoldOpacity: new Animated.Value(0),
     carouselWidth: Dimensions.get('window').width,
+    showTimeline: false,
   };
 
   get sortedImages() {
@@ -74,6 +77,12 @@ class Venue extends React.PureComponent {
     }
     return address;
   }
+
+  toggleShowTimeline = () => {
+    this.setState({
+      showTimeline: !this.state.showTimeline,
+    });
+  };
 
   render() {
     return (
@@ -107,6 +116,7 @@ class Venue extends React.PureComponent {
                 style={styles.openingHours}
                 schedule={this.props.timeSchedule.open}
                 city={this.props.location.city}
+                toggleModalCallback={this.toggleShowTimeline}
               />
             </View>
           </View>
@@ -124,6 +134,13 @@ class Venue extends React.PureComponent {
             </Section>
           )}
         </SafeAreaView>
+        <Modal
+          visible={this.state.showTimeline}
+          title={__('venueScreen.timeSchedule')}
+          onRequestClose={this.toggleShowTimeline}
+        >
+          <Timeline schedule={this.props.timeSchedule} />
+        </Modal>
       </View>
     );
   }
@@ -137,9 +154,8 @@ const styles = StyleSheet.create({
     paddingBottom: 36,
   },
   name: {
-    fontSize: 22,
+    ...S.text.h1,
     lineHeight: 26,
-    fontWeight: '700',
   },
   header: {
     paddingTop: 24,
@@ -148,9 +164,7 @@ const styles = StyleSheet.create({
     marginHorizontal: S.dimensions.screenOffset,
   },
   categories: {
-    fontSize: S.text.smallCapsFontSize,
-    color: S.colors.textSmallCaps,
-    fontWeight: '700',
+    ...S.text.smallCaps,
     marginBottom: 10,
   },
   address: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
@@ -7,15 +7,18 @@ import moment from 'moment';
 import __ from '../../../services/i18n';
 import Text from '../../Text';
 import S from '../../../config/styles';
-import { getDayScheduleParsed, checkIsOpenFromSchedule } from '../util';
+import {
+  getDayScheduleParsed,
+  checkIsOpenFromSchedule,
+  TIME_FORMAT,
+} from '../util';
 import Image from '../../Image';
-
-const MOMENT_TIME_FORMAT = 'H:mm';
 
 class VenueOpeningHours extends React.PureComponent {
   static propTypes = {
     city: PropTypes.string.isRequired,
     schedule: PropTypes.object.isRequired,
+    toggleModalCallback: PropTypes.func,
   };
 
   get todayScheduleParsed() {
@@ -42,20 +45,19 @@ class VenueOpeningHours extends React.PureComponent {
   get openText() {
     if (this.isOpen) {
       return __('venueScreen.openUntilTime', {
-        time: this.todayScheduleParsed.to.format(MOMENT_TIME_FORMAT),
+        time: this.todayScheduleParsed.to.format(TIME_FORMAT),
       });
     }
 
     const nextOpenMoment = this.nextOpenMoment;
     if (nextOpenMoment) {
-      let openAt;
       if (nextOpenMoment.isSame(moment(), 'day')) {
-        openAt = nextOpenMoment.format(MOMENT_TIME_FORMAT);
+        const date = nextOpenMoment.format(TIME_FORMAT);
+        return __('venueScreen.opensAt', { date });
       } else {
-        openAt = nextOpenMoment.format(`ddd ${MOMENT_TIME_FORMAT}`);
+        const date = nextOpenMoment.format(`ddd, ${TIME_FORMAT}`);
+        return __('venueScreen.opensOn', { date });
       }
-
-      return __('venueScreen.openAt', { date: openAt });
     }
     return null;
   }
@@ -68,15 +70,17 @@ class VenueOpeningHours extends React.PureComponent {
     }
 
     return (
-      <View style={[styles.container, this.props.style]}>
-        {this.isOpen && (
-          <Image
-            style={styles.openIndicator}
-            source={require('../../../img/open_indicator.png')}
-          />
-        )}
-        <Text>{openText}</Text>
-      </View>
+      <TouchableOpacity onPress={this.props.toggleModalCallback}>
+        <View style={[styles.container, this.props.style]}>
+          {this.isOpen && (
+            <Image
+              style={styles.openIndicator}
+              source={require('../../../img/open_indicator.png')}
+            />
+          )}
+          <Text>{openText}</Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 }
