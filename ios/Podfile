@@ -10,6 +10,8 @@ target 'nightguideApp' do
 
   # Pods for nightguideApp
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
   target 'nightguideAppTests' do
     inherit! :search_paths
     # Pods for testing
