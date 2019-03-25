@@ -30,43 +30,46 @@ class ProfileScreen extends React.Component {
   };
 
   onLoginPress = () => {
-    this.props.navigation.navigate('Splash');
+    this.props.logout();
+    this.props.navigation.navigate('Auth');
   };
 
   render() {
     return (
       <ScrollView style={styles.container}>
         <Title>{__('profileScreen.profile')}</Title>
-        {this.props.email === undefined && (
-          <Section padding={'bottom'}>
-            <Text style={styles.buttonText}>
-              {__('profileScreen.loginText')}
-            </Text>
-            <BigButton
-              title={__('profileScreen.login')}
-              style={S.buttons.whiteButton}
-              darkTitle={true}
-              onPress={this.onLoginPress}
-            />
-          </Section>
-        )}
-        {this.props.email !== undefined && (
-          <React.Fragment>
+        <React.Fragment>
+          {this.props.isAnonymous && (
+            <Section padding={'bottom'}>
+              <Text style={styles.buttonText}>
+                {__('profileScreen.loginText')}
+              </Text>
+              <BigButton
+                title={__('profileScreen.login')}
+                style={S.buttons.whiteButton}
+                darkTitle={true}
+                onPress={this.onLoginPress}
+              />
+            </Section>
+          )}
+          {!this.props.isAnonymous && (
             <Section padding={'bottom'}>
               <LabeledText label={__('profileScreen.email')}>
                 {this.props.email}
               </LabeledText>
             </Section>
-            <Section>
-              <Text style={styles.buttonText}>
-                {__('profileScreen.feedbackText')}
-              </Text>
-              <BigButton
-                title={__('profileScreen.giveFeedback')}
-                style={S.buttons.whiteButtonSecondary}
-                onPress={this.onFeedbackPress}
-              />
-            </Section>
+          )}
+          <Section>
+            <Text style={styles.buttonText}>
+              {__('profileScreen.feedbackText')}
+            </Text>
+            <BigButton
+              title={__('profileScreen.giveFeedback')}
+              style={S.buttons.whiteButtonSecondary}
+              onPress={this.onFeedbackPress}
+            />
+          </Section>
+          {!this.props.isAnonymous && (
             <Section border={'none'}>
               <BigButton
                 title={__('profileScreen.logout')}
@@ -75,8 +78,8 @@ class ProfileScreen extends React.Component {
                 onPress={this.onLogoutPress}
               />
             </Section>
-          </React.Fragment>
-        )}
+          )}
+        </React.Fragment>
       </ScrollView>
     );
   }
@@ -84,6 +87,7 @@ class ProfileScreen extends React.Component {
 
 const mapStateToProps = state => ({
   email: state.account.user.email,
+  isAnonymous: state.account.isAnonymous,
 });
 
 const mapDispatchToProps = dispatch => ({

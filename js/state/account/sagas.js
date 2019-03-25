@@ -1,10 +1,11 @@
-import { call, fork, put, takeLatest } from 'redux-saga/effects';
+import { call, fork, put, takeEvery } from 'redux-saga/effects';
 
 import api from '../../services/api';
 import { eventBus } from '../../services/analytics';
 import facebook from '../../services/facebook';
 import {
   LOGIN,
+  LOGIN_ANONYMOUS,
   LOGIN_FB,
   loginError,
   loginFbCancel,
@@ -20,7 +21,7 @@ import {
 } from './actions';
 
 function* signupSaga() {
-  yield takeLatest(SIGNUP, function*(action) {
+  yield takeEvery(SIGNUP, function*(action) {
     try {
       yield call(api.users.signup, action.payload);
       eventBus.signup({ method: eventBus.PARAM_SIGNUP_METHOD_NORMAL });
@@ -32,8 +33,16 @@ function* signupSaga() {
   });
 }
 
+function* loginAnonymousSaga() {
+  yield takeEvery(LOGIN_ANONYMOUS, function() {
+    eventBus.login({
+      method: eventBus.PARAM_LOGIN_METHOD_ANONYMOUS,
+    });
+  });
+}
+
 function* loginSaga() {
-  yield takeLatest(LOGIN, function*(action) {
+  yield takeEvery(LOGIN, function*(action) {
     try {
       const response = yield call(
         api.users.login,
@@ -56,7 +65,7 @@ function* loginSaga() {
 }
 
 function* facebookLoginSaga() {
-  yield takeLatest(LOGIN_FB, function*(action) {
+  yield takeEvery(LOGIN_FB, function*(action) {
     yield put(loginFbDialog());
 
     try {
@@ -89,7 +98,7 @@ function* facebookLoginSaga() {
 }
 
 function* resetPasswordSaga() {
-  yield takeLatest(RESET_PASSWORD, function*(action) {
+  yield takeEvery(RESET_PASSWORD, function*(action) {
     try {
       const { email } = action.payload;
       yield call(api.users.resetPassword, { email });
@@ -106,6 +115,7 @@ export default function* rootSaga() {
   yield [
     fork(signupSaga),
     fork(loginSaga),
+    fork(loginAnonymousSaga),
     fork(facebookLoginSaga),
     fork(resetPasswordSaga),
   ];

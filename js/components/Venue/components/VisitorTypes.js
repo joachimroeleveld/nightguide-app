@@ -24,9 +24,13 @@ export default VisitorTypes;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: -5,
+    marginBottom: -5,
   },
   tag: {
-    marginRight: 10,
+    marginRight: 6,
+    marginVertical: 3,
   },
   lastTag: {
     marginRight: 0,

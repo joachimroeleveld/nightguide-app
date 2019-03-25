@@ -153,5 +153,6 @@
   "close": "Close",
   "continue": "Continue",
   "readMore": "Read more",
-  "readLess": "Read less"
+  "readLess": "Read less",
+  "pickerChoose": "Choose..."
 }

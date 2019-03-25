@@ -1,8 +1,8 @@
 import { createActions, handleActions } from 'redux-actions';
-import { call, put, takeLatest, fork } from 'redux-saga/effects';
+import { call, put, takeEvery, fork } from 'redux-saga/effects';
 import update from 'immutability-helper';
 
-import {eventBus} from '../services/analytics';
+import { eventBus } from '../services/analytics';
 
 import api from '../services/api';
 
@@ -14,14 +14,10 @@ export const {
   sendFeedback,
   sendFeedbackSuccess,
   sendFeedbackError,
-} = createActions(
-  SEND_FEEDBACK,
-  SEND_FEEDBACK_SUCCESS,
-  SEND_FEEDBACK_ERROR,
-);
+} = createActions(SEND_FEEDBACK, SEND_FEEDBACK_SUCCESS, SEND_FEEDBACK_ERROR);
 
 function* sendFeedbackSaga() {
-  yield takeLatest(SEND_FEEDBACK, function*(action) {
+  yield takeEvery(SEND_FEEDBACK, function*(action) {
     try {
       yield call(api.misc.sendFeedback, action.payload);
       eventBus.submitFeedback();

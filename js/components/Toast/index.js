@@ -33,7 +33,7 @@ class Toast extends React.Component {
     super(props);
 
     this.message = null;
-    this.lastMessageIndex = -1;
+    this.messageIndex = -1;
     this.queue = [];
     this.messageHeight = 0;
     this.panResponder = null;
@@ -64,13 +64,12 @@ class Toast extends React.Component {
     };
   }
 
-  componentDidUpdate() {
-    if (this.props.messages.length - 1 !== this.lastMessageIndex) {
-      const newMessageIndex = this.lastMessageIndex + 1;
+  componentDidUpdate(prevProps) {
+    if (this.props.messages.length > prevProps.messages.length) {
+      const newMessageIndex = this.props.messages.length - 1;
+      this.messageIndex = newMessageIndex;
 
       this.queueMessage(this.props.messages[newMessageIndex]);
-
-      this.lastMessageIndex = newMessageIndex;
     }
   }
 

@@ -34,8 +34,12 @@ class VenueOpeningHours extends React.PureComponent {
       if (openMoment) {
         return openMoment;
       }
-      const daySchedule = getDayScheduleParsed(this.props.schedule, dayOffset);
-      if (daySchedule && daySchedule.from) {
+      const daySchedule = getDayScheduleParsed(
+        this.props.schedule,
+        true,
+        dayOffset
+      );
+      if (daySchedule) {
         return daySchedule.from;
       }
       return null;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import __ from '../../services/i18n';
 import S from '../../config/styles';
-import { login, loginFb } from '../../state/account/actions';
+import { login, loginFb, loginAnonymous } from '../../state/account/actions';
 import Text from '../../components/Text';
 import BigButton from '../../components/BigButton';
 import HeaderBackButton from '../../components/HeaderBackButton';
@@ -18,7 +18,7 @@ class SplashScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    if (this.props.userId) {
+    if (this.props.userId || this.props.isAnonymous) {
       const routeName =
         this.props.locationPermissions === null ? 'Intro' : 'App';
       this.props.navigation.navigate(routeName);
@@ -26,7 +26,10 @@ class SplashScreen extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.userId && this.props.userId) {
+    if (
+      (!prevProps.userId && this.props.userId) ||
+      (!prevProps.isAnonymous && this.props.isAnonymous)
+    ) {
       this.props.navigation.navigate('Intro');
     }
   }
@@ -43,8 +46,8 @@ class SplashScreen extends React.Component {
     this.props.loginWithFacebook();
   };
 
-  skipAuth = () => {
-    this.props.navigation.navigate('App');
+  loginAnonymous = () => {
+    this.props.loginAnonymous();
   };
 
   render() {
@@ -56,7 +59,7 @@ class SplashScreen extends React.Component {
               style={styles.closeButton}
               imageStyle={styles.closeButtonImage}
               variant={'close'}
-              onPress={this.skipAuth}
+              onPress={this.loginAnonymous}
             />
           )}
           <Image style={styles.logo} source={require('../../img/logo.png')} />
@@ -90,11 +93,13 @@ const mapStateToProps = state => ({
   locationPermissions: !state.permissions.location,
   userId: state.account.user.id,
   isFbLoginFetching: state.account.fbLogin.isFetching,
+  isAnonymous: state.account.isAnonymous,
 });
 
 const mapDispatchToProps = dispatch => ({
   login: (email, password) => dispatch(login({ email, password })),
   loginWithFacebook: () => dispatch(loginFb()),
+  loginAnonymous: () => dispatch(loginAnonymous()),
 });
 
 export default connect(

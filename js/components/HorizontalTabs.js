@@ -8,20 +8,9 @@ import Text from './Text';
 
 function HorizontalTabs(props) {
   const [currentKey, setCurrentKey] = useState(props.tabs[0].key);
-  const [contentHeight, setContentHeight] = useState(0);
 
   const onItemPress = key => {
     setCurrentKey(key);
-  };
-
-  const onTabLayout = ({
-    nativeEvent: {
-      layout: { height },
-    },
-  }) => {
-    if (height > contentHeight) {
-      setContentHeight(height);
-    }
   };
 
   return (
@@ -42,10 +31,7 @@ function HorizontalTabs(props) {
           </TouchableOpacity>
         ))}
       </ScrollView>
-      <View
-        style={[styles.content, { height: contentHeight }]}
-        onLayout={onTabLayout}
-      >
+      <View style={styles.content}>
         {props.tabs[_.findIndex(props.tabs, { key: currentKey })].content}
       </View>
     </View>

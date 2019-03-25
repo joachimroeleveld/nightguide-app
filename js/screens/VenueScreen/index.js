@@ -52,11 +52,7 @@ class VenueScreen extends React.Component {
           )}
           scrollEventThrottle={100}
         >
-          <Venue
-            {...this.props.venue || {}}
-            carouselHeight={CAROUSEL_HEIGHT}
-            scrollAnimValue={this.state.scrollY}
-          />
+          <Venue {...this.props.venue || {}} carouselHeight={CAROUSEL_HEIGHT} />
         </Animated.ScrollView>
       </React.Fragment>
     );

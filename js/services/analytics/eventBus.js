@@ -4,6 +4,7 @@ const analytics = firebase.analytics();
 
 export const PARAM_LOGIN_METHOD_NORMAL = 'normal';
 export const PARAM_LOGIN_METHOD_FACEBOOK = 'facebook';
+export const PARAM_LOGIN_METHOD_ANONYMOUS = 'anonymous';
 
 export const PARAM_SIGNUP_METHOD_NORMAL = 'normal';
 export const PARAM_SIGNUP_METHOD_FACEBOOK = 'facebook';
@@ -16,7 +17,9 @@ export function signup({ method }) {
 
 export function login({ method, userId }) {
   analytics.logEvent('login', { method });
-  analytics.setUserId(userId);
+  if (userId) {
+    analytics.setUserId(userId);
+  }
 }
 
 export function loginWithIncorrectCredentials() {

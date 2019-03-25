@@ -1,3 +1,6 @@
+import DeviceInfo from 'react-native-device-info';
+import { Platform } from 'react-native';
+
 let config = {
   apiUrl: 'https://api.nightguide.app',
   apiToken: 'fg!Q3LqaoZETh%bedXSB',
@@ -10,6 +13,9 @@ const devConfig = {
 };
 
 if (__DEV__) {
+  if (Platform.OS === 'android' && DeviceInfo.isEmulator()) {
+    devConfig.apiUrl = 'http://10.0.2.2:8080';
+  }
   config = Object.assign(config, devConfig);
 }
 

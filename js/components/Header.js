@@ -41,10 +41,12 @@ class Header extends React.PureComponent {
     return (
       <React.Fragment>
         <View style={styles.absoluteContainer}>
-          <LinearGradient
-            style={styles.topGradient}
-            colors={['rgba(0,0,0,0.5)', 'rgba(0,0,0,0)']}
-          />
+          {!!this.props.backgroundAnimatedValue && (
+            <LinearGradient
+              style={styles.topGradient}
+              colors={['rgba(0,0,0,0.5)', 'rgba(0,0,0,0)']}
+            />
+          )}
           <BgComponent
             style={[
               styles.backgroundContainer,

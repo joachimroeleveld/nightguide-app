@@ -8,6 +8,7 @@ import {
   loginFbCancel,
   loginFbDialog,
   loginFbError,
+  loginAnonymous,
   resetPassword,
   resetPasswordError,
   resetPasswordSuccess,
@@ -38,6 +39,7 @@ const INITIAL_STATE = {
   },
   user: {},
   token: null,
+  isAnonymous: false,
 };
 
 const reducer = handleActions(
@@ -63,6 +65,10 @@ const reducer = handleActions(
           isFetching: { $set: false },
           error: { $set: action.payload },
         },
+      }),
+    [loginAnonymous]: (state, action) =>
+      update(state, {
+        isAnonymous: { $set: true },
       }),
     [login]: (state, action) =>
       update(state, {
@@ -141,7 +147,7 @@ export default persistConfig =>
     {
       ...persistConfig,
       key: 'account',
-      whitelist: ['token', 'user'],
+      whitelist: ['token', 'user', 'isAnonymous'],
     },
     reducer
   );

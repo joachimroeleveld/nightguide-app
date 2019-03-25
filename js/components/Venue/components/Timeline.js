@@ -13,7 +13,7 @@ const TIMELINE_ITEMS = [
   { key: 'open', isRange: true },
   { key: 'terrace', isRange: true },
   { key: 'kitchen', isRange: true },
-  { key: 'drinksFrom' },
+  // { key: 'drinksFrom' },
   { key: 'busyFrom' },
   { key: 'dancingFrom' },
   { key: 'bitesUntil' },
@@ -21,16 +21,22 @@ const TIMELINE_ITEMS = [
 
 function VenueTimeline(props) {
   const renderDay = daySchedule => {
+    const closed = !daySchedule.open;
+
     const items = TIMELINE_ITEMS.map(({ key, isRange }) => {
-      if (!daySchedule[key]) return null;
+      const value = daySchedule[key];
+
+      if (key !== 'open' && (closed || !value)) return null;
 
       let time;
-      if (isRange) {
-        const fromTime = daySchedule[key].from.format(TIME_FORMAT);
-        const toTime = daySchedule[key].to.format(TIME_FORMAT);
+      if (closed) {
+        time = '-';
+      } else if (isRange) {
+        const fromTime = value.from.format(TIME_FORMAT);
+        const toTime = value.to.format(TIME_FORMAT);
         time = `${fromTime}-${toTime}`;
       } else {
-        time = daySchedule[key].format(TIME_FORMAT);
+        time = value.format(TIME_FORMAT);
       }
 
       return (
@@ -49,7 +55,7 @@ function VenueTimeline(props) {
     const dayKey = getDayKey(dayOffset);
     const dayTitle = moment()
       .add(dayOffset, 'days')
-      .format('dddd');
+      .format('ddd');
 
     const daySchedule = TIMELINE_ITEMS.reduce((daySchedule, item) => {
       if (!props.schedule[item.key]) {
