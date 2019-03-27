@@ -22,6 +22,7 @@ import VisitorTypes from './components/VisitorTypes';
 import OpeningHours from './components/OpeningHours';
 import Modal from '../Modal';
 import Timeline from './components/Timeline';
+import Tiles from './components/Tiles';
 
 const IMAGE_SORT_ORDER = [
   'front_venue',
@@ -133,6 +134,16 @@ class Venue extends React.PureComponent {
               <VisitorTypes types={this.props.visitorTypes} />
             </Section>
           )}
+          <Section>
+            <Tiles
+              facilities={this.props.facilities}
+              dresscode={this.props.dresscode}
+              fees={this.props.fees}
+              paymentMethods={this.props.paymentMethods}
+              capacity={this.props.capacity}
+              doorPolicy={this.props.doorPolicy}
+            />
+          </Section>
         </SafeAreaView>
         <Modal
           visible={this.state.showTimeline}

@@ -11,7 +11,7 @@ import S from '../../config/styles';
 import Text from '../Text';
 import ImageButton from '../ImageButton';
 
-class Index extends React.PureComponent {
+class Modal extends React.PureComponent {
   static propTypes = {
     title: PropTypes.string,
     visible: PropTypes.bool,
@@ -69,7 +69,7 @@ class Index extends React.PureComponent {
   }
 }
 
-export default Index;
+export default Modal;
 
 const styles = StyleSheet.create({
   bgContainer: {
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
   },
   title: {
     ...S.text.h2,
+    marginBottom: 8,
   },
   closeButton: {
     position: 'absolute',

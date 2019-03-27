@@ -77,7 +77,45 @@
     "openUntilTime": "Open until {{time}}",
     "opensAt": "Opens at {{date}}",
     "opensOn": "Opens on {{date}}",
-    "timeSchedule": "Time schedule"
+    "timeSchedule": "Time schedule",
+    "timelineItems": {
+      "open": "Open",
+      "kitchen": "Kitchen",
+      "terrace": "Terrace",
+      "drinksFrom": "Drinks from",
+      "busyFrom": "Busy from",
+      "dancingFrom": "Dancing from",
+      "bitesUntil": "Bites available until"
+    },
+    "tiles": {
+      "bouncers": "Bouncers",
+      "parking": "Parking",
+      "accessibleBuilding": "Accessible building",
+      "dresscode": "Dresscode",
+      "dresscodeChique": "Chique",
+      "dresscodeCasual": "Casual",
+      "dresscodeAlternative": "Alternative",
+      "doorPolicy": "Door policy",
+      "doorPolicyNonStrict": "Non-strict",
+      "doorPolicyModerate": "Moderately strict",
+      "doorPolicyStrict": "Strict",
+      "doorPolicyGuestlist": "Guest list",
+      "vipArea": "VIP area",
+      "entranceFee": "Entrance fee",
+      "kitchen": "Kitchen",
+      "coatCheck": "Coat check",
+      "coatCheckFee": "{{fee}} fee",
+      "smoking": "Smoking",
+      "smokingPacksForSale": "Only packs for sale",
+      "smokingYesAndForSale": "Yes, packs for sale",
+      "payment": "Payment",
+      "paymentMethodDebitCard": "Debit",
+      "paymentMethodCreditCard": "Credit",
+      "paymentMethodCash": "Cash",
+      "capacity": "Capacity",
+      "terrace": "Terrace",
+      "terraceHeated": "Heated",
+    }
   },
   "venue": {
     "categories": {
@@ -132,15 +170,6 @@
       "locals": "Locals",
       "lgbtq": "LGBTQ",
       "varying": "Varying"
-    },
-    "timelineItems": {
-      "open": "Open",
-      "kitchen": "Kitchen",
-      "terrace": "Terrace",
-      "drinksFrom": "Drinks from",
-      "busyFrom": "Busy from",
-      "dancingFrom": "Dancing from",
-      "bitesUntil": "Bites available until"
     }
   },
   "genericErrorTitle": "Something went wrong",
@@ -154,5 +183,6 @@
   "continue": "Continue",
   "readMore": "Read more",
   "readLess": "Read less",
-  "pickerChoose": "Choose..."
+  "pickerChoose": "Choose...",
+  "yes": "Yes"
 }

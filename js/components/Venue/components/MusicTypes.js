@@ -61,9 +61,9 @@ const styles = StyleSheet.create({
     height: 112,
   },
   tile: {
-    marginRight: 10,
+    marginRight: S.dimensions.tile.margin * 2,
     height: 112,
-    borderRadius: 5,
+    borderRadius: S.dimensions.tile.borderRadius,
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',

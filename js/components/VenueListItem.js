@@ -50,7 +50,7 @@ class VenueListItem extends React.PureComponent {
   render() {
     return (
       <TouchableScale
-        activeScale={0.98}
+        activeScale={S.dimensions.touchableScale}
         onPress={this.props.onPress}
         onLayout={this.onLayout}
         style={[styles.container, this.props.style]}

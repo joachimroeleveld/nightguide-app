@@ -12,11 +12,11 @@ const devConfig = {
   apiToken: 'token',
 };
 
-if (__DEV__) {
-  if (Platform.OS === 'android' && DeviceInfo.isEmulator()) {
-    devConfig.apiUrl = 'http://10.0.2.2:8080';
-  }
-  config = Object.assign(config, devConfig);
-}
+// if (__DEV__) {
+//   if (Platform.OS === 'android' && DeviceInfo.isEmulator()) {
+//     devConfig.apiUrl = 'http://10.0.2.2:8080';
+//   }
+//   config = Object.assign(config, devConfig);
+// }
 
 export default config;

@@ -42,7 +42,7 @@ function VenueTimeline(props) {
       return (
         <View key={key} style={styles.item}>
           <Text style={styles.itemLeft}>
-            {__(`venue.timelineItems.${key}`)}
+            {__(`venueScreen.timelineItems.${key}`)}
           </Text>
           <Text style={styles.itemRight}>{time}</Text>
         </View>
@@ -90,7 +90,7 @@ export default VenueTimeline;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 12,
+    marginTop: 4,
   },
   items: {
     paddingTop: 10,

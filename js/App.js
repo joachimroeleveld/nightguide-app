@@ -15,6 +15,7 @@ import S from './config/styles';
 
 import './config/datetime';
 import './config/dev';
+import './config/lodash';
 
 export default class App extends Component {
   state = { navigator: null };
