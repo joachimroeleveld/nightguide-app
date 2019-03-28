@@ -78,6 +78,9 @@
     "opensAt": "Opens at {{date}}",
     "opensOn": "Opens on {{date}}",
     "timeSchedule": "Time schedule",
+    "navigateHere": "Navigate here",
+    "whatNavigationApp": "What navigation app would you like to use?",
+    "navigationOptions": "Navigation options",
     "timelineItems": {
       "open": "Open",
       "kitchen": "Kitchen",

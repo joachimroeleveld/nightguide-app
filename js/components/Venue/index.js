@@ -8,6 +8,7 @@ import {
   Animated,
 } from 'react-native';
 import _ from 'lodash';
+import { showLocation } from 'react-native-map-link';
 
 import S from '../../config/styles';
 import Carousel from '../Carousel';
@@ -23,6 +24,7 @@ import OpeningHours from './components/OpeningHours';
 import Modal from '../Modal';
 import Timeline from './components/Timeline';
 import Tiles from './components/Tiles';
+import BigButton from '../BigButton';
 
 const IMAGE_SORT_ORDER = [
   'front_venue',
@@ -43,6 +45,7 @@ class Venue extends React.PureComponent {
       country: PropTypes.string.isRequired,
       address1: PropTypes.string.isRequired,
       address2: PropTypes.string,
+      googlePlaceId: PropTypes.string,
     }).isRequired,
     facebook: PropTypes.shape({
       id: PropTypes.string,
@@ -58,6 +61,7 @@ class Venue extends React.PureComponent {
     belowFoldOpacity: new Animated.Value(0),
     carouselWidth: Dimensions.get('window').width,
     showTimeline: false,
+    showNavigate: false,
   };
 
   get sortedImages() {
@@ -82,6 +86,18 @@ class Venue extends React.PureComponent {
   toggleShowTimeline = () => {
     this.setState({
       showTimeline: !this.state.showTimeline,
+    });
+  };
+
+  showNavigationOptions = () => {
+    showLocation({
+      latitude: this.props.location.coordinates.latitude,
+      longitude: this.props.location.coordinates.longitude,
+      title: this.props.name, // optional
+      dialogTitle: __('venueScreen.navigationOptions'),
+      dialogMessage: __('venueScreen.whatNavigationApp'),
+      cancelText: __('cancel'),
+      googlePlaceId: this.props.location.googlePlaceId,
     });
   };
 
@@ -144,6 +160,14 @@ class Venue extends React.PureComponent {
               doorPolicy={this.props.doorPolicy}
             />
           </Section>
+          <View style={styles.mapsContainer}>
+            <BigButton
+              style={styles.navigateButton}
+              icon={require('../../img/maps.png')}
+              title={__('venueScreen.navigateHere')}
+              onPress={this.showNavigationOptions}
+            />
+          </View>
         </SafeAreaView>
         <Modal
           visible={this.state.showTimeline}
@@ -195,5 +219,15 @@ const styles = StyleSheet.create({
   distance: {},
   openingHours: {
     marginLeft: 14,
+  },
+  mapsContainer: {
+    alignItems: 'center',
+  },
+  navigateButton: {
+    ...S.buttons.greenButton,
+    fontSize: 13,
+    minWidth: '70%',
+    marginTop: 30,
+    marginBottom: 20,
   },
 });

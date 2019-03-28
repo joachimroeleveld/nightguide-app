@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     textAlign: 'center',
     marginTop: '10%',
-    fontWeight: '700',
+    fontWeight: '600',
   },
   enableLocationDescription: {
     fontSize: 13,

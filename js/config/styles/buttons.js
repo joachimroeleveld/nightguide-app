@@ -13,6 +13,9 @@ export default {
   whiteButton: {
     backgroundColor: colors.buttons.white,
   },
+  greenButton: {
+    backgroundColor: colors.buttons.green,
+  },
   whiteButtonSecondary: {
     borderWidth: 1,
     borderColor: colors.buttons.white,

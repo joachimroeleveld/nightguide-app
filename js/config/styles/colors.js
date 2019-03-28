@@ -10,6 +10,7 @@ export default {
     white: '#fff',
     blue: '#33558D',
     purple: '#A85FB3',
+    green: '#419285',
   },
   separatorColor: '#3c3c3c',
   inputs: {

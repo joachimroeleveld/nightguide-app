@@ -6040,6 +6040,14 @@ react-native-linear-gradient@^2.5.3:
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.3.tgz#d90cf19a13fcccfa8bb32025ac40a15ae1b49e99"
   integrity sha512-XdusrOXXlkI+yQpUW7YLeiq9cZiBwkvQX4XEkHPVrJ9H47gsKmdgBwObkZBzBQUP0dKK/Sg6aVpETEis4w43bQ==
 
+react-native-map-link@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-map-link/-/react-native-map-link-2.4.0.tgz#1c86fd1193e3c7578c76e0cc98e892ae418284cd"
+  integrity sha512-Rlw1O+zMibGL49V1ZBo97rST6zZOcnZdMenz+9tw4DVilP8fP0PZh+pY2JvN87I93U8bmuai3EZs0dpfQo5Gkw==
+  dependencies:
+    prop-types "^15.6.1"
+    react-native-modal "^9.0.0"
+
 react-native-modal-datetime-picker@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-6.0.0.tgz#8018994524122ad48fd6bc66f26f623c75a49fb3"
@@ -6062,6 +6070,14 @@ react-native-modal@^7.0.2:
   integrity sha512-IRTDeErr4asDdPs4DGbaKvz3fgr56tcVA7nAdCLu4IkjNw7DaIlAbQelg0Sdirb+8+RbIDPyrrnuEH84Fnj4ZA==
   dependencies:
     prop-types "^15.6.1"
+    react-native-animatable "^1.2.4"
+
+react-native-modal@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-9.0.0.tgz#0bfd0770361a2e5c6e0072bfdb0f1277f9662dba"
+  integrity sha512-j4xeIK9noHU/ksp2Ndc8NI1qJvjApToqGvqLEu2wtYeaISanbhtd0S3V4hZkSlCa3DZtegl6aaMZBLeH1q6xfA==
+  dependencies:
+    prop-types "^15.6.2"
     react-native-animatable "^1.2.4"
 
 react-native-permissions@^1.1.1:

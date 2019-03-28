@@ -171,7 +171,7 @@ class SignupScreen extends React.Component {
             )}
             <FormItem
               value={'birthday'}
-              required={true}
+              // required={true}
               label={__('signupScreen.birthday')}
             >
               <DatePicker
@@ -181,7 +181,7 @@ class SignupScreen extends React.Component {
             </FormItem>
             <FormItem
               value={'gender'}
-              required={true}
+              // required={true}
               label={__('signupScreen.gender')}
             >
               <Picker

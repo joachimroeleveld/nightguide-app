@@ -43,9 +43,7 @@ const mapStateToProps = state => ({
   query: state.venues.list.query,
 });
 
-export default connect(
-  mapStateToProps,
-)(CityScreen);
+export default connect(mapStateToProps)(CityScreen);
 
 const styles = StyleSheet.create({
   container: {
@@ -56,6 +54,8 @@ const styles = StyleSheet.create({
     paddingTop: 32,
   },
   title: {
+    fontWeight: '600',
+    lineHeight: 26,
     fontSize: 22,
     marginBottom: 14,
   },

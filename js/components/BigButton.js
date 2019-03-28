@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Animated,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -12,10 +13,11 @@ import colors from '../config/styles/colors';
 class BigButton extends React.PureComponent {
   static propTypes = {
     onPress: PropTypes.func.isRequired,
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
     darkTitle: PropTypes.bool,
     disabled: PropTypes.bool,
     loading: PropTypes.bool,
+    icon: PropTypes.any,
   };
 
   static defaultProps = {
@@ -52,20 +54,23 @@ class BigButton extends React.PureComponent {
         ]}
       >
         {!this.props.loading && (
-          <Animated.Text
-            style={[
-              styles.title,
-              this.props.darkTitle && styles.titleDark,
-              {
-                opacity: this.state.loadingOpacity.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [1, 0],
-                }),
-              },
-            ]}
-          >
-            {this.props.title}
-          </Animated.Text>
+          <React.Fragment>
+            <Image style={styles.icon} source={this.props.icon} />
+            <Animated.Text
+              style={[
+                styles.title,
+                this.props.darkTitle && styles.titleDark,
+                {
+                  opacity: this.state.loadingOpacity.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [1, 0],
+                  }),
+                },
+              ]}
+            >
+              {this.props.title}
+            </Animated.Text>
+          </React.Fragment>
         )}
         {this.props.loading && (
           <Animated.View style={{ opacity: this.state.loadingOpacity }}>
@@ -86,9 +91,12 @@ export default BigButton;
 
 const styles = StyleSheet.create({
   button: {
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     marginVertical: 8,
     borderRadius: 20,
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   title: {
     color: colors.textDefault,
@@ -100,5 +108,8 @@ const styles = StyleSheet.create({
   },
   disabled: {
     opacity: 0.8,
+  },
+  icon: {
+    marginRight: 10,
   },
 });
