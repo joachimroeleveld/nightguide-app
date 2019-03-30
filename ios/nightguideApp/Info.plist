@@ -30,17 +30,23 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>19</string>
+	<string>22</string>
 	<key>FacebookAppID</key>
 	<string>195378768070002</string>
 	<key>FacebookDisplayName</key>
 	<string>NightGuide</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-share-api</string>
 		<string>fbauth2</string>
-		<string>fbshareextension</string>
+		<string>comgooglemaps</string>
+		<string>citymapper</string>
+		<string>uber</string>
+		<string>lyft</string>
+		<string>transit</string>
+		<string>waze</string>
+		<string>yandexnavi</string>
+		<string>moovit</string>
+		<string>yandexmaps</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -65,6 +71,8 @@
 	<string>Calendar usage</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera usage</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Use maps and distances</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Use maps and distances</string>
 	<key>NSMotionUsageDescription</key>
@@ -100,17 +108,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-  <key>LSApplicationQueriesSchemes</key>
-  <array>
-    <string>comgooglemaps</string>
-    <string>citymapper</string>
-    <string>uber</string>
-    <string>lyft</string>
-    <string>transit</string>
-    <string>waze</string>
-    <string>yandexnavi</string>
-    <string>moovit</string>
-    <string>yandexmaps</string>
-  </array>
 </dict>
 </plist>

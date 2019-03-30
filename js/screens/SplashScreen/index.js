@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, View, Platform } from 'react-native';
+import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 import __ from '../../services/i18n';
@@ -7,7 +7,6 @@ import S from '../../config/styles';
 import { login, loginFb, loginAnonymous } from '../../state/account/actions';
 import Text from '../../components/Text';
 import BigButton from '../../components/BigButton';
-import HeaderBackButton from '../../components/HeaderBackButton';
 
 class SplashScreen extends React.Component {
   static screenOptions = {
@@ -54,14 +53,6 @@ class SplashScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.brandContainer}>
-          {Platform.OS === 'ios' && (
-            <HeaderBackButton
-              style={styles.closeButton}
-              imageStyle={styles.closeButtonImage}
-              variant={'close'}
-              onPress={this.loginAnonymous}
-            />
-          )}
           <Image style={styles.logo} source={require('../../img/logo.png')} />
           <Text style={styles.slogan}>{__('splashScreen.slogan')}</Text>
         </View>
@@ -84,6 +75,12 @@ class SplashScreen extends React.Component {
             darkTitle={true}
           />
         </View>
+        <TouchableOpacity
+          style={styles.skipContainer}
+          onPress={this.loginAnonymous}
+        >
+          <Text style={styles.skipText}>{__('loginScreen.skip')}</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -125,16 +122,17 @@ const styles = StyleSheet.create({
     height: '40%',
   },
   buttonContainer: {
-    height: '60%',
+    height: '50%',
     paddingTop: '20%',
     justifyContent: 'center',
   },
-  closeButton: {
-    position: 'absolute',
-    top: 8,
-    right: 0,
+  skipContainer: {
+    height: '10%',
+    alignItems: 'center',
   },
-  closeButtonImage: {
-    tintColor: '#878787',
+  skipText: {
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
+    color: '#989898',
   },
 });

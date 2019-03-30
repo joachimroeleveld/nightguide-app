@@ -35,6 +35,7 @@ class VenueListItem extends React.PureComponent {
   get isOpen() {
     return (
       this.props.timeSchedule &&
+      this.props.timeSchedule.open &&
       checkIsOpenFromSchedule(this.props.timeSchedule.open)
     );
   }

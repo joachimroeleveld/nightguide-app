@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -12,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* nightguideAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* nightguideAppTests.m */; };
+		09B5E5B6100649AF80FE17FD /* NotoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27647E08C04B4D8BB5592FFA /* NotoSans-SemiBold.ttf */; };
 		0C27739A2DEA4ECABC02A4EF /* NotoSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A44151ACEAFC42D3BD9B80D0 /* NotoSans.ttf */; };
 		0FDBC496E76E495C8ECE2B13 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDE52AB2EED746B7AD0B2D9A /* libRNDeviceInfo.a */; };
 		11063EF793E390E2AED1E5B7 /* libPods-nightguideAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66064F4B57AEA1998F38182F /* libPods-nightguideAppTests.a */; };
@@ -49,7 +51,6 @@
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		F04254DF78EE41119E736E9C /* libDBCustomTabs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D07C7E4EF5E414AAD0641BC /* libDBCustomTabs.a */; };
 		F32BC74E25204CA281C72EA0 /* libRNLanguages.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F03AEE0287E4EC098315D49 /* libRNLanguages.a */; };
-		09B5E5B6100649AF80FE17FD /* NotoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27647E08C04B4D8BB5592FFA /* NotoSans-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -467,6 +468,7 @@
 		15E7F19FBB8F4E2C9227A29C /* RNScreens.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNScreens.xcodeproj; path = "../node_modules/react-native-screens/ios/RNScreens.xcodeproj"; sourceTree = "<group>"; };
 		18F9F10B025B1512BF8FD425 /* Pods-nightguideApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nightguideApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-nightguideApp-tvOS/Pods-nightguideApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		1ADFD009678B4000BD70E153 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
+		27647E08C04B4D8BB5592FFA /* NotoSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-SemiBold.ttf"; path = "../assets/fonts/NotoSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		279DCBA322213E8700245FCC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		27DE961A21B998F500D0D666 /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
 		27DE971221B99FA400D0D666 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -516,7 +518,6 @@
 		F19BB1B995972A71121D40B4 /* Pods-nightguideAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nightguideAppTests.debug.xcconfig"; path = "Target Support Files/Pods-nightguideAppTests/Pods-nightguideAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F5371696CA824CF78809C865 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		F98C1286DBC637DEFE10428B /* libPods-nightguideApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-nightguideApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		27647E08C04B4D8BB5592FFA /* NotoSans-SemiBold.ttf */ = {isa = PBXFileReference; name = "NotoSans-SemiBold.ttf"; path = "../assets/fonts/NotoSans-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

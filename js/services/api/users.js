@@ -9,17 +9,20 @@ export function signup({
   gender,
   birthday,
 }) {
+  const body = {
+    email,
+    password,
+    firstName,
+    lastName,
+    birthday: formatDate(birthday),
+  };
+  if (gender) {
+    body.gender = gender;
+  }
   return request({
     path: '/users',
     method: 'POST',
-    body: {
-      email,
-      password,
-      firstName,
-      lastName,
-      gender,
-      birthday: formatDate(birthday),
-    },
+    body,
   });
 }
 

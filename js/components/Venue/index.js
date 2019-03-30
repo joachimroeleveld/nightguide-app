@@ -129,12 +129,14 @@ class Venue extends React.PureComponent {
                 style={styles.distance}
                 coordinates={this.props.location.coordinates}
               />
-              <OpeningHours
-                style={styles.openingHours}
-                schedule={this.props.timeSchedule.open}
-                city={this.props.location.city}
-                toggleModalCallback={this.toggleShowTimeline}
-              />
+              {!!this.props.timeSchedule.open && (
+                <OpeningHours
+                  style={styles.openingHours}
+                  schedule={this.props.timeSchedule.open}
+                  city={this.props.location.city}
+                  toggleModalCallback={this.toggleShowTimeline}
+                />
+              )}
             </View>
           </View>
           {_o(this.props.description) && (
@@ -150,16 +152,14 @@ class Venue extends React.PureComponent {
               <VisitorTypes types={this.props.visitorTypes} />
             </Section>
           )}
-          <Section>
-            <Tiles
-              facilities={this.props.facilities}
-              dresscode={this.props.dresscode}
-              fees={this.props.fees}
-              paymentMethods={this.props.paymentMethods}
-              capacity={this.props.capacity}
-              doorPolicy={this.props.doorPolicy}
-            />
-          </Section>
+          <Tiles
+            facilities={this.props.facilities}
+            dresscode={this.props.dresscode}
+            fees={this.props.fees}
+            paymentMethods={this.props.paymentMethods}
+            capacity={this.props.capacity}
+            doorPolicy={this.props.doorPolicy}
+          />
           <View style={styles.mapsContainer}>
             <BigButton
               style={styles.navigateButton}

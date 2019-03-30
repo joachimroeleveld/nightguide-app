@@ -8,9 +8,9 @@ import Text from '../../Text';
 import __, { _o } from '../../../services/i18n';
 import S from '../../../config/styles';
 import { formatAmount } from '../../../services/currencies';
-import { formatNumber } from '../../../services/util';
 import Modal from '../../Modal';
-import { VENUE_FACILITIES, CAPACITY_RANGES } from '../constants';
+import { VENUE_FACILITIES } from '../constants';
+import Section from '../../Section';
 
 function VenueTile({
   title,
@@ -80,6 +80,12 @@ function VenueTiles({
   doorPolicy = {},
 }) {
   const [width, setWidth] = useState(0);
+
+  const onLayout = ({
+    nativeEvent: {
+      layout: { width },
+    },
+  }) => setWidth(width);
 
   const tiles = [];
 
@@ -160,22 +166,10 @@ function VenueTiles({
   }
 
   if (capacity) {
-    const subtitle = CAPACITY_RANGES.reduce((range, lowerBound, index) => {
-      if (range) {
-        return range;
-      }
-      const upperBound = CAPACITY_RANGES[index + 1];
-      if (!upperBound) {
-        return formatNumber(CAPACITY_RANGES.slice(-1)) + '+';
-      }
-      if (capacity > lowerBound && capacity <= upperBound) {
-        return `${lowerBound}-${upperBound}`;
-      }
-    }, null);
     tiles.push({
       title: __('venueScreen.tiles.capacity'),
       iconId: 'capacity',
-      subtitle,
+      subtitle: capacity,
     });
   }
 
@@ -244,28 +238,28 @@ function VenueTiles({
     });
   }
 
-  const onLayout = ({
-    nativeEvent: {
-      layout: { width },
-    },
-  }) => setWidth(width);
+  if (!tiles.length) {
+    return null;
+  }
 
   const size = Math.floor((width - 6 * styles.tile.margin) / 3);
 
   return (
-    <View onLayout={onLayout} style={styles.container}>
-      {!!width &&
-        tiles.map(props => (
-          <VenueTile
-            key={props.iconId}
-            style={{
-              width: size,
-              height: size,
-            }}
-            {...props}
-          />
-        ))}
-    </View>
+    <Section>
+      <View onLayout={onLayout} style={styles.container}>
+        {!!width &&
+          tiles.map(props => (
+            <VenueTile
+              key={props.iconId}
+              style={{
+                width: size,
+                height: size,
+              }}
+              {...props}
+            />
+          ))}
+      </View>
+    </Section>
   );
 }
 
@@ -325,5 +319,5 @@ const styles = StyleSheet.create({
   },
   doorPolicyDescription: {
     ...S.text.paragraph,
-  }
+  },
 });

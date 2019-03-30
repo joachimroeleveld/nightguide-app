@@ -10,5 +10,3 @@ export const VENUE_FACILITIES = {
   FACILITY_TERRACE: 'terrace',
   FACILITY_TERRACE_HEATERS: 'terrace_heaters',
 };
-
-export const CAPACITY_RANGES = [1, 50, 200, 500, 1000, 5000, 10000];

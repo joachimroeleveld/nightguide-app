@@ -89,7 +89,7 @@ class SearchBar extends React.PureComponent {
   };
 
   onQueryChange = query => {
-    const text = query ? query.trim() : null;
+    const text = query && query.trim() ? query : null;
     this.setState({ query: text });
     this.props.onQueryChange(text);
   };
