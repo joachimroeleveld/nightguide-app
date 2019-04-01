@@ -50,9 +50,13 @@ class VenueScreen extends React.Component {
             [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
             { useNativeDriver: true }
           )}
-          scrollEventThrottle={100}
+          scrollEventThrottle={20}
         >
-          <Venue {...this.props.venue || {}} carouselHeight={CAROUSEL_HEIGHT} />
+          <Venue
+            {...this.props.venue || {}}
+            scrollPosY={this.state.scrollY}
+            carouselHeight={CAROUSEL_HEIGHT}
+          />
         </Animated.ScrollView>
       </React.Fragment>
     );

@@ -25,6 +25,7 @@ import Modal from '../Modal';
 import Timeline from './components/Timeline';
 import Tiles from './components/Tiles';
 import BigButton from '../BigButton';
+import VenuePriceClass from './components/PriceClass';
 
 const IMAGE_SORT_ORDER = [
   'front_venue',
@@ -55,6 +56,9 @@ class Venue extends React.PureComponent {
     visitorTypes: PropTypes.arrayOf(PropTypes.string),
     timeSchedule: PropTypes.object,
     carouselHeight: PropTypes.number.isRequired,
+    capacityRange: PropTypes.string,
+    priceClass: PropTypes.number,
+    scrollPosY: PropTypes.instanceOf(Animated.Value),
   };
 
   state = {
@@ -108,6 +112,7 @@ class Venue extends React.PureComponent {
           width={this.state.carouselWidth}
           height={this.props.carouselHeight}
           images={this.sortedImages}
+          scrollPosY={this.props.scrollPosY}
         />
         <SafeAreaView style={styles.content}>
           <View style={styles.header}>
@@ -137,6 +142,12 @@ class Venue extends React.PureComponent {
                   toggleModalCallback={this.toggleShowTimeline}
                 />
               )}
+              {this.props.priceClass !== undefined && (
+                <VenuePriceClass
+                  style={styles.priceClass}
+                  priceClass={this.props.priceClass}
+                />
+              )}
             </View>
           </View>
           {_o(this.props.description) && (
@@ -157,7 +168,7 @@ class Venue extends React.PureComponent {
             dresscode={this.props.dresscode}
             fees={this.props.fees}
             paymentMethods={this.props.paymentMethods}
-            capacity={this.props.capacity}
+            capacityRange={this.props.capacityRange}
             doorPolicy={this.props.doorPolicy}
           />
           <View style={styles.mapsContainer}>
@@ -218,6 +229,9 @@ const styles = StyleSheet.create({
   },
   distance: {},
   openingHours: {
+    marginLeft: 14,
+  },
+  priceClass: {
     marginLeft: 14,
   },
   mapsContainer: {

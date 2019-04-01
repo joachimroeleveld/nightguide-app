@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet } from 'react-native';
-import Swiper from 'react-native-swiper';
+import { View, StyleSheet, Animated } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import RNCarousel, { Pagination } from 'react-native-snap-carousel';
 
 import ProgressiveImage from './ProgressiveImage';
+const AnimatedProgressiveImage = Animated.createAnimatedComponent(
+  ProgressiveImage
+);
 
 class Carousel extends React.PureComponent {
   static propTypes = {
@@ -17,58 +20,71 @@ class Carousel extends React.PureComponent {
     ).isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
+    scollPosY: PropTypes.instanceOf(Animated.Value),
   };
 
   state = {
-    activeIndex: 0,
+    activeSlide: 0,
   };
 
   getImageSize = image => {
     return Math.min(image.width, image.height, this.props.width);
   };
 
-  onIndexChange = index => {
-    this.setState({ activeIndex: index });
+  renderCarouselItem = ({ item: image, index }) => {
+    const translateY = this.props.scrollPosY.interpolate({
+      inputRange: [-this.props.height, 0, this.props.height],
+      outputRange: [0, 0, this.props.height / 2],
+    });
+    return (
+      <AnimatedProgressiveImage
+        key={index}
+        style={[
+          styles.image,
+          { width: this.props.width, height: this.props.height },
+          { transform: [{ translateY }] },
+        ]}
+        url={image.url}
+        size={this.getImageSize(image)}
+      />
+    );
+  };
+
+  onSnapToItem = index => {
+    this.setState({ activeSlide: index });
   };
 
   render() {
     return (
       <View style={[styles.container, { height: this.props.height }]}>
-        <Swiper
-          loop={false}
-          height={this.props.height}
-          style={styles.swiper}
-          showsPagination={false}
-          onIndexChanged={this.onIndexChange}
-        >
-          {this.props.images.map((image, index) => (
-            <ProgressiveImage
-              key={index}
-              style={[styles.image, { height: this.props.height }]}
-              url={image.url}
-              size={this.getImageSize(image)}
-            />
-          ))}
-        </Swiper>
+        <RNCarousel
+          renderItem={this.renderCarouselItem}
+          data={this.props.images}
+          layoutCardOffset={0}
+          sliderWidth={this.props.width}
+          itemWidth={this.props.width}
+          itemHeight={this.props.height}
+          sliderHeight={this.props.height}
+          loop={true}
+          inactiveSlideScale={1}
+          onSnapToItem={this.onSnapToItem}
+          momentum={this.props.images.length !== 1}
+          decelerationRate={this.props.images.length === 1 ? 'fast' : 0.9}
+        />
         <LinearGradient
           style={styles.bottomGradient}
           colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.6)']}
         />
-        {this.props.images.length && (
-          <View style={styles.pager}>
-            <View style={styles.dots}>
-              {this.props.images.map((image, index) => (
-                <View
-                  style={[
-                    styles.dot,
-                    index === this.state.activeIndex && styles.dotActive,
-                  ]}
-                  key={index}
-                />
-              ))}
-            </View>
-          </View>
-        )}
+        <Pagination
+          dotsLength={this.props.images.length}
+          activeDotIndex={this.state.activeSlide}
+          containerStyle={styles.pagination}
+          dotContainerStyle={styles.dotContainer}
+          dotStyle={styles.dot}
+          inactiveDotStyle={styles.dotInactive}
+          inactiveDotOpacity={0.4}
+          inactiveDotScale={0.8}
+        />
       </View>
     );
   }
@@ -87,6 +103,24 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image: {},
+  pagination: {
+    position: 'absolute',
+    width: '100%',
+    bottom: 0,
+    zIndex: 1,
+    paddingVertical: 10,
+  },
+  dot: {
+    width: 6,
+    height: 6,
+    margin: 0,
+    borderRadius: 3,
+    marginHorizontal: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.92)',
+  },
+  dotContainer: {
+    marginHorizontal: 3,
+  },
   topGradient: {
     height: 90,
     position: 'absolute',
@@ -100,27 +134,5 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     zIndex: 1,
-  },
-  pager: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    zIndex: 2,
-    paddingVertical: 8,
-  },
-  dots: {
-    flexDirection: 'row',
-    flex: 1,
-    justifyContent: 'center',
-  },
-  dot: {
-    marginHorizontal: 3,
-    width: 6,
-    height: 6,
-    borderRadius: 8,
-    backgroundColor: 'rgba(255,255,255,0.6)',
-  },
-  dotActive: {
-    backgroundColor: '#fff',
   },
 });

@@ -66,7 +66,7 @@ function VenueTile({
 
 VenueTile.propTypes = {
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string,
+  subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   iconId: PropTypes.string.isRequired,
   dialogContent: PropTypes.element,
 };
@@ -76,7 +76,7 @@ function VenueTiles({
   dresscode,
   fees = {},
   paymentMethods = [],
-  capacity,
+  capacityRange,
   doorPolicy = {},
 }) {
   const [width, setWidth] = useState(0);
@@ -165,11 +165,11 @@ function VenueTiles({
     });
   }
 
-  if (capacity) {
+  if (capacityRange) {
     tiles.push({
       title: __('venueScreen.tiles.capacity'),
       iconId: 'capacity',
-      subtitle: capacity,
+      subtitle: capacityRange,
     });
   }
 
@@ -271,7 +271,7 @@ VenueTiles.propTypes = {
     coatCheck: PropTypes.number,
   }),
   paymentMethods: PropTypes.arrayOf(PropTypes.string),
-  capacity: PropTypes.number,
+  capacityRange: PropTypes.string,
   doorPolicy: PropTypes.shape({
     policy: PropTypes.string,
     description: PropTypes.object,

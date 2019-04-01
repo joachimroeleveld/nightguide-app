@@ -35,7 +35,7 @@ class ProgressiveImage extends React.PureComponent {
     );
 
   getThumbnailSource = () =>
-    _.memoize(uri => ({ uri: `${uri}=s10-c` }))(this.props.url);
+    _.memoize(uri => ({ uri: `${uri}=s10-c-fSoften=1,100,0` }))(this.props.url);
 
   onScreenFocus = () => {
     this.setState({
@@ -69,7 +69,7 @@ class ProgressiveImage extends React.PureComponent {
     }
 
     return (
-      <View style={styles.container}>
+      <View style={[style, styles.container]}>
         <Animated.Image
           source={this.getThumbnailSource()}
           style={[
@@ -78,7 +78,6 @@ class ProgressiveImage extends React.PureComponent {
             { opacity: this.thumbnailAnimated },
           ]}
           onLoad={this.handleThumbnailLoad}
-          blurRadius={1}
         />
         <Animated.Image
           source={this.getSource()}
@@ -93,18 +92,17 @@ class ProgressiveImage extends React.PureComponent {
 export default ProgressiveImage;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: S.colors.imagePlaceholderColor,
+  },
   imageThumbnail: {
     position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
     top: 0,
-    width: '100%',
   },
   image: {
     zIndex: 1,
-  },
-  container: {
-    backgroundColor: S.colors.imagePlaceholderColor,
   },
 });
