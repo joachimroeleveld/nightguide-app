@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">NightGuide</string>
-    <string name="fb_app_id">195378768070002</string>
-    <string name="fb_login_protocol_scheme">fb195378768070002</string>
 </resources>
