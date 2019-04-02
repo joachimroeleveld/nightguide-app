@@ -69,14 +69,17 @@ function* facebookLoginSaga() {
     yield put(loginFbDialog());
 
     try {
-      const { credentials } = yield call(facebook.showLoginDialog);
+      const { isCanceled, token } = yield call(facebook.showLoginDialog);
+      if (isCanceled) {
+        return yield put(loginFbCancel());
+      }
 
-      const { permissions, token, userId } = credentials;
+      const { permissions, accessToken, userID } = token;
 
       const response = yield call(api.users.loginWithFacebook, {
         permissions,
-        token,
-        userId,
+        token: accessToken,
+        userId: userID,
       });
       if (response.isNew) {
         eventBus.signup({ method: eventBus.PARAM_SIGNUP_METHOD_FACEBOOK });
@@ -89,9 +92,6 @@ function* facebookLoginSaga() {
 
       yield put(setAccount(response));
     } catch (e) {
-      if (e === 'Cancel') {
-        return yield put(loginFbCancel());
-      }
       yield put(loginFbError(e));
     }
   });

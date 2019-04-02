@@ -3,6 +3,7 @@ package app.nightguide.app1;
 import android.os.Bundle;
 import com.facebook.react.ReactFragmentActivity;
 import org.devio.rn.splashscreen.SplashScreen;
+import android.content.Intent;
 
 public class MainActivity extends ReactFragmentActivity {
     @Override
@@ -18,5 +19,11 @@ public class MainActivity extends ReactFragmentActivity {
     protected String getMainComponentName() {
         SplashScreen.show(this);
         return "nightguideApp";
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        MainApplication.getCallbackManager().onActivityResult(requestCode, resultCode, data);
     }
 }

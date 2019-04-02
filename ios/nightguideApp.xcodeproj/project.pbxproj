@@ -42,6 +42,10 @@
 		8D573670773742048B7D9191 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B33174BA4E9B42858068ED96 /* libRNGestureHandler.a */; };
 		A170635C7F1840A1A2B7CDA8 /* libReactNativePermissions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE93798193EA4B1FB6318B8C /* libReactNativePermissions.a */; };
 		A6930FCE8C3D404999D805B2 /* NotoSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B1E36F81A5A473EAACA78BC /* NotoSans-BoldItalic.ttf */; };
+		AA3AF13C2253816D009684C7 /* libFBSDKCoreKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3AF13B2253816D009684C7 /* libFBSDKCoreKit.a */; };
+		AA3AF13E2253816D009684C7 /* libFBSDKLoginKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3AF13D2253816D009684C7 /* libFBSDKLoginKit.a */; };
+		AA3AF1402253816D009684C7 /* libFBSDKShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3AF13F2253816D009684C7 /* libFBSDKShareKit.a */; };
+		AA3AF1DE225385AB009684C7 /* libBolts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3AF1DD225385AB009684C7 /* libBolts.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		CF401C3721CE4B36A3EC760C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B33F34E83FD4FFDB1DFC14B /* libz.tbd */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
@@ -484,6 +488,10 @@
 		A3438CEDF9C3118E5DB2D8F0 /* Pods-nightguideApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nightguideApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-nightguideApp-tvOS/Pods-nightguideApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		A44151ACEAFC42D3BD9B80D0 /* NotoSans.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSans.ttf; path = ../assets/fonts/NotoSans.ttf; sourceTree = "<group>"; };
 		A876FCF957EC44168DAA40E7 /* ReactNativeCustomTabs.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeCustomTabs.xcodeproj; path = "../node_modules/react-native-custom-tabs/ios/ReactNativeCustomTabs.xcodeproj"; sourceTree = "<group>"; };
+		AA3AF13B2253816D009684C7 /* libFBSDKCoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBSDKCoreKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA3AF13D2253816D009684C7 /* libFBSDKLoginKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBSDKLoginKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA3AF13F2253816D009684C7 /* libFBSDKShareKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBSDKShareKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA3AF1DD225385AB009684C7 /* libBolts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libBolts.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B0762F501334C97D74DFC019 /* Pods-nightguideApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nightguideApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-nightguideApp-tvOSTests/Pods-nightguideApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B0D3D8757317414BA9577A7E /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
@@ -519,6 +527,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA3AF1DE225385AB009684C7 /* libBolts.a in Frameworks */,
+				AA3AF13C2253816D009684C7 /* libFBSDKCoreKit.a in Frameworks */,
+				AA3AF13E2253816D009684C7 /* libFBSDKLoginKit.a in Frameworks */,
+				AA3AF1402253816D009684C7 /* libFBSDKShareKit.a in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
@@ -639,8 +651,8 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				279DCBA322213E8700245FCC /* GoogleService-Info.plist */,
 			);
 			name = nightguideApp;
@@ -794,6 +806,10 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA3AF1DD225385AB009684C7 /* libBolts.a */,
+				AA3AF13B2253816D009684C7 /* libFBSDKCoreKit.a */,
+				AA3AF13D2253816D009684C7 /* libFBSDKLoginKit.a */,
+				AA3AF13F2253816D009684C7 /* libFBSDKShareKit.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
@@ -958,6 +974,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				3EEB638AAFB24C97A550EF70 /* Upload Debug Symbols to Sentry */,
+				2A742C8C1FFA84DDDB80B143 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1523,6 +1540,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		2A742C8C1FFA84DDDB80B143 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-nightguideApp/Pods-nightguideApp-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-nightguideApp/Pods-nightguideApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		3EEB638AAFB24C97A550EF70 /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;

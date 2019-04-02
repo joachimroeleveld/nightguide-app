@@ -1,5 +1,5 @@
-import { FBLoginManager } from 'react-native-facebook-login';
-import { Platform } from 'react-native';
+const FBSDK = require('react-native-fbsdk');
+const { LoginManager, AccessToken } = FBSDK;
 
 const PERMISSIONS = [
   'public_profile',
@@ -8,22 +8,20 @@ const PERMISSIONS = [
   // 'user_birthday',
 ];
 
-function showLoginDialog() {
-  return new Promise((resolve, reject) => {
-    if (Platform.OS === 'android') {
-      // The Facebook login library that we use uses an outdated version of the
-      // Facebook SDK, which is why this must be set or the app will crash.
-      // @TODO use react-native-fbsdk when crash on iOS is resolved
-      FBLoginManager.setLoginBehavior(FBLoginManager.LoginBehaviors.WebView);
-    }
-    FBLoginManager.loginWithPermissions(PERMISSIONS, (error, data) => {
-      if (error) {
-        return reject(error);
-      }
-
-      resolve(data);
-    });
-  });
+async function showLoginDialog() {
+  const {
+    isCanceled,
+    grantedPermissions,
+  } = await LoginManager.logInWithReadPermissions(PERMISSIONS);
+  if (!isCanceled) {
+    const token = await AccessToken.getCurrentAccessToken();
+    return {
+      grantedPermissions,
+      token,
+    };
+  } else {
+    return { isCanceled: true };
+  }
 }
 
 export default {
