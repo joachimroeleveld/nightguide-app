@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { NavigationEvents } from 'react-navigation';
 
+const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 import S from '../config/styles';
 
 class ProgressiveImage extends React.PureComponent {
@@ -12,6 +14,11 @@ class ProgressiveImage extends React.PureComponent {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     lazy: PropTypes.bool,
+    priority: PropTypes.string,
+  };
+
+  static defaultProps = {
+    priority: FastImage.priority.normal,
   };
 
   thumbnailAnimated = new Animated.Value(0);
@@ -30,14 +37,17 @@ class ProgressiveImage extends React.PureComponent {
   getSource = () => {
     const { width, height } = this.props;
     const params = width >= height ? '-c' : '';
-    return _.memoize((uri, size) => ({ uri: `${uri}=s${size}${params}` }))(
-      this.props.url,
-      Math.max(width, height)
-    );
+    return _.memoize((uri, size, priority) => ({
+      uri: `${uri}=s${size}${params}`,
+      priority,
+    }))(this.props.url, Math.max(width, height), this.props.priority);
   };
 
   getThumbnailSource = () =>
-    _.memoize(uri => ({ uri: `${uri}=s10-c-fSoften=1,100,0` }))(this.props.url);
+    _.memoize((uri, priority) => ({
+      uri: `${uri}=s10-c-fSoften=1,100,0`,
+      priority,
+    }))(this.props.url, this.props.priority);
 
   onScreenFocus = () => {
     this.setState({
@@ -72,7 +82,7 @@ class ProgressiveImage extends React.PureComponent {
 
     return (
       <View style={[{ width, height }, styles.container, containerStyle]}>
-        <Animated.Image
+        <AnimatedFastImage
           source={this.getThumbnailSource()}
           style={[
             { width, height },
@@ -82,7 +92,7 @@ class ProgressiveImage extends React.PureComponent {
           ]}
           onLoad={this.handleThumbnailLoad}
         />
-        <Animated.Image
+        <AnimatedFastImage
           source={this.getSource()}
           style={[
             { width, height },

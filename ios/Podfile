@@ -18,6 +18,7 @@ target 'nightguideApp' do
   'RCTNetwork',
   'RCTWebSocket', # Needed for debugging
   'RCTAnimation', # Needed for FlatList and animations running on native UI thread
+  'RCTImage'
   # Add any other subspecs you want to use in your project
   ]
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
@@ -27,6 +28,8 @@ target 'nightguideApp' do
   pod 'FBSDKShareKit', '4.42.0'
   pod 'FBSDKLoginKit', '4.42.0'
   pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
+  pod 'react-native-fast-image', :path => '../node_modules/react-native-fast-image'
 
   target 'nightguideAppTests' do
     inherit! :search_paths

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet, Animated } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import RNCarousel, { Pagination } from 'react-native-snap-carousel';
+import FastImage from 'react-native-fast-image';
 
 import ProgressiveImage from './ProgressiveImage';
 const AnimatedProgressiveImage = Animated.createAnimatedComponent(
@@ -32,6 +33,18 @@ class Carousel extends React.PureComponent {
       inputRange: [-this.props.height, 0, this.props.height],
       outputRange: [0, 0, this.props.height / 2],
     });
+    let priority;
+    switch (index) {
+      case 0:
+        priority = FastImage.priority.high;
+        break;
+      case 1:
+        priority = FastImage.priority.normal;
+        break;
+      case 2:
+        priority = FastImage.priority.low;
+        break;
+    }
     return (
       <AnimatedProgressiveImage
         key={index}
@@ -39,6 +52,7 @@ class Carousel extends React.PureComponent {
         width={Math.min(this.props.width, image.width)}
         height={this.props.height}
         url={image.url}
+        priority={priority}
       />
     );
   };

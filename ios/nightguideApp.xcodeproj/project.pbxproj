@@ -42,6 +42,7 @@
 		8D573670773742048B7D9191 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B33174BA4E9B42858068ED96 /* libRNGestureHandler.a */; };
 		A170635C7F1840A1A2B7CDA8 /* libReactNativePermissions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE93798193EA4B1FB6318B8C /* libReactNativePermissions.a */; };
 		A6930FCE8C3D404999D805B2 /* NotoSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B1E36F81A5A473EAACA78BC /* NotoSans-BoldItalic.ttf */; };
+		AA139A4B22539D66005D3C9F /* libreact-native-fast-image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA139A4A22539D66005D3C9F /* libreact-native-fast-image.a */; };
 		AA3AF13C2253816D009684C7 /* libFBSDKCoreKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3AF13B2253816D009684C7 /* libFBSDKCoreKit.a */; };
 		AA3AF13E2253816D009684C7 /* libFBSDKLoginKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3AF13D2253816D009684C7 /* libFBSDKLoginKit.a */; };
 		AA3AF1402253816D009684C7 /* libFBSDKShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3AF13F2253816D009684C7 /* libFBSDKShareKit.a */; };
@@ -488,6 +489,7 @@
 		A3438CEDF9C3118E5DB2D8F0 /* Pods-nightguideApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nightguideApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-nightguideApp-tvOS/Pods-nightguideApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		A44151ACEAFC42D3BD9B80D0 /* NotoSans.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSans.ttf; path = ../assets/fonts/NotoSans.ttf; sourceTree = "<group>"; };
 		A876FCF957EC44168DAA40E7 /* ReactNativeCustomTabs.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeCustomTabs.xcodeproj; path = "../node_modules/react-native-custom-tabs/ios/ReactNativeCustomTabs.xcodeproj"; sourceTree = "<group>"; };
+		AA139A4A22539D66005D3C9F /* libreact-native-fast-image.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-fast-image.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA3AF13B2253816D009684C7 /* libFBSDKCoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBSDKCoreKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA3AF13D2253816D009684C7 /* libFBSDKLoginKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBSDKLoginKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA3AF13F2253816D009684C7 /* libFBSDKShareKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBSDKShareKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -527,6 +529,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA139A4B22539D66005D3C9F /* libreact-native-fast-image.a in Frameworks */,
 				AA3AF1DE225385AB009684C7 /* libBolts.a in Frameworks */,
 				AA3AF13C2253816D009684C7 /* libFBSDKCoreKit.a in Frameworks */,
 				AA3AF13E2253816D009684C7 /* libFBSDKLoginKit.a in Frameworks */,
@@ -806,6 +809,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA139A4A22539D66005D3C9F /* libreact-native-fast-image.a */,
 				AA3AF1DD225385AB009684C7 /* libBolts.a */,
 				AA3AF13B2253816D009684C7 /* libFBSDKCoreKit.a */,
 				AA3AF13D2253816D009684C7 /* libFBSDKLoginKit.a */,
