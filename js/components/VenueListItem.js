@@ -59,13 +59,8 @@ class VenueListItem extends React.PureComponent {
         {!!this.state.layoutWidth && (
           <React.Fragment>
             <ProgressiveImage
-              size={this.state.layoutWidth}
-              style={[
-                {
-                  width: this.state.layoutWidth,
-                },
-                styles.thumbnail,
-              ]}
+              width={this.state.layoutWidth}
+              height={S.dimensions.venueListItemHeight}
               url={this.props.imageUrl}
             />
             <View style={styles.smallCapsContainer}>
@@ -120,8 +115,5 @@ const styles = StyleSheet.create({
   },
   openIndicator: {
     marginLeft: 7,
-  },
-  thumbnail: {
-    height: S.dimensions.venueListItemHeight,
   },
 });

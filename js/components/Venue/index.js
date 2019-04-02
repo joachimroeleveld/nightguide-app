@@ -142,7 +142,7 @@ class Venue extends React.PureComponent {
                   toggleModalCallback={this.toggleShowTimeline}
                 />
               )}
-              {this.props.priceClass !== undefined && (
+              {!!this.props.priceClass && (
                 <VenuePriceClass
                   style={styles.priceClass}
                   priceClass={this.props.priceClass}

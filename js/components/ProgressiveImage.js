@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { NavigationEvents } from 'react-navigation';
 
-
-
 import S from '../config/styles';
 
 class ProgressiveImage extends React.PureComponent {
   static propTypes = {
     url: PropTypes.string.isRequired,
-    size: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
     lazy: PropTypes.bool,
   };
 
@@ -28,11 +27,14 @@ class ProgressiveImage extends React.PureComponent {
     }
   }
 
-  getSource = () =>
-    _.memoize((uri, size) => ({ uri: `${uri}=s${size}-c` }))(
+  getSource = () => {
+    const { width, height } = this.props;
+    const params = width >= height ? '-c' : '';
+    return _.memoize((uri, size) => ({ uri: `${uri}=s${size}${params}` }))(
       this.props.url,
-      this.props.size
+      Math.max(width, height)
     );
+  };
 
   getThumbnailSource = () =>
     _.memoize(uri => ({ uri: `${uri}=s10-c-fSoften=1,100,0` }))(this.props.url);
@@ -58,7 +60,7 @@ class ProgressiveImage extends React.PureComponent {
   };
 
   render() {
-    const { style, lazy } = this.props;
+    const { style, lazy, containerStyle, width, height } = this.props;
 
     if (lazy && !this.state.loaded) {
       return (
@@ -69,10 +71,11 @@ class ProgressiveImage extends React.PureComponent {
     }
 
     return (
-      <View style={[style, styles.container]}>
+      <View style={[{ width, height }, styles.container, containerStyle]}>
         <Animated.Image
           source={this.getThumbnailSource()}
           style={[
+            { width, height },
             style,
             styles.imageThumbnail,
             { opacity: this.thumbnailAnimated },
@@ -81,8 +84,14 @@ class ProgressiveImage extends React.PureComponent {
         />
         <Animated.Image
           source={this.getSource()}
-          style={[style, style.image, { opacity: this.imageAnimated }]}
+          style={[
+            { width, height },
+            style,
+            styles.image,
+            { opacity: this.imageAnimated },
+          ]}
           onLoad={this.onImageLoad}
+          resizeMode={'cover'}
         />
       </View>
     );

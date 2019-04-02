@@ -27,10 +27,6 @@ class Carousel extends React.PureComponent {
     activeSlide: 0,
   };
 
-  getImageSize = image => {
-    return Math.min(image.width, image.height, this.props.width);
-  };
-
   renderCarouselItem = ({ item: image, index }) => {
     const translateY = this.props.scrollPosY.interpolate({
       inputRange: [-this.props.height, 0, this.props.height],
@@ -39,13 +35,10 @@ class Carousel extends React.PureComponent {
     return (
       <AnimatedProgressiveImage
         key={index}
-        style={[
-          styles.image,
-          { width: this.props.width, height: this.props.height },
-          { transform: [{ translateY }] },
-        ]}
+        style={{ transform: [{ translateY }] }}
+        width={Math.min(this.props.width, image.width)}
+        height={this.props.height}
         url={image.url}
-        size={this.getImageSize(image)}
       />
     );
   };
@@ -61,9 +54,9 @@ class Carousel extends React.PureComponent {
           renderItem={this.renderCarouselItem}
           data={this.props.images}
           layoutCardOffset={0}
-          sliderWidth={this.props.width}
           itemWidth={this.props.width}
           itemHeight={this.props.height}
+          sliderWidth={this.props.width}
           sliderHeight={this.props.height}
           loop={true}
           inactiveSlideScale={1}
