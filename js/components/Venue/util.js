@@ -2,13 +2,13 @@ import moment from 'moment';
 
 export const TIME_FORMAT = 'HH:mm';
 
-export function parseTime(time) {
-  const split = time.split(':');
-  const parsed = moment().hours(split[0]);
-  if (split[1]) {
-    parsed.minutes(split[1]);
-  } else {
-    parsed.minutes(0);
+export function parseTime({ h, m }) {
+  const parsed = moment()
+    .hour(0)
+    .minute(0)
+    .add(h, 'hours');
+  if (m) {
+    parsed.add(m, 'minutes');
   }
   return parsed;
 }
@@ -44,7 +44,6 @@ export function getDayScheduleParsed(schedule, isRange = true, dowOffset = 0) {
     if (to.isBefore(from)) {
       to = to.add(1, 'days');
     }
-
     return {
       from,
       to,

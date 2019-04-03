@@ -49,7 +49,7 @@ class Carousel extends React.PureComponent {
       <AnimatedProgressiveImage
         key={index}
         style={{ transform: [{ translateY }] }}
-        width={Math.min(this.props.width, image.width)}
+        width={this.props.width}
         height={this.props.height}
         url={image.url}
         priority={priority}

@@ -10,3 +10,12 @@ export const VENUE_FACILITIES = {
   FACILITY_TERRACE: 'terrace',
   FACILITY_TERRACE_HEATERS: 'terrace_heaters',
 };
+
+export const VENUE_IMAGE_ORDER = [
+  'from_bar',
+  'front_stage',
+  'front_bar',
+  'from_stage',
+  'atmosphere',
+  'front_venue',
+];

@@ -10,6 +10,7 @@ import {
 import _ from 'lodash';
 import { showLocation } from 'react-native-map-link';
 
+import { VENUE_IMAGE_ORDER } from './constants';
 import S from '../../config/styles';
 import Carousel from '../Carousel';
 import Text from '../Text';
@@ -26,15 +27,6 @@ import Timeline from './components/Timeline';
 import Tiles from './components/Tiles';
 import BigButton from '../BigButton';
 import VenuePriceClass from './components/PriceClass';
-
-const IMAGE_SORT_ORDER = [
-  'front_venue',
-  'front_stage',
-  'from_bar',
-  'from_stage',
-  'atmosphere',
-  'front_bar',
-];
 
 class Venue extends React.PureComponent {
   static propTypes = {
@@ -66,18 +58,15 @@ class Venue extends React.PureComponent {
     carouselWidth: Math.round(Dimensions.get('window').width),
     showTimeline: false,
     showNavigate: false,
-  };
-
-  get sortedImages() {
-    return this.props.images.sort((a, b) => {
-      const indexA = IMAGE_SORT_ORDER.indexOf(a);
-      const indexB = IMAGE_SORT_ORDER.indexOf(b);
+    images: this.props.images.sort((a, b) => {
+      const indexA = VENUE_IMAGE_ORDER.indexOf(a.perspective);
+      const indexB = VENUE_IMAGE_ORDER.indexOf(b.perspective);
       if (indexA === -1) {
-        return 1;
+        return -1;
       }
       return indexA < indexB ? -1 : 1;
-    });
-  }
+    }),
+  };
 
   get address() {
     let address = this.props.location.address1;
@@ -111,7 +100,7 @@ class Venue extends React.PureComponent {
         <Carousel
           width={this.state.carouselWidth}
           height={this.props.carouselHeight}
-          images={this.sortedImages}
+          images={this.state.images}
           scrollPosY={this.props.scrollPosY}
         />
         <SafeAreaView style={styles.content}>

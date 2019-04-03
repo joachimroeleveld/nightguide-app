@@ -101,7 +101,7 @@ class ProgressiveImage extends React.PureComponent {
             { opacity: this.imageAnimated },
           ]}
           onLoad={this.onImageLoad}
-          resizeMode={'cover'}
+          resizeMode={FastImage.resizeMode.cover}
         />
       </View>
     );

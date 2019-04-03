@@ -55,7 +55,11 @@ function* fetchExploreVenuesSaga() {
 
 function* fetchVenuesSaga() {
   yield takeLatest(FETCH_VENUES, function*(action) {
-    let { filters, sort, query, fields, offset, limit } = action.payload;
+    let { filters = {}, sort, query, fields, offset, limit } = action.payload;
+
+    // TODO: make dynamic
+    filters.city = 'Utrecht';
+    filters.country = 'NL';
 
     const params = {
       offset,

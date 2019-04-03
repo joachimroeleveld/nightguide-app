@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import S from '../config/styles';
+import { VENUE_IMAGE_ORDER } from './Venue/constants';
 import VenueListItem from './VenueListItem';
 import RefreshControl from '../components/RefreshControl';
 
@@ -22,16 +23,16 @@ class VenueList extends React.PureComponent {
     horizontal: false,
   };
 
-  getImage = images => {
-    const frontVenueImage = images.find(
-      image => image.perspective === 'front_venue'
-    );
-
-    if (frontVenueImage) {
-      return frontVenueImage.url;
-    } else if (images.length) {
-      return images[0].url;
-    }
+  getImageUrl = images => {
+    const sortedImages = images.sort((a, b) => {
+      const indexA = VENUE_IMAGE_ORDER.indexOf(a.perspective);
+      const indexB = VENUE_IMAGE_ORDER.indexOf(b.perspective);
+      if (indexA === -1) {
+        return -1;
+      }
+      return indexA < indexB ? -1 : 1;
+    });
+    return images.length ? sortedImages[0].url : null;
   };
 
   renderListItem = ({ item, index }) => {
@@ -64,7 +65,7 @@ class VenueList extends React.PureComponent {
           categories={item.categories}
           timeSchedule={item.timeSchedule}
           onPress={this.getOnItemPress(item.id)}
-          imageUrl={this.getImage(item.images)}
+          imageUrl={this.getImageUrl(item.images)}
           coordinates={item.location.coordinates}
         />
         {!this.props.horizontal && index % this.props.numColumns === 0 && (

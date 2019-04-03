@@ -121,8 +121,8 @@ android {
         applicationId "app.nightguide.app1"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 7
-        versionName "1.4.1"
+        versionCode 9
+        versionName "1.4.3"
     }
     signingConfigs {
         release {
