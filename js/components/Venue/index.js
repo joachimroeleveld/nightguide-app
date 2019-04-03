@@ -63,7 +63,7 @@ class Venue extends React.PureComponent {
 
   state = {
     belowFoldOpacity: new Animated.Value(0),
-    carouselWidth: Dimensions.get('window').width,
+    carouselWidth: Math.round(Dimensions.get('window').width),
     showTimeline: false,
     showNavigate: false,
   };

@@ -231,6 +231,7 @@ class SearchBar extends React.PureComponent {
                     onChangeText={this.onQueryChange}
                     onFocus={this.onQueryFocus}
                     onBlur={this.onQueryBlur}
+                    autocomplete={'off'}
                     value={this.state.query}
                     blurOnSubmit={true}
                     onSubmitEditing={this.onSubmit}
