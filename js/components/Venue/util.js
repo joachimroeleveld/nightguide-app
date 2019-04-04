@@ -2,15 +2,11 @@ import moment from 'moment';
 
 export const TIME_FORMAT = 'HH:mm';
 
-export function parseTime({ h, m }) {
-  const parsed = moment()
+export function parseSeconds(seconds) {
+  return moment()
     .hour(0)
     .minute(0)
-    .add(h, 'hours');
-  if (m) {
-    parsed.add(m, 'minutes');
-  }
-  return parsed;
+    .add(seconds, 'seconds');
 }
 
 export function checkIsOpenFromSchedule(schedule) {
@@ -38,17 +34,13 @@ export function getDayScheduleParsed(schedule, isRange = true, dowOffset = 0) {
   }
 
   if (isRange) {
-    const from = parseTime(daySchedule.from).add(dowOffset, 'days');
-    let to = parseTime(daySchedule.to).add(dowOffset, 'days');
-    // If nighttime (03:00)
-    if (to.isBefore(from)) {
-      to = to.add(1, 'days');
-    }
+    const from = parseSeconds(daySchedule.from).add(dowOffset, 'days');
+    let to = parseSeconds(daySchedule.to).add(dowOffset, 'days');
     return {
       from,
       to,
     };
   } else {
-    return parseTime(daySchedule).add(dowOffset, 'days');
+    return parseSeconds(daySchedule).add(dowOffset, 'days');
   }
 }
