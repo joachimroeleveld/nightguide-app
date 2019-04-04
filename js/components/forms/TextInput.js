@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TextInput as RNTextInput } from 'react-native';
 
-import S from '../config/styles';
+import S from '../../config/styles';
 
 class TextInput extends React.PureComponent {
   static propTypes = {

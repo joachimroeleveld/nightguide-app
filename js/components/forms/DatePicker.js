@@ -9,8 +9,8 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import S from '../config/styles';
-import Text from './Text';
+import S from '../../config/styles';
+import Text from '../Text';
 
 class DatePicker extends React.PureComponent {
   static propTypes = {

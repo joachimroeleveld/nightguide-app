@@ -3,9 +3,9 @@ import { Dimensions, Animated } from 'react-native';
 import { connect } from 'react-redux';
 
 import { fetchVenue, resetVenue } from '../../state/venues/actions';
-import Venue from '../../components/Venue';
-import Header from '../../components/Header';
-import HeaderBackButton from '../../components/HeaderBackButton';
+import Venue from '../../components/venues/Venue';
+import Header from '../../components/header/Header';
+import HeaderBackButton from '../../components/header/HeaderBackButton';
 import ScreenLoader from '../../components/ScreenLoader';
 
 const CAROUSEL_HEIGHT = Math.min(Dimensions.get('window').height * 0.4, 800);
@@ -50,7 +50,7 @@ class VenueScreen extends React.Component {
             [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
             { useNativeDriver: true }
           )}
-          scrollEventThrottle={20}
+          scrollEventThrottle={16}
         >
           <Venue
             {...this.props.venue || {}}

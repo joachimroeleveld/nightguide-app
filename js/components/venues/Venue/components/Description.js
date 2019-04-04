@@ -3,9 +3,9 @@ import { TouchableOpacity, StyleSheet, View, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import TextSize from 'react-native-text-size';
 
-import Text from '../../Text';
-import S from '../../../config/styles';
-import __ from '../../../services/i18n';
+import Text from '../../../Text';
+import S from '../../../../config/styles';
+import __ from '../../../../services/i18n';
 
 export default class VenueDescription extends React.PureComponent {
   static propTypes = {

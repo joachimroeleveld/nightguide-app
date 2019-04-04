@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import _ from 'lodash';
 
-import Text from '../../Text';
+import Text from '../../../Text';
 
 export default function VenuePriceClass({ priceClass, style }) {
   return (

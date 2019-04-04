@@ -56,6 +56,9 @@
     "utrechtFirst": "Utrecht is the first to have its nightlife mapped!",
     "moreSoon": "NightGuide has set out to become the best source of information for nightlife available.\n\nExpect more cities and features to be added soon."
   },
+  "listScreen": {
+    "filters": "Filters"
+  },
   "profileScreen": {
     "profile": "Profile",
     "email": "Email",
@@ -120,6 +123,9 @@
       "terrace": "Terrace",
       "terraceHeated": "Heated",
     }
+  },
+  "venueFilterScreen": {
+    "filters": "Filters"
   },
   "venue": {
     "categories": {
@@ -188,5 +194,6 @@
   "readMore": "Read more",
   "readLess": "Read less",
   "pickerChoose": "Choose...",
-  "yes": "Yes"
+  "yes": "Yes",
+  "clearAll": "Clear all"
 }

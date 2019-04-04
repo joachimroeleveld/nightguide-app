@@ -5,13 +5,13 @@ import TouchableScale from 'react-native-touchable-scale';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 
-import S from '../config/styles';
-import Text from './Text';
-import ProgressiveImage from './ProgressiveImage';
-import Distance from './Distance';
-import __ from '../services/i18n';
+import S from '../../config/styles';
+import Text from '../Text';
+import ProgressiveImage from '../ProgressiveImage';
+import Distance from '../Distance';
+import __ from '../../services/i18n';
 import { checkIsOpenFromSchedule } from './Venue/util';
-import Image from './Image';
+import Image from '../Image';
 
 class VenueListItem extends React.PureComponent {
   static propTypes = {
@@ -80,7 +80,7 @@ class VenueListItem extends React.PureComponent {
               {this.isOpen && (
                 <Image
                   style={styles.openIndicator}
-                  source={require('../img/open_indicator.png')}
+                  source={require('../../img/open_indicator.png')}
                 />
               )}
             </View>

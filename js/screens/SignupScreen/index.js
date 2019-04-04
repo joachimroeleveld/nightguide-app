@@ -9,14 +9,14 @@ import __ from '../../services/i18n';
 import { signup } from '../../state/account/actions';
 import { showOkMessage, showWarnMessage } from '../../state/messages';
 import S from '../../config/styles';
-import Header from '../../components/Header';
-import FormItem from '../../components/FormItem';
-import DatePicker from '../../components/DatePicker';
+import Header from '../../components/header/Header';
+import FormItem from '../../components/forms/FormItem';
+import DatePicker from '../../components/forms/DatePicker';
 import Picker from '../../components/Picker';
-import Form from '../../components/Form';
-import HeaderBackButton from '../../components/HeaderBackButton';
-import BigButton from '../../components/BigButton';
-import TextInput from '../../components/TextInput';
+import Form from '../../components/forms/Form';
+import HeaderBackButton from '../../components/header/HeaderBackButton';
+import BigButton from '../../components/buttons/BigButton';
+import TextInput from '../../components/forms/TextInput';
 
 class SignupScreen extends React.Component {
   static screenOptions = {

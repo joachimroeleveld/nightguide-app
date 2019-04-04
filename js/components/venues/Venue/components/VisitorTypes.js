@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import _ from 'lodash';
 
-import Tag from '../../Tag';
-import __ from '../../../services/i18n';
+import Tag from '../../../Tag';
+import __ from '../../../../services/i18n';
 
 const VisitorTypes = ({ types }) => {
   return (

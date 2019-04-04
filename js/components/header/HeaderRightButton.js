@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
-import Text from './Text';
+import Text from '../Text';
 
 const HeaderRightButton = props => (
   <TouchableOpacity onPress={props.onPress}>
@@ -13,5 +13,6 @@ export default HeaderRightButton;
 
 const styles = StyleSheet.create({
   text: {
+    fontWeight: '600',
   },
 });

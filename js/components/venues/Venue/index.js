@@ -11,21 +11,21 @@ import _ from 'lodash';
 import { showLocation } from 'react-native-map-link';
 
 import { VENUE_IMAGE_ORDER } from './constants';
-import S from '../../config/styles';
-import Carousel from '../Carousel';
-import Text from '../Text';
-import __, { _o } from '../../services/i18n';
-import Distance from '../Distance';
+import S from '../../../config/styles';
+import Carousel from '../../Carousel';
+import Text from '../../Text';
+import __, { _o } from '../../../services/i18n';
+import Distance from '../../Distance';
 import VenueLinks from './components/Links';
 import VenueDescription from './components/Description';
 import MusicTypes from './components/MusicTypes';
-import Section from '../Section';
+import Section from '../../Section';
 import VisitorTypes from './components/VisitorTypes';
 import OpeningHours from './components/OpeningHours';
-import Modal from '../Modal';
+import Modal from '../../Modal';
 import Timeline from './components/Timeline';
 import Tiles from './components/Tiles';
-import BigButton from '../BigButton';
+import BigButton from '../../buttons/BigButton';
 import VenuePriceClass from './components/PriceClass';
 
 class Venue extends React.PureComponent {
@@ -164,7 +164,7 @@ class Venue extends React.PureComponent {
           <View style={styles.mapsContainer}>
             <BigButton
               style={styles.navigateButton}
-              icon={require('../../img/maps.png')}
+              icon={require('../../../img/maps.png')}
               title={__('venueScreen.navigateHere')}
               onPress={this.showNavigationOptions}
             />

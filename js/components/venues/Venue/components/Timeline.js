@@ -4,10 +4,10 @@ import { View, StyleSheet } from 'react-native';
 import _ from 'lodash';
 import moment from 'moment';
 
-import HorizontalTabs from '../../HorizontalTabs';
+import HorizontalTabs from '../../../HorizontalTabs';
 import { getDayKey, getDayScheduleParsed, TIME_FORMAT } from '../util';
-import Text from '../../Text';
-import __ from '../../../services/i18n';
+import Text from '../../../Text';
+import __ from '../../../../services/i18n';
 
 const TIMELINE_ITEMS = [
   { key: 'open', isRange: true },

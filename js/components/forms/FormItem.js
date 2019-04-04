@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-import Text from './Text';
+import Text from '../Text';
 
-import S from '../config/styles';
-import __ from '../services/i18n';
-import { FormContext } from '../components/Form';
+import S from '../../config/styles';
+import __ from '../../services/i18n';
+import { FormContext } from './Form';
 
 class FormItem extends React.PureComponent {
   static propTypes = {

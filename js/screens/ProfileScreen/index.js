@@ -7,7 +7,7 @@ import { showOkMessage } from '../../state/messages';
 import { logout } from '../../state/account/actions';
 import __ from '../../services/i18n';
 import Text from '../../components/Text';
-import BigButton from '../../components/BigButton';
+import BigButton from '../../components/buttons/BigButton';
 import Title from '../../components/Title';
 import Section from '../../components/Section';
 import LabeledText from '../../components/LabeledText';

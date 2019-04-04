@@ -3,8 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 
-import S from '../../config/styles';
-import ImageButton from '../ImageButton';
+import S from '../../../config/styles';
+import ImageButton from '../../ImageButton';
 
 class HeaderBackButton extends React.PureComponent {
   static propTypes = {

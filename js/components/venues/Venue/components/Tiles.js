@@ -4,16 +4,16 @@ import { View, StyleSheet, Image } from 'react-native';
 import _ from 'lodash';
 import TouchableScale from 'react-native-touchable-scale';
 
-import Text from '../../Text';
-import __, { _o } from '../../../services/i18n';
-import S from '../../../config/styles';
+import Text from '../../../Text';
+import __, { _o } from '../../../../services/i18n';
+import S from '../../../../config/styles';
 import {
   getSymbolForCurrency,
   formatAmount,
-} from '../../../services/currencies';
-import Modal from '../../Modal';
+} from '../../../../services/currencies';
+import Modal from '../../../Modal';
 import { VENUE_FACILITIES } from '../constants';
-import Section from '../../Section';
+import Section from '../../../Section';
 
 function VenueTile({
   title,
@@ -37,7 +37,7 @@ function VenueTile({
       {!!dialogContent && (
         <React.Fragment>
           <Image
-            source={require('../../../img/info.png')}
+            source={require('../../../../img/info.png')}
             style={styles.tileInfoIcon}
           />
           <Modal

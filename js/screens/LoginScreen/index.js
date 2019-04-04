@@ -8,13 +8,13 @@ import __ from '../../services/i18n';
 import { login } from '../../state/account/actions';
 import { showWarnMessage } from '../../state/messages';
 import S from '../../config/styles';
-import Header from '../../components/Header';
-import FormItem from '../../components/FormItem';
-import Form from '../../components/Form';
-import HeaderBackButton from '../../components/HeaderBackButton';
-import BigButton from '../../components/BigButton';
-import TextInput from '../../components/TextInput';
-import HeaderRightButton from '../../components/HeaderRightButton';
+import Header from '../../components/header/Header';
+import FormItem from '../../components/forms/FormItem';
+import Form from '../../components/forms/Form';
+import HeaderBackButton from '../../components/header/HeaderBackButton';
+import BigButton from '../../components/buttons/BigButton';
+import TextInput from '../../components/forms/TextInput';
+import HeaderRightButton from '../../components/header/HeaderRightButton';
 
 class LoginScreen extends React.Component {
   static screenOptions = {

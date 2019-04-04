@@ -1,12 +1,14 @@
 import React from 'react';
-import { FlatList, StyleSheet, Dimensions, View } from 'react-native';
+import { View, FlatList, StyleSheet, Dimensions, Animated } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import S from '../config/styles';
+import S from '../../config/styles';
 import { VENUE_IMAGE_ORDER } from './Venue/constants';
 import VenueListItem from './VenueListItem';
-import RefreshControl from '../components/RefreshControl';
+import RefreshControl from '../RefreshControl';
+
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 class VenueList extends React.PureComponent {
   static propTypes = {
@@ -84,12 +86,13 @@ class VenueList extends React.PureComponent {
       ? styles.containerHorizontal
       : styles.containerVertical;
     return (
-      <FlatList
+      <AnimatedFlatList
         keyExtractor={this.keyExtractor}
         renderItem={this.renderListItem}
         data={this.props.venues}
         numColumns={this.props.numColumns}
         contentContainerStyle={[style, this.props.style]}
+        onScroll={this.props.onScroll}
         refreshControl={
           <RefreshControl
             refreshing={this.props.isFetching}

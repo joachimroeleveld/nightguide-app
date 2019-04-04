@@ -20,4 +20,12 @@ export default {
     borderWidth: 1,
     borderColor: colors.buttons.white,
   },
+  toggleButton: {
+    backgroundColor: colors.defaultScreenColor,
+    paddingVertical: 3,
+    paddingHorizontal: 14,
+    borderRadius: 4,
+    borderColor: '#6F6F6F',
+    borderWidth: 1,
+  },
 };

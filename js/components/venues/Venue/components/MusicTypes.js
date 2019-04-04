@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { withNavigationFocus } from 'react-navigation';
 
-import S from '../../../config/styles';
-import Text from '../../Text';
-import __ from '../../../services/i18n';
+import S from '../../../../config/styles';
+import Text from '../../../Text';
+import __ from '../../../../services/i18n';
 
 class VenueMusicTypes extends React.PureComponent {
   static propTypes = {

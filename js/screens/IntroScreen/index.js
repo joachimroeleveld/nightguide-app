@@ -7,7 +7,7 @@ import S from '../../config/styles';
 import __ from '../../services/i18n';
 import Text from '../../components/Text';
 import { setPermission } from '../../state/permissions';
-import BigButton from '../../components/BigButton';
+import BigButton from '../../components/buttons/BigButton';
 import { eventBus } from '../../services/analytics';
 
 class IntroScreen extends React.Component {

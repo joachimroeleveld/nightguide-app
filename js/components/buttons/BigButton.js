@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-import colors from '../config/styles/colors';
+import colors from '../../config/styles/colors';
 
 class BigButton extends React.PureComponent {
   static propTypes = {

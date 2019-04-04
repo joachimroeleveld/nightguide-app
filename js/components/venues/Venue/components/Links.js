@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { CustomTabs } from 'react-native-custom-tabs';
 
-import Text from '../../Text';
-import browser from '../../../services/browser';
+import Text from '../../../Text';
+import browser from '../../../../services/browser';
 
 export default class VenueLinks extends React.PureComponent {
   static propTypes = {

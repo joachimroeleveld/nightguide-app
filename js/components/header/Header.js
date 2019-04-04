@@ -3,7 +3,7 @@ import { StyleSheet, View, Animated, SafeAreaView } from 'react-native';
 import PropTypes from 'prop-types';
 import LinearGradient from 'react-native-linear-gradient';
 
-import S from '../config/styles';
+import S from '../../config/styles';
 
 class Header extends React.PureComponent {
   static propTypes = {

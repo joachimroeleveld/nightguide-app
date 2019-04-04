@@ -6,7 +6,7 @@ import __ from '../../services/i18n';
 import S from '../../config/styles';
 import { login, loginFb, loginAnonymous } from '../../state/account/actions';
 import Text from '../../components/Text';
-import BigButton from '../../components/BigButton';
+import BigButton from '../../components/buttons/BigButton';
 
 class SplashScreen extends React.Component {
   static screenOptions = {

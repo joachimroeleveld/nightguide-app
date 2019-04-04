@@ -7,13 +7,13 @@ import S from '../../config/styles';
 import { showOkMessage, showWarnMessage } from '../../state/messages';
 import { sendFeedback } from '../../state/feedback';
 import __ from '../../services/i18n';
-import Header from '../../components/Header';
-import HeaderBackButton from '../../components/HeaderBackButton';
+import Header from '../../components/header/Header';
+import HeaderBackButton from '../../components/header/HeaderBackButton';
 import Title from '../../components/Title';
-import BigButton from '../../components/BigButton';
-import Form from '../../components/Form';
-import FormItem from '../../components/FormItem';
-import TextInput from '../../components/TextInput';
+import BigButton from '../../components/buttons/BigButton';
+import Form from '../../components/forms/Form';
+import FormItem from '../../components/forms/FormItem';
+import TextInput from '../../components/forms/TextInput';
 import Text from '../../components/Text';
 
 class FeedbackScreen extends React.Component {

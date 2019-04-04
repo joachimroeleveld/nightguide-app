@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -7,8 +7,9 @@ import S from '../../config/styles';
 import SearchBar from '../../components/SearchBar';
 import { fetchVenues, queryVenues } from '../../state/venues/actions';
 import { makeGetVenueList } from '../../state/venues/selectors';
-import VenueList from '../../components/VenueList';
+import VenueList from '../../components/venues/VenueList';
 import { getHasPermission } from '../../state/permissions';
+import FilterBar from './components/FilterBar';
 
 const ITEM_HEIGHT = 174; // Average height of list item
 const NUM_COLUMNS = 2;
@@ -41,6 +42,7 @@ class ListScreen extends React.Component {
     searchBarHeight: null,
     containerHeight: null,
     page: null,
+    scrollY: new Animated.Value(),
   };
 
   componentDidMount() {
@@ -130,6 +132,10 @@ class ListScreen extends React.Component {
     }
   };
 
+  onFilterPress = () => {
+    this.props.navigation.navigate('VenueFilter');
+  };
+
   render() {
     return (
       <View style={styles.container} onLayout={this.onContainerLayout}>
@@ -144,6 +150,13 @@ class ListScreen extends React.Component {
           city={this.props.city}
           onLayout={this.onSearchBarLayout}
         />
+        <View style={styles.filterBarContainer}>
+          <FilterBar
+            style={styles.filterBar}
+            scrollPos={this.state.scrollY}
+            onFilterPress={this.onFilterPress}
+          />
+        </View>
         <VenueList
           venues={this.props.venues}
           onItemPress={this.onItemPress}
@@ -153,6 +166,11 @@ class ListScreen extends React.Component {
           style={styles.list}
           isFetching={this.props.isFetching}
           refreshHandler={this.onRefresh}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
+            { useNativeDriver: true }
+          )}
+          scrollEventThrottle={16}
         />
       </View>
     );
@@ -201,10 +219,21 @@ const styles = StyleSheet.create({
   searchBar: {
     marginTop: S.dimensions.screenOffset,
     marginHorizontal: S.dimensions.screenOffset,
-    paddingBottom: 10,
+    paddingBottom: 8,
+    zIndex: 6,
+  },
+  filterButtons: {
+    flexDirection: 'row',
+    marginHorizontal: S.dimensions.screenOffset,
   },
   list: {
-    paddingTop: 5,
+    paddingTop: 22,
     paddingBottom: S.dimensions.screenOffset,
+  },
+  filterBarContainer: {
+    zIndex: 5,
+  },
+  filterBar: {
+    paddingHorizontal: S.dimensions.screenOffset,
   },
 });

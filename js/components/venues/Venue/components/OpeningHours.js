@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 
-import __ from '../../../services/i18n';
-import Text from '../../Text';
-import S from '../../../config/styles';
+import __ from '../../../../services/i18n';
+import Text from '../../../Text';
+import S from '../../../../config/styles';
 import {
   getDayScheduleParsed,
   checkIsOpenFromSchedule,
   TIME_FORMAT,
 } from '../util';
-import Image from '../../Image';
+import Image from '../../../Image';
 
 class VenueOpeningHours extends React.PureComponent {
   static propTypes = {
@@ -79,7 +79,7 @@ class VenueOpeningHours extends React.PureComponent {
           {this.isOpen && (
             <Image
               style={styles.openIndicator}
-              source={require('../../../img/open_indicator.png')}
+              source={require('../../../../img/open_indicator.png')}
             />
           )}
           <Text>{openText}</Text>

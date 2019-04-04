@@ -15,7 +15,7 @@ import { withNavigation, withNavigationFocus } from 'react-navigation';
 import __ from '../../services/i18n';
 import S from '../../config/styles';
 import Text from '../../components/Text';
-import SmallButton from '../SmallButton';
+import SmallButton from '../buttons/SmallButton';
 
 const CANCEL_BUTTON_OFFSET_WIDTH = 74;
 
@@ -285,10 +285,7 @@ class SearchBar extends React.PureComponent {
           )}
         </Animated.View>
         <Animated.View
-          style={[
-            styles.cancelContainer,
-            { opacity: this.state.focusAnim },
-          ]}
+          style={[styles.cancelContainer, { opacity: this.state.focusAnim }]}
         >
           <SmallButton onPress={this.onCancelPress} title={__('cancel')} />
         </Animated.View>
