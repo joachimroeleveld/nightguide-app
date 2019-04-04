@@ -7,7 +7,10 @@ import TouchableScale from 'react-native-touchable-scale';
 import Text from '../../Text';
 import __, { _o } from '../../../services/i18n';
 import S from '../../../config/styles';
-import { formatAmount } from '../../../services/currencies';
+import {
+  getSymbolForCurrency,
+  formatAmount,
+} from '../../../services/currencies';
 import Modal from '../../Modal';
 import { VENUE_FACILITIES } from '../constants';
 import Section from '../../Section';
@@ -75,9 +78,11 @@ function VenueTiles({
   facilities = [],
   dresscode,
   fees = {},
+  entranceFeeRange,
   paymentMethods = [],
   capacityRange,
   doorPolicy = {},
+  currency,
 }) {
   const [width, setWidth] = useState(0);
 
@@ -105,11 +110,17 @@ function VenueTiles({
     });
   }
 
-  if (fees.entrance) {
+  if (entranceFeeRange) {
+    let subtitle = getSymbolForCurrency(currency);
+    if (entranceFeeRange.length !== 1) {
+      subtitle += entranceFeeRange.join('-');
+    } else {
+      subtitle += `${entranceFeeRange}+`;
+    }
     tiles.push({
       title: __('venueScreen.tiles.entranceFee'),
       iconId: 'entrance_fee',
-      subtitle: formatAmount(fees.entrance, 2, true),
+      subtitle,
     });
   }
 
@@ -155,7 +166,7 @@ function VenueTiles({
     let subtitle = __('yes');
     if (fees.coatCheck) {
       subtitle = __('venueScreen.tiles.coatCheckFee', {
-        fee: formatAmount(fees.coatCheck, 2, true),
+        fee: formatAmount(fees.coatCheck, currency, 2, true),
       });
     }
     tiles.push({
@@ -166,10 +177,14 @@ function VenueTiles({
   }
 
   if (capacityRange) {
+    let subtitle = capacityRange.join('-');
+    if (capacityRange.length === 1) {
+      subtitle = '10.000+';
+    }
     tiles.push({
       title: __('venueScreen.tiles.capacity'),
       iconId: 'capacity',
-      subtitle: capacityRange,
+      subtitle: subtitle,
     });
   }
 
@@ -266,12 +281,10 @@ function VenueTiles({
 VenueTiles.propTypes = {
   facilities: PropTypes.arrayOf(PropTypes.string),
   dresscode: PropTypes.string,
-  fees: PropTypes.shape({
-    entrance: PropTypes.number,
-    coatCheck: PropTypes.number,
-  }),
   paymentMethods: PropTypes.arrayOf(PropTypes.string),
-  capacityRange: PropTypes.string,
+  capacityRange: PropTypes.array,
+  entranceFeeRange: PropTypes.array,
+  priceClass: PropTypes.number,
   doorPolicy: PropTypes.shape({
     policy: PropTypes.string,
     description: PropTypes.object,

@@ -48,8 +48,7 @@ class Venue extends React.PureComponent {
     visitorTypes: PropTypes.arrayOf(PropTypes.string),
     timeSchedule: PropTypes.object,
     carouselHeight: PropTypes.number.isRequired,
-    capacityRange: PropTypes.string,
-    priceClass: PropTypes.number,
+    currency: PropTypes.string,
     scrollPosY: PropTypes.instanceOf(Animated.Value),
   };
 
@@ -159,6 +158,8 @@ class Venue extends React.PureComponent {
             paymentMethods={this.props.paymentMethods}
             capacityRange={this.props.capacityRange}
             doorPolicy={this.props.doorPolicy}
+            entranceFeeRange={this.props.entranceFeeRange}
+            currency={this.props.currency}
           />
           <View style={styles.mapsContainer}>
             <BigButton
