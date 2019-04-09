@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Animated } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import S from '../../../config/styles';
 import __ from '../../../services/i18n';
 import ToggleButton from '../../../components/buttons/ToggleButton';
+import { getVenueFilterCount } from '../../../state/venues/selectors';
 
-function VenueFilterBar({ onFilterPress, scrollPos, style }) {
+function VenueFilterBar({ onFilterPress, scrollPos, style, filterCount }) {
   let lastScrollValue = 0;
   let scrollingUp = false;
 
@@ -108,8 +110,12 @@ function VenueFilterBar({ onFilterPress, scrollPos, style }) {
     >
       <Animated.View style={{ opacity: barAnimOpacity }}>
         <ToggleButton
-          title={`${__('listScreen.filters')} \u00B7 1`}
+          title={
+            __('listScreen.filters') +
+            (filterCount ? ' \u00B7 ' + filterCount : '')
+          }
           onPress={onFilterPress}
+          active={!!filterCount}
         />
       </Animated.View>
     </Animated.View>
@@ -121,13 +127,15 @@ VenueFilterBar.propTypes = {
   scrollPos: PropTypes.instanceOf(Animated.Value).isRequired,
 };
 
-export default VenueFilterBar;
+const mapStateToProps = state => ({
+  filterCount: getVenueFilterCount(state),
+});
+
+export default connect(mapStateToProps)(VenueFilterBar);
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    position: 'absolute',
-    width: '100%',
     backgroundColor: S.colors.defaultScreenColor,
     paddingTop: 6,
     paddingBottom: 8,

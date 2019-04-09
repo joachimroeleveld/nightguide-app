@@ -96,12 +96,14 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderRadius: 20,
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     color: colors.textDefault,
     fontSize: 15,
     textAlign: 'center',
+    minHeight: 20,
   },
   titleDark: {
     color: colors.textDark,

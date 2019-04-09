@@ -30,7 +30,7 @@ class VenueOpeningHours extends React.PureComponent {
   }
 
   get nextOpenMoment() {
-    return _.range(1, 8).reduce((openMoment, dayOffset) => {
+    return _.range(0, 7).reduce((openMoment, dayOffset) => {
       if (openMoment) {
         return openMoment;
       }

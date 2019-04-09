@@ -12,7 +12,7 @@ import {
   formatAmount,
 } from '../../../../services/currencies';
 import Modal from '../../../Modal';
-import { VENUE_FACILITIES } from '../constants';
+import { VENUE_FACILITIES } from '../../../../config/venueConstants';
 import Section from '../../../Section';
 
 function VenueTile({

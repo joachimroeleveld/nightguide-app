@@ -14,6 +14,7 @@ export const FETCH_EXPLORE_VENUES_SUCCESS = 'FETCH_EXPLORE_VENUES_SUCCESS';
 export const FETCH_EXPLORE_VENUES_ERROR = 'FETCH_VENUE_EXPLORES_ERROR';
 
 export const QUERY_VENUES = 'QUERY_VENUES';
+export const FILTER_VENUES = 'FILTER_VENUES';
 
 export const {
   fetchVenues,
@@ -27,6 +28,7 @@ export const {
   fetchExploreVenuesSuccess,
   fetchExploreVenuesError,
   queryVenues,
+  filterVenues,
 } = createActions(
   FETCH_VENUES,
   FETCH_VENUES_SUCCESS,
@@ -39,4 +41,5 @@ export const {
   FETCH_EXPLORE_VENUES_SUCCESS,
   FETCH_EXPLORE_VENUES_ERROR,
   QUERY_VENUES,
+  FILTER_VENUES,
 );

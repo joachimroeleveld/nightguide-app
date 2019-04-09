@@ -19,6 +19,7 @@ import {
   signupError,
   signupSuccess,
 } from './actions';
+import analytics from '../../services/analytics';
 
 function* signupSaga() {
   yield takeEvery(SIGNUP, function*(action) {
@@ -35,6 +36,7 @@ function* signupSaga() {
 
 function* loginAnonymousSaga() {
   yield takeEvery(LOGIN_ANONYMOUS, function() {
+    analytics.setUserProperty('anonymous', true);
     eventBus.login({
       method: eventBus.PARAM_LOGIN_METHOD_ANONYMOUS,
     });

@@ -121,11 +121,37 @@
       "paymentMethodCash": "Cash",
       "capacity": "Capacity",
       "terrace": "Terrace",
-      "terraceHeated": "Heated",
+      "terraceHeated": "Heated"
     }
   },
   "venueFilterScreen": {
-    "filters": "Filters"
+    "filters": "Filters",
+    "categories": "Categories",
+    "musicTypes": "Music types",
+    "timeline": "Timeline",
+    "nowOpen": "Now open",
+    "nowBusy": "Now busy",
+    "nowDancing": "Now dancing",
+    "terraceOpen": "Terrace open",
+    "bitesAvailable": "Bites available",
+    "showVenues": "Show {{count}} venues",
+    "dresscode": "Dresscode",
+    "paymentMethods": "Payment methods",
+    "facilities": "Facilities",
+    "terrace": "Terrace",
+    "cigarettes": "Sells cigarettes",
+    "noEntranceFee": "No entrance fees",
+    "kitchen": "Kitchen",
+    "bouncers": "Bouncers",
+    "noBouncers": "No bouncers",
+    "parking": "Parking",
+    "accessible": "Accessible",
+    "vipArea": "VIP area",
+    "coatCheck": "Coat check",
+    "noCoatCheckFee": "No coat check fee",
+    "smokingArea": "Smoking area",
+    "terraceHeaters": "Terrace heaters",
+    "otherOptions": "Other options"
   },
   "venue": {
     "categories": {
@@ -137,7 +163,7 @@
       "cocktailBar": "Cocktail bar",
       "comedyBar": "Comedy bar",
       "concertVenue": "Concert venue",
-      "country": "Country/western bar",
+      "countryBar": "Country/western bar",
       "craftBeerBar": "Craft beer bar",
       "hookahBar": "Hookah bar",
       "irishPub": "Irish pub",
@@ -180,6 +206,16 @@
       "locals": "Locals",
       "lgbtq": "LGBTQ",
       "varying": "Varying"
+    },
+    "dresscodes": {
+      "casual": "Casual",
+      "chique": "Chique",
+      "alternative": "Alternative"
+    },
+    "paymentMethods": {
+      "creditCard": "Credit card",
+      "debitCard": "Debit card",
+      "cash": "Cash"
     }
   },
   "genericErrorTitle": "Something went wrong",

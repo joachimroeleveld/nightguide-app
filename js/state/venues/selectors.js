@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { createSelector } from 'reselect';
 
 export const makeGetVenueList = () =>
@@ -9,3 +10,8 @@ export const makeGetVenueList = () =>
         ids.indexOf(venueA.id) > ids.indexOf(venueB.id) ? 1 : -1
       )
   );
+
+export const getVenueCount = state => state.venues.list.allIds.length;
+
+export const getVenueFilterCount = state =>
+  Object.keys(_.omit(state.venues.list.filter, ['city', 'country'])).length;

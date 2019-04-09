@@ -5,12 +5,23 @@ import _ from 'lodash';
 
 import S from '../../config/styles';
 import SearchBar from '../../components/SearchBar';
-import { fetchVenues, queryVenues } from '../../state/venues/actions';
-import { makeGetVenueList } from '../../state/venues/selectors';
+import {
+  fetchVenues,
+  queryVenues,
+  filterVenues,
+} from '../../state/venues/actions';
+import { getVenueCount, makeGetVenueList } from '../../state/venues/selectors';
 import VenueList from '../../components/venues/VenueList';
 import { getHasPermission } from '../../state/permissions';
 import FilterBar from './components/FilterBar';
 
+const FETCH_FIELDS = [
+  'name',
+  'images',
+  'categories',
+  'location',
+  'timeSchedule',
+];
 const ITEM_HEIGHT = 174; // Average height of list item
 const NUM_COLUMNS = 2;
 
@@ -22,6 +33,12 @@ class ListScreen extends React.Component {
   static screenOptions = {
     errorMessages: { 'venues.list.error': {} },
   };
+
+  momentumScrolling = false;
+
+  get reachedEnd() {
+    return this.props.venueCount === this.props.totalVenueCount;
+  }
 
   get pageSize() {
     const pageHeight = this.state.containerHeight - this.state.searchBarHeight;
@@ -37,12 +54,27 @@ class ListScreen extends React.Component {
     return size;
   }
 
+  get fetchParams() {
+    const params = {
+      offset: this.state.page * this.pageSize,
+      limit: this.pageSize,
+      filter: this.state.filter,
+      fields: FETCH_FIELDS,
+    };
+    if (this.state.query) {
+      params.query = this.state.query;
+    }
+    return params;
+  }
+
   state = {
     searchIsFocused: false,
     searchBarHeight: null,
     containerHeight: null,
     page: null,
-    scrollY: new Animated.Value(),
+    scrollY: new Animated.Value(0),
+    filter: {},
+    query: null,
   };
 
   componentDidMount() {
@@ -61,7 +93,7 @@ class ListScreen extends React.Component {
       !this.state.searchBarHeight ||
       !this.state.containerHeight ||
       this.props.isFetching ||
-      this.props.reachedEnd
+      this.reachedEnd
     ) {
       return;
     }
@@ -73,16 +105,24 @@ class ListScreen extends React.Component {
       page = this.state.page + 1;
     }
 
-    this.setState({ page });
-
-    this.props.fetchVenues(page * this.pageSize, this.pageSize);
+    this.setState({ page }, () => {
+      this.props.fetchVenues(this.fetchParams);
+    });
   };
 
   onQueryChange = text => {
-    if (!this.props.query || !text) {
+    if (text !== this.state.query) {
       this.setState({ page: 0 });
     }
-    this.props.queryVenues(text, this.pageSize);
+    this.setState({ query: text }, () => {
+      this.props.queryVenues(this.fetchParams);
+    });
+  };
+
+  applyFilter = filter => {
+    this.setState({ page: 0, filter }, () => {
+      this.props.filterVenues(this.fetchParams);
+    });
   };
 
   onQueryChangeDebounced = _.debounce(this.onQueryChange);
@@ -124,7 +164,12 @@ class ListScreen extends React.Component {
       }
     );
 
-  loadNextPage = () => this.fetchVenues();
+  onEndReached = () => {
+    if (this.momentumScrolling) {
+      this.fetchVenues();
+      this.momentumScrolling = false;
+    }
+  };
 
   onRefresh = () => {
     if (this.props.fetchError) {
@@ -133,7 +178,9 @@ class ListScreen extends React.Component {
   };
 
   onFilterPress = () => {
-    this.props.navigation.navigate('VenueFilter');
+    this.props.navigation.navigate('VenueFilter', {
+      filterVenues: this.applyFilter,
+    });
   };
 
   render() {
@@ -150,28 +197,33 @@ class ListScreen extends React.Component {
           city={this.props.city}
           onLayout={this.onSearchBarLayout}
         />
-        <View style={styles.filterBarContainer}>
+        <View>
           <FilterBar
             style={styles.filterBar}
             scrollPos={this.state.scrollY}
             onFilterPress={this.onFilterPress}
+            filterVenues={this.applyFilter}
+          />
+          <VenueList
+            venues={this.props.venues}
+            onItemPress={this.onItemPress}
+            onEndReached={this.onEndReached}
+            onEndReachedThreshold={0.5}
+            numColumns={NUM_COLUMNS}
+            onMomentumScrollBegin={() => {
+              this.momentumScrolling = true;
+            }}
+            style={styles.list}
+            isFetching={this.props.isFetching}
+            refreshHandler={this.onRefresh}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
+              { useNativeDriver: true }
+            )}
+            scrollEventThrottle={16}
+            refreshControlProps={{ progressViewOffset: 25 }}
           />
         </View>
-        <VenueList
-          venues={this.props.venues}
-          onItemPress={this.onItemPress}
-          onEndReached={this.loadNextPage}
-          onEndReachedThreshold={0.5}
-          numColumns={NUM_COLUMNS}
-          style={styles.list}
-          isFetching={this.props.isFetching}
-          refreshHandler={this.onRefresh}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
-            { useNativeDriver: true }
-          )}
-          scrollEventThrottle={16}
-        />
       </View>
     );
   }
@@ -183,28 +235,18 @@ const mapStateToProps = state => ({
   city: state.venues.city,
   query: state.venues.list.query,
   isFetching: state.venues.list.isFetching,
-  reachedEnd: state.venues.list.reachedEnd,
+  venueCount: getVenueCount(state),
+  totalVenueCount: state.venues.list.totalCount,
   venues: getVenueList(state),
   isLocationEnabled: getHasPermission(state, 'location'),
   lastLocationUpdate: state.location.currentLocation.lastUpdate,
   fetchError: state.venues.list.error,
 });
 
-const FIELDS = ['name', 'images', 'categories', 'location', 'timeSchedule'];
-
 const mapDispatchToProps = {
-  fetchVenues: (offset, limit) =>
-    fetchVenues({
-      offset,
-      limit,
-      fields: FIELDS,
-    }),
-  queryVenues: (text, limit) =>
-    queryVenues({
-      text,
-      limit,
-      fields: FIELDS,
-    }),
+  fetchVenues,
+  queryVenues,
+  filterVenues,
 };
 
 export default connect(
@@ -219,6 +261,7 @@ const styles = StyleSheet.create({
   searchBar: {
     marginTop: S.dimensions.screenOffset,
     marginHorizontal: S.dimensions.screenOffset,
+    backgroundColor: S.colors.defaultScreenColor,
     paddingBottom: 8,
     zIndex: 6,
   },
@@ -227,13 +270,14 @@ const styles = StyleSheet.create({
     marginHorizontal: S.dimensions.screenOffset,
   },
   list: {
+    zIndex: 0,
     paddingTop: 22,
     paddingBottom: S.dimensions.screenOffset,
   },
-  filterBarContainer: {
-    zIndex: 5,
-  },
   filterBar: {
+    zIndex: 5,
+    position: 'absolute',
+    width: '100%',
     paddingHorizontal: S.dimensions.screenOffset,
   },
 });

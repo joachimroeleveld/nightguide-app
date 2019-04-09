@@ -14,6 +14,7 @@ import {
   fetchExploreVenuesError,
   resetVenue,
   queryVenues,
+  filterVenues,
 } from './actions';
 
 export default handleActions(
@@ -90,11 +91,11 @@ export default handleActions(
           error: { $set: null },
         },
       }),
-    [fetchVenuesSuccess]: (state, { payload: { results, reachedEnd } }) =>
+    [fetchVenuesSuccess]: (state, { payload: { results, totalCount } }) =>
       update(state, {
         list: {
           isFetching: { $set: false },
-          reachedEnd: { $set: reachedEnd },
+          totalCount: { $set: totalCount },
           byId: {
             $merge: _.keyBy(results, 'id'),
           },
@@ -113,10 +114,17 @@ export default handleActions(
     [queryVenues]: (state, action) =>
       update(state, {
         list: {
-          reachedEnd: { $set: false },
           byId: { $set: {} },
           allIds: { $set: [] },
           query: { $set: action.payload.text || null },
+        },
+      }),
+    [filterVenues]: (state, action) =>
+      update(state, {
+        list: {
+          byId: { $set: {} },
+          allIds: { $set: [] },
+          filter: { $set: action.payload.filter },
         },
       }),
   },
@@ -128,9 +136,9 @@ export default handleActions(
       byId: {},
       allIds: [],
       query: null,
-      filters: {},
+      filter: {},
       sort: null,
-      reachedEnd: false,
+      totalCount: null,
     },
     current: {
       isFetching: false,

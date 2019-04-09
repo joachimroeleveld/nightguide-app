@@ -1,4 +1,4 @@
-import { Platform } from 'react-native'
+import { Platform } from 'react-native';
 import {
   createBottomTabNavigator,
   createStackNavigator,
@@ -22,8 +22,11 @@ import CityScreen from '../../screens/CityScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
 import FeedbackScreen from '../../screens/FeedbackScreen';
 import ListScreen from '../../screens/ListScreen';
-import VenueScreen from '../../screens/VenueScreen'
+import VenueScreen from '../../screens/VenueScreen';
+import VenueFilterScreen from '../../screens/VenueFilterScreen';
+import { LongListFilterScreen } from '../../components/filters/LongListFilter';
 
+import createDismissableStackNavigator from './dismissableStackNavigator';
 import { fadeTransition } from './transitionConfigs';
 import S from '../styles';
 
@@ -58,6 +61,15 @@ const bottomModalScreen = asScreen({ isBottomModal: true });
 
 const fromBottomModals = {
   Feedback: bottomModalScreen(FeedbackScreen),
+  VenueFilter: createDismissableStackNavigator(
+    {
+      VenueFilterOverview: bottomModalScreen(VenueFilterScreen),
+      VenueFilterList: bottomModalScreen(LongListFilterScreen),
+    },
+    {
+      defaultNavigationOptions: S.header.defaultHeaderStyles,
+    }
+  ),
 };
 
 const AppStack = createStackNavigator(

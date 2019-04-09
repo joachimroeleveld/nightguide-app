@@ -10,7 +10,7 @@ import {
 import _ from 'lodash';
 import { showLocation } from 'react-native-map-link';
 
-import { VENUE_IMAGE_ORDER } from './constants';
+import { VENUE_IMAGE_ORDER } from '../../../config/venueConstants';
 import S from '../../../config/styles';
 import Carousel from '../../Carousel';
 import Text from '../../Text';

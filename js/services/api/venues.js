@@ -3,7 +3,7 @@ import { request } from './index';
 export function getVenues({
   offset,
   limit,
-  filters,
+  filter,
   sort,
   fields,
   latitude,
@@ -13,7 +13,7 @@ export function getVenues({
   const qs = {
     offset,
     limit,
-    filters,
+    filter,
     query,
     fields,
     latitude,
@@ -32,7 +32,7 @@ export function getVenues({
     path: '/venues',
     method: 'GET',
     qs,
-  }).then(data => data.results);
+  });
 }
 
 export function getVenue(venueId) {

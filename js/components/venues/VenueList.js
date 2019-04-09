@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import S from '../../config/styles';
-import { VENUE_IMAGE_ORDER } from './Venue/constants';
+import { VENUE_IMAGE_ORDER } from '../../config/venueConstants';
 import VenueListItem from './VenueListItem';
 import RefreshControl from '../RefreshControl';
 
@@ -97,6 +97,7 @@ class VenueList extends React.PureComponent {
           <RefreshControl
             refreshing={this.props.isFetching}
             onRefresh={this.props.refreshHandler}
+            {...this.props.refreshControlProps}
           />
         }
         {...this.props}

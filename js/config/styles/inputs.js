@@ -10,4 +10,11 @@ export default {
     shadowColor: 'black',
     shadowOpacity: 0.28,
   },
+  checkbox: {
+    borderColor: '#6F6F6F',
+    backgroundColor: '#3B3B3B',
+    borderRadius: 2,
+    width: 18,
+    height: 18,
+  },
 };

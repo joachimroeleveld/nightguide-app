@@ -4,18 +4,17 @@ import PropTypes from 'prop-types';
 
 import Text from '../Text';
 
-function HeaderTitle({ title, style }) {
+export default function FilterTitle({ title, style }) {
   return <Text style={[styles.title, style]}>{title}</Text>;
 }
 
-HeaderTitle.propTypes = {
+FilterTitle.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default HeaderTitle;
-
 const styles = StyleSheet.create({
   title: {
-    fontSize: 14,
+    fontWeight: '700',
+    marginBottom: 6,
   },
 });

@@ -13,6 +13,7 @@ import {
   fetchVenuesError,
   fetchVenues,
   QUERY_VENUES,
+  FILTER_VENUES,
 } from './actions';
 import { getCurrentLocation } from '../location';
 
@@ -55,19 +56,19 @@ function* fetchExploreVenuesSaga() {
 
 function* fetchVenuesSaga() {
   yield takeLatest(FETCH_VENUES, function*(action) {
-    let { filters = {}, sort, query, fields, offset, limit } = action.payload;
+    let { filter = {}, sort, query, fields, offset, limit } = action.payload;
 
     // TODO: make dynamic
-    filters.city = 'Utrecht';
-    filters.country = 'NL';
+    filter.city = 'Utrecht';
+    filter.country = 'NL';
 
     const params = {
       offset,
       limit,
-      filters,
       sort,
       fields,
       query,
+      filter,
     };
 
     const currentLocation = yield select(getCurrentLocation);
@@ -80,10 +81,9 @@ function* fetchVenuesSaga() {
     }
 
     try {
-      const results = yield call(api.venues.getVenues, params);
-      const reachedEnd = results.length < limit;
+      const { results, totalCount } = yield call(api.venues.getVenues, params);
 
-      yield put(fetchVenuesSuccess({ results, reachedEnd }));
+      yield put(fetchVenuesSuccess({ results, totalCount }));
     } catch (error) {
       yield put(fetchVenuesError(error));
     }
@@ -104,11 +104,18 @@ function* queryVenuesSaga() {
   });
 }
 
+function* filterVenuesSaga() {
+  yield takeLatest(FILTER_VENUES, function*(action) {
+    yield put(fetchVenues(action.payload));
+  });
+}
+
 export default function* rootSaga() {
   yield [
     fork(fetchExploreVenuesSaga),
     fork(fetchVenuesSaga),
     fork(fetchVenueSaga),
     fork(queryVenuesSaga),
+    fork(filterVenuesSaga),
   ];
 }
