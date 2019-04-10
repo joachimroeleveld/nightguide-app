@@ -135,6 +135,7 @@
     "terraceOpen": "Terrace open",
     "bitesAvailable": "Bites available",
     "showVenues": "Show {{count}} venues",
+    "priceClass": "Price class",
     "dresscode": "Dresscode",
     "paymentMethods": "Payment methods",
     "facilities": "Facilities",
@@ -151,7 +152,10 @@
     "noCoatCheckFee": "No coat check fee",
     "smokingArea": "Smoking area",
     "terraceHeaters": "Terrace heaters",
-    "otherOptions": "Other options"
+    "otherOptions": "Other options",
+    "doorPolicy": "Door policy",
+    "capacity": "Capacity",
+    "noDoorPolicy": "None"
   },
   "venue": {
     "categories": {
@@ -216,6 +220,11 @@
       "creditCard": "Credit card",
       "debitCard": "Debit card",
       "cash": "Cash"
+    },
+    "doorPolicies": {
+      "moderate": "Moderate",
+      "strict": "Strict",
+      "guestlist": "Guest list"
     }
   },
   "genericErrorTitle": "Something went wrong",

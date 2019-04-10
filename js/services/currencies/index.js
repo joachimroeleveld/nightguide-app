@@ -30,3 +30,11 @@ export function formatAmount(
 export function getSymbolForCurrency(currency) {
   return CURRENCY_SYMBOLS[currency];
 }
+
+export function getUserCurrency() {
+  return 'EUR';
+}
+
+export function getUserCurrencySymbol() {
+  return CURRENCY_SYMBOLS[getUserCurrency()];
+}

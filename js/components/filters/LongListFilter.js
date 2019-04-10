@@ -33,9 +33,9 @@ export function LongListFilterScreen({ navigation }) {
   const title = navigation.getParam('title');
   const items = navigation.getParam('items');
   const onChange = navigation.getParam('onChange');
-  const selectedItems = navigation.getParam('selectedItems');
+  const selectedItems = navigation.getParam('selectedItems') || [];
 
-  const [selected, setSelected] = useState(selectedItems || []);
+  const [selected, setSelected] = useState(selectedItems);
 
   useEffect(() => {
     navigation.setParams({ title, clearAll });
@@ -68,7 +68,7 @@ export function LongListFilterScreen({ navigation }) {
   );
 }
 
-function LongListFilterList({ items, selectedItems, onItemPress }) {
+function LongListFilterList({ items, selectedItems = [], onItemPress }) {
   const renderItem = ({ item, index }) => (
     <BooleanFilter
       style={[[styles.row, index === items.length - 1 && styles.lastRow]]}
@@ -85,7 +85,7 @@ function LongListFilterList({ items, selectedItems, onItemPress }) {
 export function LongListFilterPreview({
   name,
   items,
-  selectedItems,
+  selectedItems = [],
   onPress,
   style,
 }) {
@@ -114,7 +114,7 @@ LongListFilterPreview.propTypes = {
       label: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
-  selectedItems: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedItems: PropTypes.arrayOf(PropTypes.string),
   onPress: PropTypes.func.isRequired,
 };
 

@@ -92,13 +92,11 @@ function* fetchVenuesSaga() {
 
 function* queryVenuesSaga() {
   yield takeLatest(QUERY_VENUES, function*(action) {
-    let { text, ...otherParams } = action.payload;
+    let { query, ...otherParams } = action.payload;
 
-    const query = text || undefined;
-
-    if (!text || (text && text.length >= 2)) {
+    if (!query || query.length >= 2) {
       yield put(fetchVenues({ query, ...otherParams }));
-    } else if (text) {
+    } else if (query) {
       yield put(fetchVenuesSuccess({ results: [] }));
     }
   });

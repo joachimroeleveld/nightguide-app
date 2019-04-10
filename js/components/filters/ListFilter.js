@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -10,25 +10,20 @@ export default function ListFilter({
   name,
   items,
   onChange,
-  selectedItems,
+  selectedItems = [],
   allowSingle,
 }) {
-  const [selected, setSelected] = useState(selectedItems || []);
-
   const onItemPress = key => {
-    let newSelected;
-
-    if (selected.includes(key)) {
-      newSelected = _.without(selected, key);
+    let newVal;
+    if (!allowSingle) {
+      newVal = !selectedItems.includes(key);
+      onChange(
+        newVal ? selectedItems.concat(key) : _.without(selectedItems, key)
+      );
     } else {
-      if (allowSingle) {
-        newSelected = [key];
-      } else {
-        newSelected = selectedItems.concat(key);
-      }
+      newVal = selectedItems !== key;
+      onChange(newVal ? key : null);
     }
-    setSelected(newSelected);
-    onChange(newSelected);
   };
 
   return (
@@ -44,7 +39,11 @@ export default function ListFilter({
               key={key}
               onPress={() => onItemPress(key)}
               title={label}
-              active={selected.includes(key)}
+              active={
+                allowSingle
+                  ? selectedItems === key
+                  : selectedItems.includes(key)
+              }
             />
           ))}
       </ScrollView>
@@ -60,7 +59,7 @@ ListFilter.propTypes = {
       label: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
-  selectedItems: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedItems: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
   allowSingle: PropTypes.bool,
 };

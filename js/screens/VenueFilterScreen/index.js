@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import {
   VENUE_CATEGORIES,
+  VENUE_DOORPOLICIES,
   VENUE_DRESSCODES,
   VENUE_MUSIC_TYPES,
   VENUE_PAYMENT_METHODS,
@@ -18,6 +19,8 @@ import FilterSection from '../../components/filters/FilterSection';
 import BooleanFilter from '../../components/filters/BooleanFilter';
 import BigButton from '../../components/buttons/BigButton';
 import ListFilter from '../../components/filters/ListFilter';
+import { createDeepEqualSelector } from '../../services/util';
+import { getUserCurrencySymbol } from '../../services/currencies';
 
 const FACILITY_FILTERS = ['cigarettes', 'terrace', 'noEntranceFee', 'kitchen'];
 const OTHER_FILTERS = [
@@ -52,6 +55,41 @@ const otherFilterItems = OTHER_FILTERS.map(item => ({
   key: item,
   label: __(`venueFilterScreen.${_.camelCase(item)}`),
 }));
+const doorPolicyItems = [
+  {
+    key: 'none',
+    label: __('venueFilterScreen.noDoorPolicy'),
+  },
+].concat(
+  Object.values(VENUE_DOORPOLICIES).map(item => ({
+    key: item,
+    label: __(`venue.doorPolicies.${_.camelCase(item)}`),
+  }))
+);
+const priceClassItems = _.range(1, 5).map(priceClass => ({
+  key: priceClass.toString(),
+  label: getUserCurrencySymbol().repeat(priceClass),
+}));
+const capacityRangeItems = [
+  '1-50',
+  '50-200',
+  '200-500',
+  '500-1000',
+  '5000-10.000',
+  '10.000+',
+].map((label, index) => ({
+  key: String(index + 1),
+  label,
+}));
+
+const getBooleanFilters = createDeepEqualSelector(
+  (filters, keys) => _.pick(filters, keys),
+  filters =>
+    _(filters)
+      .omitBy(val => val === false)
+      .keys()
+      .value()
+);
 
 VenueFilterScreen.navigationOptions = ({ navigation }) => ({
   title: __('venueFilterScreen.filters'),
@@ -78,54 +116,24 @@ function VenueFilterScreen({
     navigation.setParams({ clearAll });
   }, []);
 
-  const [categories, setCategories] = useState(currentFilters.cat || []);
-  const [musicTypes, setMusicTypes] = useState(currentFilters.musicType || []);
-  const [dresscode, setDresscode] = useState(currentFilters.dresscode || []);
-  const [facilityFilters, setFacilityFilters] = useState(
-    _(currentFilters)
-      .pick(FACILITY_FILTERS)
-      .omitBy(val => val !== undefined)
-      .keys()
-      .value()
-  );
-  const [otherFilters, setOtherFilters] = useState(
-    _(currentFilters)
-      .pick(OTHER_FILTERS)
-      .omitBy(val => val !== undefined)
-      .keys()
-      .value()
-  );
-  const [paymentMethods, setPaymentMethods] = useState(
-    currentFilters.paymentMethod || []
-  );
-  const [timeFilters, setTimeFilters] = useState({
-    dancingTime: currentFilters.dancingTime,
-    openTime: currentFilters.openTime,
-    busyTime: currentFilters.busyTime,
-    terraceTime: currentFilters.terraceTime,
-  });
+  const [filters, setFilters] = useState(currentFilters);
 
-  const applyFilter = filter =>
+  const applyFilter = filter => {
+    const newFilters = Object.assign(currentFilters, filter);
+    setFilters(newFilters);
     filterVenues(
-      _.omitBy(
-        {
-          ...currentFilters,
-          ...filter,
-        },
-        val => !val || (Array.isArray(val) && !val.length)
-      )
+      _.omitBy(newFilters, val => !val || (Array.isArray(val) && !val.length))
     );
+  };
 
   const clearAll = () => {
     filterVenues({});
-    setCategories([]);
-    setMusicTypes([]);
-    setDresscode([]);
-    setFacilityFilters([]);
-    setOtherFilters([]);
-    setPaymentMethods([]);
-    setTimeFilters({});
+    setFilters({});
   };
+
+  const onFilterChange = _.memoize(filterName => val => {
+    applyFilter({ [filterName]: val });
+  });
 
   const onTimeFilterChange = _.memoize(timeFilter => value => {
     let filterVal;
@@ -134,44 +142,10 @@ function VenueFilterScreen({
     } else {
       filterVal = null;
     }
-    setTimeFilters({
-      ...timeFilters,
-      [timeFilter]: filterVal,
-    });
     applyFilter({ [timeFilter]: filterVal });
   });
 
-  const onCategoriesChange = categories => {
-    setCategories(categories);
-    applyFilter({ cat: categories });
-  };
-
-  const onMusicTypesChange = musicTypes => {
-    setMusicTypes(musicTypes);
-    applyFilter({ musicType: musicTypes });
-  };
-
-  const onDresscodeChange = dresscode => {
-    setDresscode(dresscode);
-    applyFilter({ dresscode });
-  };
-
-  const onPaymentMethodChange = paymentMethods => {
-    setPaymentMethods(paymentMethods);
-    applyFilter({ paymentMethod: paymentMethods });
-  };
-
-  const onFacilityFilterChange = _.memoize(filter => val => {
-    if (val) {
-      setFacilityFilters(facilityFilters.concat(filter));
-    } else {
-      setFacilityFilters(_.without(facilityFilters, filter));
-    }
-    applyFilter({ [filter]: val });
-  });
-
   const onOtherFiltersChange = otherFilters => {
-    setOtherFilters(otherFilters);
     applyFilter(
       OTHER_FILTERS.reduce(
         (acc, filter) => ({ ...acc, [filter]: otherFilters.includes(filter) }),
@@ -184,8 +158,8 @@ function VenueFilterScreen({
     navigation.navigate('VenueFilterList', {
       title: __('venueFilterScreen.categories'),
       items: categoryItems,
-      onChange: onCategoriesChange,
-      selectedItems: categories,
+      onChange: onFilterChange('cat'),
+      selectedItems: filters.cat,
     });
   };
 
@@ -193,8 +167,8 @@ function VenueFilterScreen({
     navigation.navigate('VenueFilterList', {
       title: __('venueFilterScreen.musicTypes'),
       items: musicTypeItems,
-      onChange: onMusicTypesChange,
-      selectedItems: musicTypes,
+      onChange: onFilterChange('musicType'),
+      selectedItems: filters.musicType,
     });
   };
 
@@ -209,6 +183,9 @@ function VenueFilterScreen({
 
   const submit = () => navigation.dismiss();
 
+  const facilityFilters = getBooleanFilters(filters, FACILITY_FILTERS);
+  const otherFilters = getBooleanFilters(filters, OTHER_FILTERS);
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -216,61 +193,83 @@ function VenueFilterScreen({
           style={styles.categories}
           name={__('venueFilterScreen.categories')}
           items={categoryItems}
-          selectedItems={categories}
+          selectedItems={filters.cat}
           onPress={openCategoryFilter}
         />
         <FilterSection title={__('venueFilterScreen.timeline')}>
           <BooleanFilter
             label={__('venueFilterScreen.nowOpen')}
             onValueChange={onTimeFilterChange('openTime')}
-            value={!!timeFilters.openTime}
+            value={!!filters.openTime}
           />
           <BooleanFilter
             label={__('venueFilterScreen.nowBusy')}
             onValueChange={onTimeFilterChange('busyTime')}
-            value={!!timeFilters.busyTime}
+            value={!!filters.busyTime}
           />
           <BooleanFilter
             label={__('venueFilterScreen.nowDancing')}
             onValueChange={onTimeFilterChange('dancingTime')}
-            value={!!timeFilters.dancingTime}
+            value={!!filters.dancingTime}
           />
           <BooleanFilter
             label={__('venueFilterScreen.terraceOpen')}
             onValueChange={onTimeFilterChange('terraceTime')}
-            value={!!timeFilters.terraceTime}
+            value={!!filters.terraceTime}
           />
         </FilterSection>
         <LongListFilterPreview
           name={__('venueFilterScreen.musicTypes')}
           items={musicTypeItems}
-          selectedItems={musicTypes}
+          selectedItems={filters.musicType}
           onPress={openMusicTypesFilter}
-        />
-        <ListFilter
-          allowSingle={true}
-          items={dresscodeItems}
-          selectedItems={dresscode}
-          onChange={onDresscodeChange}
-          name={__('venueFilterScreen.dresscode')}
-        />
-        <ListFilter
-          items={paymentMethodItems}
-          selectedItems={paymentMethods}
-          onChange={onPaymentMethodChange}
-          name={__('venueFilterScreen.paymentMethods')}
         />
         <FilterSection title={__('venueFilterScreen.facilities')}>
           {FACILITY_FILTERS.map(facility => (
             <BooleanFilter
               key={facility}
               label={__(`venueFilterScreen.${facility}`)}
-              onValueChange={onFacilityFilterChange(facility)}
+              onValueChange={onFilterChange(facility)}
               value={facilityFilters.includes(facility)}
             />
           ))}
         </FilterSection>
+        <ListFilter
+          items={paymentMethodItems}
+          selectedItems={filters.paymentMethod}
+          onChange={onFilterChange('paymentMethod')}
+          name={__('venueFilterScreen.paymentMethods')}
+        />
+        <ListFilter
+          allowSingle={true}
+          items={dresscodeItems}
+          selectedItems={filters.dresscode}
+          onChange={onFilterChange('dresscode')}
+          name={__('venueFilterScreen.dresscode')}
+        />
+        <ListFilter
+          name={__('venueFilterScreen.priceClass')}
+          items={priceClassItems}
+          selectedItems={filters.priceClass}
+          onChange={onFilterChange('priceClass')}
+          allowSingle={true}
+        />
+        <ListFilter
+          name={__('venueFilterScreen.doorPolicy')}
+          items={doorPolicyItems}
+          selectedItems={filters.doorPolicy}
+          onChange={onFilterChange('doorPolicy')}
+          allowSingle={true}
+        />
+        <ListFilter
+          name={__('venueFilterScreen.capacity')}
+          items={capacityRangeItems}
+          selectedItems={filters.capRange}
+          onChange={onFilterChange('capRange')}
+          allowSingle={true}
+        />
         <LongListFilterPreview
+          style={styles.otherOptions}
           name={__('venueFilterScreen.otherOptions')}
           items={otherFilterItems}
           selectedItems={otherFilters}
@@ -318,5 +317,8 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     width: '100%',
+  },
+  otherOptions: {
+    borderBottomWidth: 0,
   },
 });
