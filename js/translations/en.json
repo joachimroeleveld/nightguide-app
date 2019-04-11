@@ -156,11 +156,12 @@
     "otherOptions": "Other options",
     "doorPolicy": "Door policy",
     "capacity": "Capacity",
-    "noDoorPolicy": "None"
+    "noDoorPolicy": "None",
+    "visitorTypes": "Visitor types"
   },
   "venue": {
     "categories": {
-      "adult": "Adult",
+      "stripClub": "Strip club",
       "bar": "Bar",
       "bluesBar": "Blues bar",
       "casino": "Casino",

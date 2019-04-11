@@ -9,6 +9,7 @@ import {
   VENUE_DRESSCODES,
   VENUE_MUSIC_TYPES,
   VENUE_PAYMENT_METHODS,
+  VENUE_VISITOR_TYPES,
 } from '../../config/venueConstants';
 import __ from '../../services/i18n';
 import S from '../../config/styles';
@@ -54,6 +55,10 @@ const paymentMethodItems = Object.values(VENUE_PAYMENT_METHODS).map(item => ({
 const otherFilterItems = OTHER_FILTERS.map(item => ({
   key: item,
   label: __(`venueFilterScreen.${_.camelCase(item)}`),
+}));
+const visitorTypeItems = Object.values(VENUE_VISITOR_TYPES).map(item => ({
+  key: item,
+  label: __(`venue.visitorTypes.${_.camelCase(item)}`),
 }));
 const doorPolicyItems = [
   {
@@ -181,6 +186,15 @@ function VenueFilterScreen({
     });
   };
 
+  const openVisitorTypeFilter = () => {
+    navigation.navigate('VenueFilterList', {
+      title: __('venueFilterScreen.visitorTypes'),
+      items: visitorTypeItems,
+      onChange: onFilterChange('visitorType'),
+      selectedItems: filters.visitorType,
+    });
+  };
+
   const submit = () => navigation.dismiss();
 
   const facilityFilters = getBooleanFilters(filters, FACILITY_FILTERS);
@@ -245,6 +259,19 @@ function VenueFilterScreen({
           ))}
         </FilterSection>
         <ListFilter
+          name={__('venueFilterScreen.priceClass')}
+          items={priceClassItems}
+          selectedItems={filters.priceClass}
+          onChange={onFilterChange('priceClass')}
+          allowSingle={true}
+        />
+        <LongListFilterPreview
+          name={__('venueFilterScreen.visitorTypes')}
+          items={visitorTypeItems}
+          selectedItems={filters.visitorType}
+          onPress={openVisitorTypeFilter}
+        />
+        <ListFilter
           items={paymentMethodItems}
           selectedItems={filters.paymentMethod}
           onChange={onFilterChange('paymentMethod')}
@@ -256,13 +283,6 @@ function VenueFilterScreen({
           selectedItems={filters.dresscode}
           onChange={onFilterChange('dresscode')}
           name={__('venueFilterScreen.dresscode')}
-        />
-        <ListFilter
-          name={__('venueFilterScreen.priceClass')}
-          items={priceClassItems}
-          selectedItems={filters.priceClass}
-          onChange={onFilterChange('priceClass')}
-          allowSingle={true}
         />
         <ListFilter
           name={__('venueFilterScreen.doorPolicy')}
