@@ -284,7 +284,6 @@ VenueTiles.propTypes = {
   paymentMethods: PropTypes.arrayOf(PropTypes.string),
   capacityRange: PropTypes.array,
   entranceFeeRange: PropTypes.array,
-  priceClass: PropTypes.number,
   doorPolicy: PropTypes.shape({
     policy: PropTypes.string,
     description: PropTypes.object,

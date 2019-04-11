@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
   list: {
     zIndex: 0,
     paddingTop: 22,
-    paddingBottom: S.dimensions.screenOffset,
+    paddingBottom: 110,
   },
   filterBar: {
     zIndex: 5,

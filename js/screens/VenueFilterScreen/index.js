@@ -217,6 +217,16 @@ function VenueFilterScreen({
             onValueChange={onTimeFilterChange('terraceTime')}
             value={!!filters.terraceTime}
           />
+          <BooleanFilter
+            label={__('venueFilterScreen.kitchenOpen')}
+            onValueChange={onTimeFilterChange('kitchenTime')}
+            value={!!filters.kitchenTime}
+          />
+          <BooleanFilter
+            label={__('venueFilterScreen.bitesAvailable')}
+            onValueChange={onTimeFilterChange('bitesTime')}
+            value={!!filters.bitesTime}
+          />
         </FilterSection>
         <LongListFilterPreview
           name={__('venueFilterScreen.musicTypes')}
