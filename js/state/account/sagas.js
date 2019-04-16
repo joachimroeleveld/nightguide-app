@@ -5,7 +5,6 @@ import { eventBus } from '../../services/analytics';
 import facebook from '../../services/facebook';
 import {
   LOGIN,
-  LOGIN_ANONYMOUS,
   LOGIN_FB,
   loginError,
   loginFbCancel,
@@ -19,7 +18,6 @@ import {
   signupError,
   signupSuccess,
 } from './actions';
-import analytics from '../../services/analytics';
 
 function* signupSaga() {
   yield takeEvery(SIGNUP, function*(action) {
@@ -31,15 +29,6 @@ function* signupSaga() {
     } catch (e) {
       yield put(signupError(e));
     }
-  });
-}
-
-function* loginAnonymousSaga() {
-  yield takeEvery(LOGIN_ANONYMOUS, function() {
-    analytics.setUserProperty('anonymous', true);
-    eventBus.login({
-      method: eventBus.PARAM_LOGIN_METHOD_ANONYMOUS,
-    });
   });
 }
 
@@ -117,7 +106,6 @@ export default function* rootSaga() {
   yield [
     fork(signupSaga),
     fork(loginSaga),
-    fork(loginAnonymousSaga),
     fork(facebookLoginSaga),
     fork(resetPasswordSaga),
   ];

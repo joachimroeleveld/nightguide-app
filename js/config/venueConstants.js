@@ -67,7 +67,6 @@ export const VENUE_PAYMENT_METHODS = {
 };
 
 export const VENUE_DRESSCODES = {
-  DRESSCODE_CASUAL: 'casual',
   DRESSCODE_CHIQUE: 'chique',
   DRESSCODE_ALTERNATIVE: 'alternative',
 };

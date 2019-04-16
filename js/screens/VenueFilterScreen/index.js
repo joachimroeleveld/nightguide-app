@@ -44,10 +44,12 @@ const musicTypeItems = Object.values(VENUE_MUSIC_TYPES).map(item => ({
   key: item,
   label: __(`venue.musicTypes.${_.camelCase(item)}`),
 }));
-const dresscodeItems = Object.values(VENUE_DRESSCODES).map(item => ({
-  key: item,
-  label: __(`venue.dresscodes.${_.camelCase(item)}`),
-}));
+const dresscodeItems = [{ key: 'none', label: __('none') }].concat(
+  Object.values(VENUE_DRESSCODES).map(item => ({
+    key: item,
+    label: __(`venue.dresscodes.${_.camelCase(item)}`),
+  }))
+);
 const paymentMethodItems = Object.values(VENUE_PAYMENT_METHODS).map(item => ({
   key: item,
   label: __(`venue.paymentMethods.${_.camelCase(item)}`),
@@ -60,12 +62,7 @@ const visitorTypeItems = Object.values(VENUE_VISITOR_TYPES).map(item => ({
   key: item,
   label: __(`venue.visitorTypes.${_.camelCase(item)}`),
 }));
-const doorPolicyItems = [
-  {
-    key: 'none',
-    label: __('venueFilterScreen.noDoorPolicy'),
-  },
-].concat(
+const doorPolicyItems = [{ key: 'none', label: __('none') }].concat(
   Object.values(VENUE_DOORPOLICIES).map(item => ({
     key: item,
     label: __(`venue.doorPolicies.${_.camelCase(item)}`),
@@ -138,6 +135,11 @@ function VenueFilterScreen({
 
   const onFilterChange = _.memoize(filterName => val => {
     applyFilter({ [filterName]: val });
+  });
+
+  const onNoneFilterChange = _.memoize(filterName => val => {
+    let isNone = val.slice(-1).pop() === 'none';
+    applyFilter({ [filterName]: isNone ? ['none'] : _.without(val, 'none') });
   });
 
   const onTimeFilterChange = _.memoize(timeFilter => value => {
@@ -263,7 +265,6 @@ function VenueFilterScreen({
           items={priceClassItems}
           selectedItems={filters.priceClass}
           onChange={onFilterChange('priceClass')}
-          allowSingle={true}
         />
         <LongListFilterPreview
           name={__('venueFilterScreen.visitorTypes')}
@@ -278,25 +279,22 @@ function VenueFilterScreen({
           name={__('venueFilterScreen.paymentMethods')}
         />
         <ListFilter
-          allowSingle={true}
           items={dresscodeItems}
           selectedItems={filters.dresscode}
-          onChange={onFilterChange('dresscode')}
+          onChange={onNoneFilterChange('dresscode')}
           name={__('venueFilterScreen.dresscode')}
         />
         <ListFilter
           name={__('venueFilterScreen.doorPolicy')}
           items={doorPolicyItems}
           selectedItems={filters.doorPolicy}
-          onChange={onFilterChange('doorPolicy')}
-          allowSingle={true}
+          onChange={onNoneFilterChange('doorPolicy')}
         />
         <ListFilter
           name={__('venueFilterScreen.capacity')}
           items={capacityRangeItems}
           selectedItems={filters.capRange}
           onChange={onFilterChange('capRange')}
-          allowSingle={true}
         />
         <LongListFilterPreview
           style={styles.otherOptions}

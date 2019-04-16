@@ -9,7 +9,7 @@ export function handleError(ex, logger) {
     /*eslint no-console:0*/
     console.error && console.error(ex);
   } else {
-    if (logger === 'api' && ex.code >= 500) {
+    if (!(logger === 'api' && ex.code < 500)) {
       sentry.handleError(ex, logger);
     }
   }

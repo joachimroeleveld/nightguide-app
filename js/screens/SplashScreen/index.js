@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import __ from '../../services/i18n';
 import S from '../../config/styles';
-import { login, loginFb, loginAnonymous } from '../../state/account/actions';
+import { login, loginFb } from '../../state/account/actions';
 import Text from '../../components/Text';
 import BigButton from '../../components/buttons/BigButton';
 
@@ -17,7 +17,7 @@ class SplashScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    if (this.props.userId || this.props.isAnonymous) {
+    if (this.props.userId) {
       const routeName =
         this.props.locationPermissions === null ? 'Intro' : 'App';
       this.props.navigation.navigate(routeName);
@@ -46,7 +46,7 @@ class SplashScreen extends React.Component {
   };
 
   loginAnonymous = () => {
-    this.props.loginAnonymous();
+    this.props.navigation.navigate('Intro');
   };
 
   render() {
@@ -96,7 +96,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   login: (email, password) => dispatch(login({ email, password })),
   loginWithFacebook: () => dispatch(loginFb()),
-  loginAnonymous: () => dispatch(loginAnonymous()),
 });
 
 export default connect(

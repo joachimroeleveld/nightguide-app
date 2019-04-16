@@ -7,8 +7,6 @@ export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 export const LOGIN = 'LOGIN';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 
-export const LOGIN_ANONYMOUS = 'LOGIN_ANONYMOUS';
-
 export const LOGIN_FB = 'LOGIN_FB';
 export const LOGIN_FB_DIALOG = 'LOGIN_FB_DIALOG';
 export const LOGIN_FB_CANCEL = 'LOGIN_FB_CANCEL';
@@ -28,7 +26,6 @@ export const {
   signupError,
   login,
   loginError,
-  loginAnonymous,
   loginFb,
   loginFbDialog,
   loginFbCancel,
@@ -45,7 +42,6 @@ export const {
   SIGNUP_ERROR,
   LOGIN,
   LOGIN_ERROR,
-  LOGIN_ANONYMOUS,
   LOGIN_FB,
   LOGIN_FB_DIALOG,
   LOGIN_FB_CANCEL,

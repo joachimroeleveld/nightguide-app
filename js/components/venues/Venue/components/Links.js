@@ -17,12 +17,18 @@ export default class VenueLinks extends React.PureComponent {
   static propTypes = {
     website: PropTypes.string,
     instagram: PropTypes.object,
-    facebook: PropTypes.object,
+    facebook: PropTypes.shape({
+      id: PropTypes.string,
+      pagesId: PropTypes.string,
+    }),
   };
 
   get facebookUrl() {
     if (this.props.facebook && this.props.facebook.id) {
       return `https://www.facebook.com/${this.props.facebook.id}/`;
+    }
+    if (this.props.facebook && this.props.facebook.pagesId) {
+      return `https://www.facebook.com/pages/${this.props.facebook.pagesId}/`;
     }
     return null;
   }

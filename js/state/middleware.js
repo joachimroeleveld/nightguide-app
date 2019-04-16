@@ -7,6 +7,7 @@ import api from '../services/api';
 import { handleError } from '../services/errors';
 import sentry from '../services/sentry';
 import NgApiError from '../services/api/NgApiError';
+import analytics from '../services/analytics';
 
 export function handleErrors() {
   return next => action => {
@@ -29,12 +30,16 @@ export function handleErrors() {
   };
 }
 
-function initActions({ dispatch }) {
+function initActions({ dispatch, getState }) {
   return next => action => {
     const retVal = next(action);
 
     if (action.type === REHYDRATE && action.key === 'account') {
       dispatch(initializeApp());
+    }
+
+    if (getState().account.isAnonymous) {
+      analytics.setUserProperty('anonymous', 'yes');
     }
 
     return retVal;

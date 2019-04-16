@@ -8,7 +8,6 @@ import {
   loginFbCancel,
   loginFbDialog,
   loginFbError,
-  loginAnonymous,
   resetPassword,
   resetPasswordError,
   resetPasswordSuccess,
@@ -39,7 +38,7 @@ const INITIAL_STATE = {
   },
   user: {},
   token: null,
-  isAnonymous: false,
+  isAnonymous: true,
 };
 
 const reducer = handleActions(
@@ -65,10 +64,6 @@ const reducer = handleActions(
           isFetching: { $set: false },
           error: { $set: action.payload },
         },
-      }),
-    [loginAnonymous]: (state, action) =>
-      update(state, {
-        isAnonymous: { $set: true },
       }),
     [login]: (state, action) =>
       update(state, {
@@ -136,6 +131,7 @@ const reducer = handleActions(
         },
         token: { $set: action.payload.token },
         user: { $set: action.payload.user },
+        isAnonymous: { $set: false },
       }),
     [logout]: () => INITIAL_STATE,
   },

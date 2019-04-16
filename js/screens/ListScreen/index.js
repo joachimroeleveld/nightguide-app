@@ -197,7 +197,7 @@ class ListScreen extends React.Component {
           city={this.props.city}
           onLayout={this.onSearchBarLayout}
         />
-        <View>
+        <View style={styles.listContainer}>
           <FilterBar
             style={styles.filterBar}
             scrollPos={this.state.scrollY}
@@ -222,6 +222,8 @@ class ListScreen extends React.Component {
             )}
             scrollEventThrottle={16}
             refreshControlProps={{ progressViewOffset: 25 }}
+            ListHeaderComponent={<View style={styles.listHeader} />}
+            ListFooterComponent={<View style={styles.listFooter} />}
           />
         </View>
       </View>
@@ -271,8 +273,17 @@ const styles = StyleSheet.create({
   },
   list: {
     zIndex: 0,
-    paddingTop: 22,
-    paddingBottom: 110,
+  },
+  listHeader: {
+    height: 40,
+    width: '100%',
+  },
+  listFooter: {
+    height: S.dimensions.listItemMargin,
+    width: '100%',
+  },
+  listContainer: {
+    flex: 1,
   },
   filterBar: {
     zIndex: 5,
