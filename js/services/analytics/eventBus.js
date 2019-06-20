@@ -4,7 +4,6 @@ const analytics = firebase.analytics();
 
 export const PARAM_LOGIN_METHOD_NORMAL = 'normal';
 export const PARAM_LOGIN_METHOD_FACEBOOK = 'facebook';
-export const PARAM_LOGIN_METHOD_ANONYMOUS = 'anonymous';
 
 export const PARAM_SIGNUP_METHOD_NORMAL = 'normal';
 export const PARAM_SIGNUP_METHOD_FACEBOOK = 'facebook';
