@@ -13,11 +13,11 @@ export function getVenues({
   const qs = {
     offset,
     limit,
-    filter,
     query,
     fields,
     latitude,
     longitude,
+    ...filter,
   };
 
   if (sort && sort.length) {

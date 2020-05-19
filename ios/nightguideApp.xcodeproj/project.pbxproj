@@ -47,6 +47,7 @@
 		AA3AF13E2253816D009684C7 /* libFBSDKLoginKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3AF13D2253816D009684C7 /* libFBSDKLoginKit.a */; };
 		AA3AF1402253816D009684C7 /* libFBSDKShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3AF13F2253816D009684C7 /* libFBSDKShareKit.a */; };
 		AA3AF1DE225385AB009684C7 /* libBolts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3AF1DD225385AB009684C7 /* libBolts.a */; };
+		AA4CEF2D22BBD64C0006397B /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = AA4CEF2C22BBD64B0006397B /* main.jsbundle */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		CF401C3721CE4B36A3EC760C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B33F34E83FD4FFDB1DFC14B /* libz.tbd */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
@@ -494,6 +495,7 @@
 		AA3AF13D2253816D009684C7 /* libFBSDKLoginKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBSDKLoginKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA3AF13F2253816D009684C7 /* libFBSDKShareKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBSDKShareKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA3AF1DD225385AB009684C7 /* libBolts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libBolts.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA4CEF2C22BBD64B0006397B /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B0762F501334C97D74DFC019 /* Pods-nightguideApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nightguideApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-nightguideApp-tvOSTests/Pods-nightguideApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B0D3D8757317414BA9577A7E /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
@@ -887,6 +889,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				AA4CEF2C22BBD64B0006397B /* main.jsbundle */,
 				13B07FAE1A68108700A75B9A /* nightguideApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* nightguideAppTests */,
@@ -1517,6 +1520,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA4CEF2D22BBD64C0006397B /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				57353F0180E04E5BA64389D7 /* NotoSans-Bold.ttf in Resources */,

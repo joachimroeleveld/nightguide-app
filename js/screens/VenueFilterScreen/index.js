@@ -137,11 +137,6 @@ function VenueFilterScreen({
     applyFilter({ [filterName]: val });
   });
 
-  const onNoneFilterChange = _.memoize(filterName => val => {
-    let isNone = val.slice(-1).pop() === 'none';
-    applyFilter({ [filterName]: isNone ? ['none'] : _.without(val, 'none') });
-  });
-
   const onTimeFilterChange = _.memoize(timeFilter => value => {
     let filterVal;
     if (value) {
@@ -281,14 +276,14 @@ function VenueFilterScreen({
         <ListFilter
           items={dresscodeItems}
           selectedItems={filters.dresscode}
-          onChange={onNoneFilterChange('dresscode')}
+          onChange={onFilterChange('dresscode')}
           name={__('venueFilterScreen.dresscode')}
         />
         <ListFilter
           name={__('venueFilterScreen.doorPolicy')}
           items={doorPolicyItems}
           selectedItems={filters.doorPolicy}
-          onChange={onNoneFilterChange('doorPolicy')}
+          onChange={onFilterChange('doorPolicy')}
         />
         <ListFilter
           name={__('venueFilterScreen.capacity')}

@@ -163,9 +163,11 @@
     "categories": {
       "stripClub": "Strip club",
       "bar": "Bar",
+      "dancingBar": "Dancing bar",
       "bluesBar": "Blues bar",
       "casino": "Casino",
       "club": "Club",
+      "beachClub": "Beach club",
       "cocktailBar": "Cocktail bar",
       "comedyBar": "Comedy bar",
       "concertVenue": "Concert venue",
